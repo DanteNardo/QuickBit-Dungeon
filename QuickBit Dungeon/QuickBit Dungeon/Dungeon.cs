@@ -187,9 +187,9 @@ public static class Dungeon {
 	public static string PlayerView()
 	{
 		string s = "";
-		for (int i = pPos[0]-viewSize; i < pPos[0]+viewSize; i++)
+		for (int i = pPos[0]-viewSize; i <= pPos[0]+viewSize; i++)
 		{
-			for (int j = pPos[1]-viewSize; j < pPos[1]+viewSize; j++)
+			for (int j = pPos[1]-viewSize; j <= pPos[1]+viewSize; j++)
 			{
 				if (i >= 0 && i < gridSize && j >= 0 && j < gridSize)
 				{

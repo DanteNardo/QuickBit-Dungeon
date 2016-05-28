@@ -14,9 +14,12 @@ namespace QuickBit_Dungeon
 
 		SpriteFont DUNGEON_FONT;
 
-		const int SCREEN_WIDTH = 1000;
-		const int SCREEN_HEIGHT = 1000;
+		const float DEFAULT_SCREEN_WIDTH  = 800f;
+		const float DEFAULT_SCREEN_HEIGHT = 800f;
+		float SCREEN_WIDTH  = DEFAULT_SCREEN_WIDTH;
+		float SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT;
 		Vector2 SCREEN_CENTER;
+		float GAME_SCALE = 1f;
 
 		public Game1()
 		{
@@ -37,10 +40,16 @@ namespace QuickBit_Dungeon
 			// Dungeon initialiazation
 			Dungeon.Construct();
 
-			// Window size initialization
+			/*
+				Get the size of the screen. Then determine the center. Then determine
+				the scale based off of what the screen should be.
+			*/
+			SCREEN_WIDTH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			SCREEN_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			GAME_SCALE = SCREEN_HEIGHT/DEFAULT_SCREEN_HEIGHT;
 			SCREEN_CENTER = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-			graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
-			graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+			graphics.PreferredBackBufferWidth = (int)SCREEN_WIDTH;
+			graphics.PreferredBackBufferHeight = (int)SCREEN_HEIGHT;
 
 			graphics.ApplyChanges();
 
@@ -76,7 +85,8 @@ namespace QuickBit_Dungeon
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || 
+				Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
 			// TODO: Add your update logic here
@@ -108,10 +118,17 @@ namespace QuickBit_Dungeon
 		*/
 		private void DrawDungeon(SpriteBatch sb)
 		{
-			sb.DrawString(DUNGEON_FONT, 
-						  Dungeon.PlayerView(), 
-						  SCREEN_CENTER-(DUNGEON_FONT.MeasureString(Dungeon.PlayerView())/2), 
-						  Color.White);
+			string s = Dungeon.PlayerView();
+
+			sb.DrawString(DUNGEON_FONT,
+						  s,
+						  (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(s)/2)) * (1f/GAME_SCALE),
+						  Color.White,
+						  0,
+						  Vector2.Zero,
+						  GAME_SCALE,
+						  SpriteEffects.None,
+						  0);
 		}
 	}
 }
