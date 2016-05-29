@@ -23,6 +23,15 @@ public static class Dungeon {
 	{
 		get { return pPos[1]; }
 	}
+	public static List<List<Cell>> Grid
+	{
+		get { return grid; }
+	}
+	public static List<Room> Rooms
+	{
+		get { return rooms; }
+		set { rooms = value; }
+	}
 
 	// ======================================
 	// ============= Utilities ==============
@@ -194,6 +203,10 @@ public static class Dungeon {
 				if (i >= 0 && i < gridSize && j >= 0 && j < gridSize)
 				{
 					s += grid[i][j].Rep + " ";
+				}
+				else
+				{
+					s += "  ";
 				}
 			}
 			s += "\n";
@@ -542,10 +555,10 @@ public static class Dungeon {
 		if (ny >= 0 && ny < gridSize &&
 			nx >= 0 && nx < gridSize)
 		{
-			if (grid[ny][nx].Type == ' ')
-				return false;
-			else
+			if (grid[ny][nx].Rep == '.' || grid[ny][nx].Rep == '#')
 				return true;
+			else
+				return false;
 		}
 		else return false;
 	}

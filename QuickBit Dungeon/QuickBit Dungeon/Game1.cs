@@ -49,7 +49,7 @@ namespace QuickBit_Dungeon
 				Get the size of the screen. Then determine the center. Then determine
 				the scale based off of what the screen should be.
 			*/
-			SCREEN_WIDTH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			SCREEN_WIDTH  = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			SCREEN_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			GAME_SCALE = SCREEN_HEIGHT/DEFAULT_SCREEN_HEIGHT;
 			SCREEN_CENTER = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
@@ -59,6 +59,9 @@ namespace QuickBit_Dungeon
 
 			// Dungeon initialiazation
 			Dungeon.Construct();
+
+			// GameManager intialization
+			GameManager.Init();
 
 			base.Initialize();
 		}
@@ -107,11 +110,7 @@ namespace QuickBit_Dungeon
 				Exit();
 
 			// TODO: Add your update logic here
-
-			// Handles all game input and dungeon updating
-			Input.Update();
-			if (Input.Moving())
-				MovePlayer();
+			GameManager.Update();
 
 			base.Update(gameTime);
 		}
@@ -156,34 +155,6 @@ namespace QuickBit_Dungeon
 		private void DrawLight(SpriteBatch sb)
 		{
 			sb.Draw(light, lightPos, Color.White);
-		}
-
-		/*
-			Moves the player in the dungeon using
-			the input class, dungeon class, and
-			the user's given input.
-		*/
-		private void MovePlayer()
-		{
-			switch (Input.CurrentDirection)
-			{
-				case Input.Direction.NORTH:
-					Dungeon.MovePlayer(-1, 0);
-					break;
-				case Input.Direction.SOUTH:
-					Dungeon.MovePlayer(1,  0);
-					break;
-				case Input.Direction.EAST:
-					Dungeon.MovePlayer(0,  1);
-					break;
-				case Input.Direction.WEST:
-					Dungeon.MovePlayer(0, -1);
-					break;
-			}
-
-			// Reset input variables
-			Input.CanMove = false;
-			Input.CurrentDirection = Input.Direction.NONE;
 		}
 	}
 }

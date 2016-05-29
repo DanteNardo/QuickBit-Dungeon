@@ -14,20 +14,17 @@ namespace QuickBit_Dungeon
 
 		private static KeyboardState keyState;
 
-		private static bool canMove = true;
-		public static bool CanMove
-		{
-			get { return canMove; }
-			set { canMove = value; }
-		}
-		private static int maxTime = 15;
-		private static int curTime = maxTime;
-
 		private static Direction currentDirection;
-		public static Direction CurrentDirection
+		public static  Direction CurrentDirection
 		{
 			get { return currentDirection; }
 			set { currentDirection = value; }
+		}
+		private static Direction lastDirection;
+		public static  Direction LastDirection
+		{
+			get { return lastDirection; }
+			set { lastDirection = value; }
 		}
 		public enum Direction
 		{
@@ -49,58 +46,6 @@ namespace QuickBit_Dungeon
 		public static void Update()
 		{
 			keyState = Keyboard.GetState();
-
-			// Handle time
-			if (!canMove) curTime--;
-			if (curTime == 0)
-			{
-				curTime = maxTime;
-				canMove = true;
-			}
-		}
-
-		/*
-			Handles all input functionality.
-			Also handles interaction between
-			movement and the dungeon.
-		*/
-		public static bool Moving()
-		{
-			if (canMove)
-			{
-				GetInput();
-
-				switch (currentDirection)
-				{
-					case Direction.NORTH:
-						if (Dungeon.CanMove(-1, 0))
-						{
-							//Dungeon.MovePlayer(-1, 0);
-							//canMove = false;
-							//currentDirection = Direction.NONE;
-							return true;
-						}
-						break;
-
-					case Direction.SOUTH:
-						if (Dungeon.CanMove(1, 0))
-							return true;
-						break;
-
-					case Direction.EAST:
-						if (Dungeon.CanMove(0, 1))
-							return true;
-						break;
-
-					case Direction.WEST:
-						if (Dungeon.CanMove(0, -1))
-							return true;
-						break;
-				}
-			}
-			
-			// Default return - when we aren't moving
-			return false;
 		}
 
 		/*
@@ -108,7 +53,7 @@ namespace QuickBit_Dungeon
 			being pressed to count as input.
 			Updates direction accordingly.
 		*/
-		private static void GetInput()
+		public static void GetInput()
 		{
 			// North
 			if (keyState.IsKeyDown(Keys.W))
