@@ -12,8 +12,16 @@ namespace QuickBit_Dungeon
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+		// For drawing the dungeon
 		SpriteFont DUNGEON_FONT;
+		Vector2 dgPos;
+		
+		// For special effects
+		Texture2D light;
+		Rectangle lightPos;
+		const float LIGHT_SCALE = 1.1f;
 
+		// For handling window resizing
 		const float DEFAULT_SCREEN_WIDTH  = 800f;
 		const float DEFAULT_SCREEN_HEIGHT = 800f;
 		float SCREEN_WIDTH  = DEFAULT_SCREEN_WIDTH;
@@ -37,9 +45,6 @@ namespace QuickBit_Dungeon
 		{
 			// TODO: Add your initialization logic here
 
-			// Dungeon initialiazation
-			Dungeon.Construct();
-
 			/*
 				Get the size of the screen. Then determine the center. Then determine
 				the scale based off of what the screen should be.
@@ -50,8 +55,10 @@ namespace QuickBit_Dungeon
 			SCREEN_CENTER = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 			graphics.PreferredBackBufferWidth = (int)SCREEN_WIDTH;
 			graphics.PreferredBackBufferHeight = (int)SCREEN_HEIGHT;
-
 			graphics.ApplyChanges();
+
+			// Dungeon initialiazation
+			Dungeon.Construct();
 
 			base.Initialize();
 		}
@@ -66,7 +73,17 @@ namespace QuickBit_Dungeon
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
-			DUNGEON_FONT = Content.Load<SpriteFont>("dungeonFont");
+
+			// Dungeon Content
+			DUNGEON_FONT = Content.Load<SpriteFont>("DungeonFont");
+			dgPos = (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(Dungeon.PlayerView())/2)) * (1f/GAME_SCALE);
+
+			// Special Effects
+			light = Content.Load<Texture2D>("LightingEffect");
+			lightPos = new Rectangle((int)((SCREEN_CENTER.X-light.Width/2*GAME_SCALE*LIGHT_SCALE)),
+									 (int)((SCREEN_CENTER.Y-light.Height/2*GAME_SCALE*LIGHT_SCALE)),
+									 (int)(light.Width*GAME_SCALE*LIGHT_SCALE),
+									 (int)(light.Height*GAME_SCALE*LIGHT_SCALE));
 		}
 
 		/// <summary>
@@ -93,6 +110,8 @@ namespace QuickBit_Dungeon
 
 			// Handles all game input and dungeon updating
 			Input.Update();
+			if (Input.Moving())
+				MovePlayer();
 
 			base.Update(gameTime);
 		}
@@ -108,6 +127,7 @@ namespace QuickBit_Dungeon
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
 			DrawDungeon(spriteBatch);
+			DrawLight(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -118,17 +138,52 @@ namespace QuickBit_Dungeon
 		*/
 		private void DrawDungeon(SpriteBatch sb)
 		{
-			string s = Dungeon.PlayerView();
-
 			sb.DrawString(DUNGEON_FONT,
-						  s,
-						  (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(s)/2)) * (1f/GAME_SCALE),
+						  Dungeon.PlayerView(),
+						  dgPos,
 						  Color.White,
 						  0,
 						  Vector2.Zero,
 						  GAME_SCALE,
 						  SpriteEffects.None,
 						  0);
+		}
+
+		/*
+			Draws the lighting effect over the
+			dungeon view.
+		*/
+		private void DrawLight(SpriteBatch sb)
+		{
+			sb.Draw(light, lightPos, Color.White);
+		}
+
+		/*
+			Moves the player in the dungeon using
+			the input class, dungeon class, and
+			the user's given input.
+		*/
+		private void MovePlayer()
+		{
+			switch (Input.CurrentDirection)
+			{
+				case Input.Direction.NORTH:
+					Dungeon.MovePlayer(-1, 0);
+					break;
+				case Input.Direction.SOUTH:
+					Dungeon.MovePlayer(1,  0);
+					break;
+				case Input.Direction.EAST:
+					Dungeon.MovePlayer(0,  1);
+					break;
+				case Input.Direction.WEST:
+					Dungeon.MovePlayer(0, -1);
+					break;
+			}
+
+			// Reset input variables
+			Input.CanMove = false;
+			Input.CurrentDirection = Input.Direction.NONE;
 		}
 	}
 }

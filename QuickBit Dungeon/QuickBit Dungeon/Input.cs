@@ -12,13 +12,24 @@ namespace QuickBit_Dungeon
 		// ============= Variables ==============
 		// ======================================
 
-		static KeyboardState keyState;
-		static bool canMove = true;
-		static int maxTime = 15;
-		static int curTime = maxTime;
+		private static KeyboardState keyState;
 
-		static Direction direction;
-		enum Direction
+		private static bool canMove = true;
+		public static bool CanMove
+		{
+			get { return canMove; }
+			set { canMove = value; }
+		}
+		private static int maxTime = 15;
+		private static int curTime = maxTime;
+
+		private static Direction currentDirection;
+		public static Direction CurrentDirection
+		{
+			get { return currentDirection; }
+			set { currentDirection = value; }
+		}
+		public enum Direction
 		{
 			NORTH,
 			SOUTH,
@@ -46,8 +57,6 @@ namespace QuickBit_Dungeon
 				curTime = maxTime;
 				canMove = true;
 			}
-
-			ProcessInput();
 		}
 
 		/*
@@ -55,51 +64,43 @@ namespace QuickBit_Dungeon
 			Also handles interaction between
 			movement and the dungeon.
 		*/
-		private static void ProcessInput()
+		public static bool Moving()
 		{
 			if (canMove)
 			{
 				GetInput();
 
-				switch (direction)
+				switch (currentDirection)
 				{
 					case Direction.NORTH:
 						if (Dungeon.CanMove(-1, 0))
 						{
-							Dungeon.MovePlayer(-1, 0);
-							canMove = false;
-							direction = Direction.NONE;
+							//Dungeon.MovePlayer(-1, 0);
+							//canMove = false;
+							//currentDirection = Direction.NONE;
+							return true;
 						}
 						break;
 
 					case Direction.SOUTH:
 						if (Dungeon.CanMove(1, 0))
-						{
-							Dungeon.MovePlayer(1, 0);
-							canMove = false;
-							direction = Direction.NONE;
-						}
+							return true;
 						break;
 
 					case Direction.EAST:
 						if (Dungeon.CanMove(0, 1))
-						{
-							Dungeon.MovePlayer(0, 1);
-							canMove = false;
-							direction = Direction.NONE;
-						}
+							return true;
 						break;
 
 					case Direction.WEST:
 						if (Dungeon.CanMove(0, -1))
-						{
-							Dungeon.MovePlayer(0, -1);
-							canMove = false;
-							direction = Direction.NONE;
-						}
+							return true;
 						break;
 				}
 			}
+			
+			// Default return - when we aren't moving
+			return false;
 		}
 
 		/*
@@ -111,16 +112,16 @@ namespace QuickBit_Dungeon
 		{
 			// North
 			if (keyState.IsKeyDown(Keys.W))
-				direction = Direction.NORTH;
+				currentDirection = Direction.NORTH;
 			// South
 			if (keyState.IsKeyDown(Keys.S))
-				direction = Direction.SOUTH;
+				currentDirection = Direction.SOUTH;
 			// East
 			if (keyState.IsKeyDown(Keys.D))
-				direction = Direction.EAST;
+				currentDirection = Direction.EAST;
 			// West
 			if (keyState.IsKeyDown(Keys.A))
-				direction = Direction.WEST;
+				currentDirection = Direction.WEST;
 		}
 	}
 }
