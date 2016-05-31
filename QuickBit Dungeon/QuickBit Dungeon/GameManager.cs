@@ -62,7 +62,7 @@ namespace QuickBit_Dungeon
 					m.ConstructMonster();
 					m.Y = ry;
 					m.X = rx;
-					Dungeon.Grid[ry][rx].Rep = (char)(m.HealthRep+48); // 48 = ascii code for 0, 49 = 1...
+					Dungeon.Grid[ry][rx].Rep = ConvertChar(m.HealthRep);
 					monsters.Add(m);
 				}
 			}
@@ -117,16 +117,19 @@ namespace QuickBit_Dungeon
 		*/
 		private static void MonstersAttack()
 		{
-			foreach (var m in monsters)
+			Monster m;
+			for (int i = 0; i < monsters.Count; i++)
 			{
+				m = monsters[i];
+
 				if ((m.Y == player.Y && m.X == player.X+1) ||
 					(m.Y == player.Y && m.X == player.X-1) ||
 					(m.Y == player.Y+1 && m.X == player.X) ||
 					(m.Y == player.Y-1 && m.X == player.X))
 				{
-					if (m.CanAttack())
+					if (m.CanAttack)
 					{
-						Combat.MonsterAttack(m, player);
+						Combat.MonsterAttack(ref m, ref player);
 					}
 				}
 			}
@@ -144,19 +147,35 @@ namespace QuickBit_Dungeon
 				{
 					case Input.Direction.NORTH:
 						if (MonsterAt(player.Y-1, player.X))
-							Combat.PlayerAttack(player, target);
+						{
+							Combat.PlayerAttack(ref player, ref target);
+							if (MonsterDied())
+								KillMonster();
+						}
 						break;
 					case Input.Direction.SOUTH:
 						if (MonsterAt(player.Y+1, player.X))
-							Combat.PlayerAttack(player, target);
+						{ 
+							Combat.PlayerAttack(ref player, ref target);
+							if (MonsterDied())
+								KillMonster();
+						}
 						break;
 					case Input.Direction.EAST:
 						if (MonsterAt(player.Y, player.X+1))
-							Combat.PlayerAttack(player, target);
+						{
+							Combat.PlayerAttack(ref player, ref target);
+							if (MonsterDied())
+								KillMonster();
+						}
 						break;
 					case Input.Direction.WEST:
-						if (MonsterAt(player.Y-1, player.X-1))
-							Combat.PlayerAttack(player, target);
+						if (MonsterAt(player.Y, player.X-1))
+						{ 
+							Combat.PlayerAttack(ref player, ref target);
+							if (MonsterDied())
+								KillMonster();
+						}
 						break;
 				}
 			}
@@ -178,7 +197,9 @@ namespace QuickBit_Dungeon
 					case Input.Direction.NORTH:
 						if (Dungeon.CanMove(-1, 0))
 						{
-							Dungeon.MovePlayer(-1, 0);
+							Dungeon.MovePlayer(-1, 0, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
 						}
 						break;
@@ -186,7 +207,9 @@ namespace QuickBit_Dungeon
 					case Input.Direction.SOUTH:
 						if (Dungeon.CanMove(1, 0))
 						{
-							Dungeon.MovePlayer(1, 0);
+							Dungeon.MovePlayer(1, 0, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
 						}
 						break;
@@ -194,7 +217,9 @@ namespace QuickBit_Dungeon
 					case Input.Direction.EAST:
 						if (Dungeon.CanMove(0, 1))
 						{
-							Dungeon.MovePlayer(0, 1);
+							Dungeon.MovePlayer(0, 1, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
 						}
 						break;
@@ -202,14 +227,17 @@ namespace QuickBit_Dungeon
 					case Input.Direction.WEST:
 						if (Dungeon.CanMove(0, -1))
 						{
-							Dungeon.MovePlayer(0, -1);
+							Dungeon.MovePlayer(0, -1, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
 						}
 						break;
 				}
 
 				// Reset input variables
-				Input.LastDirection = Input.CurrentDirection;
+				if (Input.CurrentDirection != Input.Direction.NONE)
+					Input.LastDirection = Input.CurrentDirection;
 				Input.CurrentDirection = Input.Direction.NONE;
 			}
 
@@ -230,6 +258,36 @@ namespace QuickBit_Dungeon
 				}
 			}
 			return false;
+		}
+
+		/*
+			Returns the correct char relative
+			to the integer given.
+		*/ 
+		public static char ConvertChar(int i)
+		{
+			return (char)(i+48);
+		}
+
+		/*
+			Determines whether or not the monster
+			that was attacked by the player was killed.
+		*/
+		private static bool MonsterDied()
+		{
+			if (target.Health == 0)
+				return true;
+			else return false;
+		}
+
+		/*
+			Kills a monster and takes away its data
+			from the dungeon and GameManager.
+		*/
+		private static void KillMonster()
+		{
+			monsters.Remove(target);
+			Dungeon.Grid[target.Y][target.X].Rep = Dungeon.Grid[target.Y][target.X].Type;
 		}
 	}
 }

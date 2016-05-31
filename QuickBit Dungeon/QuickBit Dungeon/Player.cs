@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuickBit_Dungeon
 {
-	class Player : Entity
+	public class Player : Entity
 	{
 		// ======================================
 		// ============= Variables ==============

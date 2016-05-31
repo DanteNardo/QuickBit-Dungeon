@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuickBit_Dungeon
 {
-	class Monster : Entity
+	public class Monster : Entity
 	{
 		// ======================================
 		// ============= Variables ==============
@@ -22,12 +22,6 @@ namespace QuickBit_Dungeon
 		// ============== Methods ===============
 		// ======================================
 
-		/*
-			Determines if the monster can attack or not
-		*/
-		public bool CanAttack()
-		{
-			return true;
-		}
+		
 	}
 }

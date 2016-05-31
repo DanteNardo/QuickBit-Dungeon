@@ -535,12 +535,12 @@ public static class Dungeon {
 		Sets the player's position relative
 		to it's current position.
 	*/
-	public static void MovePlayer(int y, int x)
+	public static void MovePlayer(int y, int x, char rep)
 	{
 		grid[pPos[0]][pPos[1]].Rep = grid[pPos[0]][pPos[1]].Type;
 		pPos[0] += y;
 		pPos[1] += x;
-		grid[pPos[0]][pPos[1]].Rep = '0';
+		grid[pPos[0]][pPos[1]].Rep = rep;
 	}
 
 	/*

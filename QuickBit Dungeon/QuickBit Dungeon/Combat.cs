@@ -25,11 +25,12 @@ namespace QuickBit_Dungeon
 			Executes a player's attack on 
 			a monster's health.
 		*/
-		public static void PlayerAttack(Entity player, Entity monster)
+		public static void PlayerAttack(ref Player player, ref Monster monster)
 		{
 			int damage = player.Strength - monster.Armor;
 			monster.Health -= damage;
 			monster.CalculateHealthRep();
+			Dungeon.Grid[monster.Y][monster.X].Rep = GameManager.ConvertChar(monster.HealthRep);
 			player.CanAttack = false;
 		}
 
@@ -37,11 +38,12 @@ namespace QuickBit_Dungeon
 			Executes a monster's attack on
 			a player's health.
 		*/
-		public static void MonsterAttack(Entity monster, Entity player)
+		public static void MonsterAttack(ref Monster monster, ref Player player)
 		{
 			int damage = monster.Strength - player.Armor;
 			player.Health -= damage;
 			player.CalculateHealthRep();
+			Dungeon.Grid[player.Y][player.X].Rep = GameManager.ConvertChar(player.HealthRep);
 			monster.CanAttack = false;
 		}
 	}

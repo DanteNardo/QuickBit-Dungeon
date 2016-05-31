@@ -34,7 +34,7 @@ namespace QuickBit_Dungeon
 		private int attackTime    = 10;
 
 		// Properties
-		public int Health		{ get { return eHealth; }		set { eHealth    = value; } }
+		public int Health		{ get { return eHealth; }		set { eHealth    = value;     if (eHealth<0) eHealth = 0; } }
 		public int HealthRep	{ get { return eHealthRep; } }
 		public int Armor		{ get { return eArmor; }		set { eArmor	 = value;	  if (eArmor<0) eArmor = 0; } }
 		public int Strength		{ get { return eStrength; }		set { eStrength  = value; } }
@@ -97,18 +97,18 @@ namespace QuickBit_Dungeon
 		*/
 		public void ConstructMonster()
 		{
-			eMaxHealth    = rnd.Next(5, 11);
+			eMaxHealth    = rnd.Next(20, 100);
 			eHealth       = eMaxHealth;
-			eHealthRep    = CalculateHealthRep();
 			eArmor        = rnd.Next(1, 9);
 			eStrength     = rnd.Next(7, 14);
 			eDexterity    = rnd.Next(7, 14);
 			eWisdom       = rnd.Next(7, 14);
+			CalculateHealthRep();
 			GenerateXP();
 
-			maxMoveTime   = 35;
+			maxMoveTime   = 60;
 			moveTime      = maxMoveTime;
-			maxAttackTime = 30;
+			maxAttackTime = 90;
 			attackTime    = maxAttackTime;
 		}
 
@@ -116,13 +116,13 @@ namespace QuickBit_Dungeon
 			Returns the correct representation
 			of the entitie's current health.
 		*/
-		public int CalculateHealthRep()
+		public void CalculateHealthRep()
 		{
 			float ch = eHealth;
 			float mh = eMaxHealth;
 			float hr = (ch/mh)*10;
 			if (hr == 10) hr = 9;
-			return (int)hr;
+			eHealthRep = (int)hr;
 		}
 
 		/*

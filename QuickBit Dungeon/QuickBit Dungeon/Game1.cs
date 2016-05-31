@@ -21,13 +21,10 @@ namespace QuickBit_Dungeon
 		Rectangle lightPos;
 		const float LIGHT_SCALE = 1.1f;
 
-		// For handling window resizing
-		const float DEFAULT_SCREEN_WIDTH  = 800f;
-		const float DEFAULT_SCREEN_HEIGHT = 800f;
-		float SCREEN_WIDTH  = DEFAULT_SCREEN_WIDTH;
-		float SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT;
+		// Window size variables
+		const int SCREEN_WIDTH  = 600;
+		const int SCREEN_HEIGHT = 600;
 		Vector2 SCREEN_CENTER;
-		float GAME_SCALE = 1f;
 
 		public Game1()
 		{
@@ -46,16 +43,14 @@ namespace QuickBit_Dungeon
 			// TODO: Add your initialization logic here
 
 			/*
-				Get the size of the screen. Then determine the center. Then determine
-				the scale based off of what the screen should be.
+				Determine the center of the screen. Initialize
+				the size of the window.
 			*/
-			SCREEN_WIDTH  = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			SCREEN_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			GAME_SCALE = SCREEN_HEIGHT/DEFAULT_SCREEN_HEIGHT;
 			SCREEN_CENTER = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-			graphics.PreferredBackBufferWidth = (int)SCREEN_WIDTH;
-			graphics.PreferredBackBufferHeight = (int)SCREEN_HEIGHT;
+			graphics.PreferredBackBufferWidth= SCREEN_WIDTH;
+			graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
 			graphics.ApplyChanges();
+
 
 			// Dungeon initialiazation
 			Dungeon.Construct();
@@ -79,14 +74,14 @@ namespace QuickBit_Dungeon
 
 			// Dungeon Content
 			DUNGEON_FONT = Content.Load<SpriteFont>("DungeonFont");
-			dgPos = (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(Dungeon.PlayerView())/2)) * (1f/GAME_SCALE);
+			dgPos = (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(Dungeon.PlayerView())/2));
 
 			// Special Effects
 			light = Content.Load<Texture2D>("LightingEffect");
-			lightPos = new Rectangle((int)((SCREEN_CENTER.X-light.Width/2*GAME_SCALE*LIGHT_SCALE)),
-									 (int)((SCREEN_CENTER.Y-light.Height/2*GAME_SCALE*LIGHT_SCALE)),
-									 (int)(light.Width*GAME_SCALE*LIGHT_SCALE),
-									 (int)(light.Height*GAME_SCALE*LIGHT_SCALE));
+			lightPos = new Rectangle((int)((SCREEN_CENTER.X-light.Width/2*LIGHT_SCALE)),
+									 (int)((SCREEN_CENTER.Y-light.Height/2*LIGHT_SCALE)),
+									 (int)(light.Width*LIGHT_SCALE),
+									 (int)(light.Height*LIGHT_SCALE));
 		}
 
 		/// <summary>
@@ -140,12 +135,7 @@ namespace QuickBit_Dungeon
 			sb.DrawString(DUNGEON_FONT,
 						  Dungeon.PlayerView(),
 						  dgPos,
-						  Color.White,
-						  0,
-						  Vector2.Zero,
-						  GAME_SCALE,
-						  SpriteEffects.None,
-						  0);
+						  Color.White);
 		}
 
 		/*
