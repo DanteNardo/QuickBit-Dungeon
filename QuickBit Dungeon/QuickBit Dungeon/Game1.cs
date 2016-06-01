@@ -13,13 +13,13 @@ namespace QuickBit_Dungeon
 		SpriteBatch spriteBatch;
 
 		// For drawing the dungeon
-		SpriteFont DUNGEON_FONT;
 		Vector2 dgPos;
+
+		// For drawing the stats
+		StatBox statBox;
 		
 		// For special effects
-		Texture2D light;
-		Rectangle lightPos;
-		const float LIGHT_SCALE = 1.1f;
+		Light light;
 
 		// Window size variables
 		const int SCREEN_WIDTH  = 600;
@@ -55,8 +55,14 @@ namespace QuickBit_Dungeon
 			// Dungeon initialiazation
 			Dungeon.Construct();
 
-			// GameManager intialization
+			// GameManager initialization
 			GameManager.Init();
+
+			// Light initialization
+			light = new Light();
+
+			// Statbox initialization
+			statBox = new StatBox();
 
 			base.Initialize();
 		}
@@ -73,15 +79,15 @@ namespace QuickBit_Dungeon
 			// TODO: use this.Content to load your game content here
 
 			// Dungeon Content
-			DUNGEON_FONT = Content.Load<SpriteFont>("DungeonFont");
-			dgPos = (SCREEN_CENTER-(DUNGEON_FONT.MeasureString(Dungeon.PlayerView())/2));
+			ArtManager.LoadContent(Content);
+			dgPos = (SCREEN_CENTER-(ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2));
 
 			// Special Effects
-			light = Content.Load<Texture2D>("LightingEffect");
-			lightPos = new Rectangle((int)((SCREEN_CENTER.X-light.Width/2*LIGHT_SCALE)),
-									 (int)((SCREEN_CENTER.Y-light.Height/2*LIGHT_SCALE)),
-									 (int)(light.Width*LIGHT_SCALE),
-									 (int)(light.Height*LIGHT_SCALE));
+			light.LoadContent();
+			light.PositionLight(SCREEN_CENTER);
+
+			// Stats box
+			statBox.LoadContent();
 		}
 
 		/// <summary>
@@ -106,6 +112,7 @@ namespace QuickBit_Dungeon
 
 			// TODO: Add your update logic here
 			GameManager.Update();
+			statBox.GenerateStats(GameManager.MainPlayer);
 
 			base.Update(gameTime);
 		}
@@ -121,7 +128,8 @@ namespace QuickBit_Dungeon
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
 			DrawDungeon(spriteBatch);
-			DrawLight(spriteBatch);
+			light.DrawLight(spriteBatch);
+			statBox.DrawStats(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -132,19 +140,10 @@ namespace QuickBit_Dungeon
 		*/
 		private void DrawDungeon(SpriteBatch sb)
 		{
-			sb.DrawString(DUNGEON_FONT,
+			sb.DrawString(ArtManager.DungeonFont,
 						  Dungeon.PlayerView(),
 						  dgPos,
 						  Color.White);
-		}
-
-		/*
-			Draws the lighting effect over the
-			dungeon view.
-		*/
-		private void DrawLight(SpriteBatch sb)
-		{
-			sb.Draw(light, lightPos, Color.White);
 		}
 	}
 }

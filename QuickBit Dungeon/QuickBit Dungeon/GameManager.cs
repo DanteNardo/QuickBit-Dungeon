@@ -20,6 +20,9 @@ namespace QuickBit_Dungeon
 		private static Monster target;
 		private static Random rnd;
 
+		// Properties
+		public static Player MainPlayer { get { return player; } set { player = value; } }
+
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
