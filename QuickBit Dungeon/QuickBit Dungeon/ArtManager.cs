@@ -30,15 +30,15 @@ namespace QuickBit_Dungeon
 		// ======================================
 
 		// Fonts
-		public static SpriteFont DungeonFont	{ get; set; }
-		public static SpriteFont StatsFont		{ get; set; }
-		public static SpriteFont TitleFont		{ get; set; }
+		public static SpriteFont DungeonFont	{ get { return dungeonFont; } set { dungeonFont = value; } }
+		public static SpriteFont StatsFont		{ get { return statsFont; }   set { statsFont   = value; } }
+		public static SpriteFont TitleFont		{ get { return titleFont; }   set { titleFont   = value; } }
 
 		// Stats box
-		public static Texture2D  StatsBoxTex	{ get; set; }
+		public static Texture2D  StatsBoxTex	{ get { return statsBoxTex; } set { statsBoxTex = value; } }
 
 		// Lighting effect
-		public static Texture2D  LightTex		{ get; set; }
+		public static Texture2D  LightTex		{ get { return lightTex; }	  set { lightTex    = value; } }
 
 		// ======================================
 		// ============== Methods ===============

@@ -130,6 +130,7 @@ namespace QuickBit_Dungeon
 			DrawDungeon(spriteBatch);
 			light.DrawLight(spriteBatch);
 			statBox.DrawStats(spriteBatch);
+			GameManager.Draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

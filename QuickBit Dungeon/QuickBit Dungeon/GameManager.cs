@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace QuickBit_Dungeon
 {
@@ -20,6 +23,10 @@ namespace QuickBit_Dungeon
 		private static Monster target;
 		private static Random rnd;
 
+		// Progress bars
+		private static ProgressBar HealthBar;
+		private static ProgressBar AttackBar;
+
 		// Properties
 		public static Player MainPlayer { get { return player; } set { player = value; } }
 
@@ -32,9 +39,13 @@ namespace QuickBit_Dungeon
 		*/
 		public static void Init()
 		{
-			player   = new Player();
-			monsters = new List<Monster>();
-			rnd		 = new Random();
+			player    = new Player();
+			monsters  = new List<Monster>();
+			rnd		  = new Random();
+			HealthBar = new ProgressBar("Health Mana");
+			AttackBar = new ProgressBar("Attack Mana");
+			HealthBar.Position = new Vector2(10, 10);
+			AttackBar.Position = new Vector2(10, 50);
 			GenerateMonsters();
 		}
 
@@ -81,6 +92,10 @@ namespace QuickBit_Dungeon
 			foreach (var m in monsters)
 				m.Update();
 
+			// Update all progress bars
+			HealthBar.Update();
+			AttackBar.Update();
+
 			// Update all input
 			Input.Update();
 			MovePlayer();
@@ -91,6 +106,16 @@ namespace QuickBit_Dungeon
 				MonstersAttack();
 				PlayerAttack();
 			}
+		}
+
+		/*
+			Handles all game drawing.
+		*/
+		public static void Draw(SpriteBatch sb)
+		{
+			// Progress bars
+			HealthBar.DrawProgressBar(sb);
+			AttackBar.DrawProgressBar(sb);
 		}
 
 		/*
