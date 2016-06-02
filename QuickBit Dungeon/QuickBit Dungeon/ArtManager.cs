@@ -52,8 +52,8 @@ namespace QuickBit_Dungeon
 		{
 			// Fonts
 			DungeonFont = cm.Load<SpriteFont>("DungeonFont");
-			//StatsFont   = cm.Load<SpriteFont>("StatsFont");
-			//TitleFont   = cm.Load<SpriteFont>("TitleFont");
+			StatsFont   = cm.Load<SpriteFont>("StatsFont");
+			TitleFont   = cm.Load<SpriteFont>("TitleFont");
 
 			// Stats box
 			StatsBoxTex = cm.Load<Texture2D>("StatsBoxTexture");

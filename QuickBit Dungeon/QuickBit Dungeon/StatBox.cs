@@ -17,7 +17,7 @@ namespace QuickBit_Dungeon
 		Texture2D boxTex;
 		Rectangle boxRec;
 		string stats;
-		const int PADDING = 10;
+		const int PADDING = 40;
 
 		// Properties
 		Texture2D BoxTex { get { return boxTex; } set { boxTex = value; } }
@@ -48,6 +48,7 @@ namespace QuickBit_Dungeon
 		*/
 		public void GenerateStats(Player p)
 		{
+			stats = "";
 			stats += "Strength: "  + p.Strength  + "\n";
 			stats += "Dexterity: " + p.Dexterity + "\n";
 			stats += "Wisdom: "    + p.Wisdom    + "\n";
@@ -60,7 +61,7 @@ namespace QuickBit_Dungeon
 		public void DrawStats(SpriteBatch sb)
 		{
 			sb.Draw(boxTex, boxRec, Color.White);
-			sb.DrawString(ArtManager.DungeonFont, stats, 
+			sb.DrawString(ArtManager.StatsFont, stats, 
 						  new Vector2(boxRec.X+PADDING, boxRec.Y+PADDING), 
 						  Color.White);
 		}
