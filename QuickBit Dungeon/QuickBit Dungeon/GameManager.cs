@@ -18,14 +18,18 @@ namespace QuickBit_Dungeon
 		// ============= Variables ==============
 		// ======================================
 		
-		private static Player player;
-		private static List<Monster> monsters;
-		private static Monster target;
-		private static Random rnd;
+		private static Player player;				// Stores all player data
+		private static List<Monster> monsters;		// Stores all monsters in the level
+		private static Monster target;				// Stores the currently targeted enemy
+		private static Random rnd;					// Random number generator
+		private static StatBox statBox;				// Displays the player's stats
+		private static Light light;					// Draws the lighting effect
+		private static ProgressBar healthBar;		// Displays the player's health mana bar
+		private static ProgressBar attackBar;		// Displays the player's attack mana bar
 
-		// Progress bars
-		private static ProgressBar HealthBar;
-		private static ProgressBar AttackBar;
+		// For drawing placement
+		private static Vector2 screenCenter = new Vector2(300, 300);
+		private static Vector2 dgPos;
 
 		// Properties
 		public static Player MainPlayer { get { return player; } set { player = value; } }
@@ -42,10 +46,12 @@ namespace QuickBit_Dungeon
 			player    = new Player();
 			monsters  = new List<Monster>();
 			rnd		  = new Random();
-			HealthBar = new ProgressBar("Health Mana");
-			AttackBar = new ProgressBar("Attack Mana");
-			HealthBar.Position = new Vector2(10, 10);
-			AttackBar.Position = new Vector2(10, 50);
+			light     = new Light();
+			statBox   = new StatBox();
+			healthBar = new ProgressBar("Health Mana");
+			attackBar = new ProgressBar("Attack Mana");
+			healthBar.Position = new Vector2(10, 10);
+			attackBar.Position = new Vector2(10, 50);
 			GenerateMonsters();
 		}
 
@@ -93,8 +99,11 @@ namespace QuickBit_Dungeon
 				m.Update();
 
 			// Update all progress bars
-			HealthBar.Update();
-			AttackBar.Update();
+			healthBar.Update();
+			attackBar.Update();
+
+			// Update the stats box
+			statBox.GenerateStats(GameManager.MainPlayer);
 
 			// Update all input
 			Input.Update();
@@ -109,13 +118,17 @@ namespace QuickBit_Dungeon
 		}
 
 		/*
-			Handles all game drawing.
+			Loads all content for the game.
 		*/
-		public static void Draw(SpriteBatch sb)
+		public static void LoadContent()
 		{
-			// Progress bars
-			HealthBar.DrawProgressBar(sb);
-			AttackBar.DrawProgressBar(sb);
+			// Special Effects
+			light.LoadContent();
+			light.PositionLight(screenCenter);
+
+			// Stats box
+			statBox.LoadContent();
+			dgPos = (screenCenter-(ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2));
 		}
 
 		/*
@@ -316,6 +329,34 @@ namespace QuickBit_Dungeon
 		{
 			monsters.Remove(target);
 			Dungeon.Grid[target.Y][target.X].Rep = Dungeon.Grid[target.Y][target.X].Type;
+		}
+
+
+		// ======================================
+		// ============== Drawing ===============
+		// ======================================
+
+		/*
+			Handles all game drawing.
+		*/
+		public static void Draw(SpriteBatch sb)
+		{
+			DrawDungeon(sb);
+			light.DrawLight(sb);
+			statBox.DrawStats(sb);
+			healthBar.DrawProgressBar(sb);
+			attackBar.DrawProgressBar(sb);
+		}
+
+		/*
+			Draws the player's view of the dungeon.
+		*/
+		private static void DrawDungeon(SpriteBatch sb)
+		{
+			sb.DrawString(ArtManager.DungeonFont,
+						  Dungeon.PlayerView(),
+						  dgPos,
+						  Color.White);
 		}
 	}
 }

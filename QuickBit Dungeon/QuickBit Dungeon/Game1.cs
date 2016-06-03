@@ -12,15 +12,6 @@ namespace QuickBit_Dungeon
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		// For drawing the dungeon
-		Vector2 dgPos;
-
-		// For drawing the stats
-		StatBox statBox;
-		
-		// For special effects
-		Light light;
-
 		// Window size variables
 		const int SCREEN_WIDTH  = 600;
 		const int SCREEN_HEIGHT = 600;
@@ -58,12 +49,6 @@ namespace QuickBit_Dungeon
 			// GameManager initialization
 			GameManager.Init();
 
-			// Light initialization
-			light = new Light();
-
-			// Statbox initialization
-			statBox = new StatBox();
-
 			base.Initialize();
 		}
 
@@ -78,16 +63,9 @@ namespace QuickBit_Dungeon
 
 			// TODO: use this.Content to load your game content here
 
-			// Dungeon Content
+			// Load and save all game content
 			ArtManager.LoadContent(Content);
-			dgPos = (SCREEN_CENTER-(ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2));
-
-			// Special Effects
-			light.LoadContent();
-			light.PositionLight(SCREEN_CENTER);
-
-			// Stats box
-			statBox.LoadContent();
+			GameManager.LoadContent();
 		}
 
 		/// <summary>
@@ -112,7 +90,6 @@ namespace QuickBit_Dungeon
 
 			// TODO: Add your update logic here
 			GameManager.Update();
-			statBox.GenerateStats(GameManager.MainPlayer);
 
 			base.Update(gameTime);
 		}
@@ -127,24 +104,10 @@ namespace QuickBit_Dungeon
 
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
-			DrawDungeon(spriteBatch);
-			light.DrawLight(spriteBatch);
-			statBox.DrawStats(spriteBatch);
 			GameManager.Draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
-		}
-
-		/*
-			Draws the player's view of the dungeon.
-		*/
-		private void DrawDungeon(SpriteBatch sb)
-		{
-			sb.DrawString(ArtManager.DungeonFont,
-						  Dungeon.PlayerView(),
-						  dgPos,
-						  Color.White);
-		}
+		}	
 	}
 }
