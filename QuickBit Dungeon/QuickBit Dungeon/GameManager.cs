@@ -35,7 +35,7 @@ namespace QuickBit_Dungeon
 		public static Player MainPlayer { get { return player; } set { player = value; } }
 
 		// ======================================
-		// ============== Methods ===============
+		// =========== Main Methods =============
 		// ======================================
 
 		/*
@@ -122,14 +122,91 @@ namespace QuickBit_Dungeon
 		*/
 		public static void LoadContent()
 		{
-			// Special Effects
-			light.LoadContent();
-			light.PositionLight(screenCenter);
-
 			// Stats box
 			statBox.LoadContent();
-			dgPos = (screenCenter-(ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2));
+			Vector2 stringSize = ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2;
+			dgPos = (screenCenter-stringSize);
+			
+			// Special Effects
+			light.LoadContent();
+			light.PositionLight(dgPos);
 		}
+
+		/*
+			Moves the player in the dungeon using
+			the input class, dungeon class, and
+			the user's given input.
+		*/
+		private static void MovePlayer()
+		{
+			if (player.CanMove)
+			{
+				Input.GetInput();
+				
+				switch (Input.CurrentDirection)
+				{
+					case Input.Direction.NORTH:
+						if (Dungeon.CanMove(-1, 0))
+						{
+							Dungeon.MovePlayer(-1, 0, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
+							player.CanMove = false;
+						}
+						break;
+
+					case Input.Direction.SOUTH:
+						if (Dungeon.CanMove(1, 0))
+						{
+							Dungeon.MovePlayer(1, 0, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
+							player.CanMove = false;
+						}
+						break;
+
+					case Input.Direction.EAST:
+						if (Dungeon.CanMove(0, 1))
+						{
+							Dungeon.MovePlayer(0, 1, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
+							player.CanMove = false;
+						}
+						break;
+
+					case Input.Direction.WEST:
+						if (Dungeon.CanMove(0, -1))
+						{
+							Dungeon.MovePlayer(0, -1, ConvertChar(player.HealthRep));
+							player.Y = Dungeon.PlayerY;
+							player.X = Dungeon.PlayerX;
+							player.CanMove = false;
+						}
+						break;
+				}
+
+				// Reset input variables
+				if (Input.CurrentDirection != Input.Direction.NONE)
+					Input.LastDirection = Input.CurrentDirection;
+				Input.CurrentDirection = Input.Direction.NONE;
+			}
+
+		}
+
+		/*
+			Returns the correct char relative
+			to the integer given.
+		*/ 
+		public static char ConvertChar(int i)
+		{
+			return (char)(i+48);
+		}
+		
+
+		// ======================================
+		// =============== Combat ===============
+		// ======================================
 
 		/*
 			Determines if combat is being exchanged.
@@ -223,94 +300,6 @@ namespace QuickBit_Dungeon
 		}
 
 		/*
-			Moves the player in the dungeon using
-			the input class, dungeon class, and
-			the user's given input.
-		*/
-		private static void MovePlayer()
-		{
-			if (player.CanMove)
-			{
-				Input.GetInput();
-				
-				switch (Input.CurrentDirection)
-				{
-					case Input.Direction.NORTH:
-						if (Dungeon.CanMove(-1, 0))
-						{
-							Dungeon.MovePlayer(-1, 0, ConvertChar(player.HealthRep));
-							player.Y = Dungeon.PlayerY;
-							player.X = Dungeon.PlayerX;
-							player.CanMove = false;
-						}
-						break;
-
-					case Input.Direction.SOUTH:
-						if (Dungeon.CanMove(1, 0))
-						{
-							Dungeon.MovePlayer(1, 0, ConvertChar(player.HealthRep));
-							player.Y = Dungeon.PlayerY;
-							player.X = Dungeon.PlayerX;
-							player.CanMove = false;
-						}
-						break;
-
-					case Input.Direction.EAST:
-						if (Dungeon.CanMove(0, 1))
-						{
-							Dungeon.MovePlayer(0, 1, ConvertChar(player.HealthRep));
-							player.Y = Dungeon.PlayerY;
-							player.X = Dungeon.PlayerX;
-							player.CanMove = false;
-						}
-						break;
-
-					case Input.Direction.WEST:
-						if (Dungeon.CanMove(0, -1))
-						{
-							Dungeon.MovePlayer(0, -1, ConvertChar(player.HealthRep));
-							player.Y = Dungeon.PlayerY;
-							player.X = Dungeon.PlayerX;
-							player.CanMove = false;
-						}
-						break;
-				}
-
-				// Reset input variables
-				if (Input.CurrentDirection != Input.Direction.NONE)
-					Input.LastDirection = Input.CurrentDirection;
-				Input.CurrentDirection = Input.Direction.NONE;
-			}
-
-		}
-
-		/*
-			Determines if a monster exists at those
-			coordinates.
-		*/
-		private static bool MonsterAt(int y, int x)
-		{
-			foreach (var m in monsters)
-			{
-				if (m.Y == y && m.X == x)
-				{
-					target = m;
-					return true;
-				}
-			}
-			return false;
-		}
-
-		/*
-			Returns the correct char relative
-			to the integer given.
-		*/ 
-		public static char ConvertChar(int i)
-		{
-			return (char)(i+48);
-		}
-
-		/*
 			Determines whether or not the monster
 			that was attacked by the player was killed.
 		*/
@@ -331,6 +320,22 @@ namespace QuickBit_Dungeon
 			Dungeon.Grid[target.Y][target.X].Rep = Dungeon.Grid[target.Y][target.X].Type;
 		}
 
+		/*
+			Determines if a monster exists at those
+			coordinates.
+		*/
+		private static bool MonsterAt(int y, int x)
+		{
+			foreach (var m in monsters)
+			{
+				if (m.Y == y && m.X == x)
+				{
+					target = m;
+					return true;
+				}
+			}
+			return false;
+		}
 
 		// ======================================
 		// ============== Drawing ===============

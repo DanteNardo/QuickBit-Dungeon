@@ -17,7 +17,8 @@ namespace QuickBit_Dungeon
 		Texture2D lightTex;
 		Rectangle lightPos;
 
-		const float LIGHT_SCALE = 1.1f;
+		const float LIGHT_SCALE_WIDTH = 1f;
+		const float LIGHT_SCALE_HEIGHT = .91f;
 
 		// Properties
 		Texture2D LightTex { get { return lightTex; } set { lightTex = value; } }
@@ -46,12 +47,12 @@ namespace QuickBit_Dungeon
 			This method generates a light
 			object's position data.
 		*/
-		public void PositionLight(Vector2 SCREEN_CENTER)
+		public void PositionLight(Vector2 dungeonPosition)
 		{
-			lightPos = new Rectangle((int)((SCREEN_CENTER.X-lightTex.Width/2*LIGHT_SCALE)),
-									 (int)((SCREEN_CENTER.Y-lightTex.Height/2*LIGHT_SCALE)),
-									 (int)(lightTex.Width*LIGHT_SCALE),
-									 (int)(lightTex.Height*LIGHT_SCALE));
+			lightPos = new Rectangle((int)dungeonPosition.X, 
+									 (int)dungeonPosition.Y, 
+									 (int)(lightTex.Width*LIGHT_SCALE_WIDTH), 
+									 (int)(lightTex.Height*LIGHT_SCALE_HEIGHT));
 		}
 
 		/*
