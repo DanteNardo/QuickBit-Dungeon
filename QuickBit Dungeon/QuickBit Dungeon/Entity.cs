@@ -22,6 +22,9 @@ namespace QuickBit_Dungeon
 		private int eStrength;		// The entitie's strength level: used for health and damage
 		private int eDexterity;		// The entitie's dexterity level: used for speed and dodge
 		private int eWisdom;		// The entitie's wisdom level: used for regen/magic
+		private float eMaxMana;		// The entitie's maximum amount of mana
+		private float eHealthMana;	// The entitie's current health mana
+		private float eAttackMana;	// The entitie's current attack mana
 		private int eXP;			// The xp amount that the player will receive if they defeat the entity
 		private Random rnd;
 
@@ -34,14 +37,17 @@ namespace QuickBit_Dungeon
 		private int attackTime    = 10;
 
 		// Properties
-		public int Health		{ get { return eHealth; }		set { eHealth    = value;     if (eHealth<0) eHealth = 0; } }
+		public int Health		{ get { return eHealth; }		set { eHealth     = value;     if (eHealth<0) eHealth = 0; } }
 		public int HealthRep	{ get { return eHealthRep; } }
-		public int Armor		{ get { return eArmor; }		set { eArmor	 = value;	  if (eArmor<0) eArmor = 0; } }
-		public int Strength		{ get { return eStrength; }		set { eStrength  = value; } }
-		public int Dexterity	{ get { return eDexterity; }	set { eDexterity = value; } }
-		public int Wisdom		{ get { return eWisdom; }		set { eWisdom    = value; } }
-		public bool CanMove		{ get { return canMove; }		set { canMove	 = value; } }
-		public bool CanAttack	{ get { return canAttack; }		set { canAttack	 = value; } }
+		public int Armor		{ get { return eArmor; }		set { eArmor	  = value;	   if (eArmor<0) eArmor = 0; } }
+		public int Strength		{ get { return eStrength; }		set { eStrength   = value; } }
+		public int Dexterity	{ get { return eDexterity; }	set { eDexterity  = value; } }
+		public int Wisdom		{ get { return eWisdom; }		set { eWisdom     = value; } }
+		public bool CanMove		{ get { return canMove; }		set { canMove	  = value; } }
+		public bool CanAttack	{ get { return canAttack; }		set { canAttack	  = value; } }
+		public float MaxMana		{ get { return eMaxMana; }		set { eMaxMana    = value; } }
+		public float HealthMana	{ get { return eHealthMana; }	set { eHealthMana = value; } }
+		public float AttackMana	{ get { return eAttackMana; }	set { eAttackMana = value; } }
 
 		// ======================================
 		// ============== Methods ===============
@@ -82,13 +88,16 @@ namespace QuickBit_Dungeon
 		*/
 		public void ConstructPlayer()
 		{
-			eMaxHealth = 100;
-			eHealth    = 100;
-			eHealthRep = 9;
-			eArmor     = 5;
-			eStrength  = 10;
-			eDexterity = 10;
-			eWisdom    = 10;
+			eMaxHealth  = 100;
+			eHealth     = 100;
+			eHealthRep  = 9;
+			eArmor      = 5;
+			eStrength   = 10;
+			eDexterity  = 10;
+			eWisdom     = 10;
+			eMaxMana    = 100f;
+			eHealthMana = eMaxMana;
+			eAttackMana = eMaxMana;
 		}
 
 		/*

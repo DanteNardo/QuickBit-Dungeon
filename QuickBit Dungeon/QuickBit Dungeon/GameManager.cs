@@ -32,7 +32,21 @@ namespace QuickBit_Dungeon
 		private static Vector2 dgPos;
 
 		// Properties
-		public static Player MainPlayer { get { return player; } set { player = value; } }
+		public static Player MainPlayer
+		{
+			get { return player; }
+			set { player = value; }
+		}
+		public static List<Monster> Monsters
+		{
+			get { return monsters; }
+			set { monsters = value; }
+		}
+		public static Random Rand
+		{
+			get { return rnd; }
+			set { rnd = value; }
+		}
 
 		// ======================================
 		// =========== Main Methods =============
@@ -75,7 +89,7 @@ namespace QuickBit_Dungeon
 						ry = rnd.Next(r.Position[0], r.Position[0]+r.Height);
 						rx = rnd.Next(r.Position[1], r.Position[1]+r.Width);
 
-						if (!MonsterAt(ry, rx)) break;
+						if (!MonsterAt(ry, rx, ref target)) break;
 					}
 
 					Monster m = new Monster();
@@ -103,7 +117,7 @@ namespace QuickBit_Dungeon
 			attackBar.Update();
 
 			// Update the stats box
-			statBox.GenerateStats(GameManager.MainPlayer);
+			statBox.GenerateStats(MainPlayer);
 
 			// Update all input
 			Input.Update();
@@ -112,8 +126,7 @@ namespace QuickBit_Dungeon
 			// Update all combat
 			if (CombatExists())
 			{
-				MonstersAttack();
-				PlayerAttack();
+				Combat.PerformCombat(player, monsters);
 			}
 		}
 
@@ -230,101 +243,10 @@ namespace QuickBit_Dungeon
 		}
 
 		/*
-			Attacks the player with every possible
-			monster.
-		*/
-		private static void MonstersAttack()
-		{
-			Monster m;
-			for (int i = 0; i < monsters.Count; i++)
-			{
-				m = monsters[i];
-
-				if ((m.Y == player.Y && m.X == player.X+1) ||
-					(m.Y == player.Y && m.X == player.X-1) ||
-					(m.Y == player.Y+1 && m.X == player.X) ||
-					(m.Y == player.Y-1 && m.X == player.X))
-				{
-					if (m.CanAttack)
-					{
-						Combat.MonsterAttack(ref m, ref player);
-					}
-				}
-			}
-		}
-
-		/*
-			The player attacks the monster that is
-			in the current player's direction.
-		*/
-		private static void PlayerAttack()
-		{
-			if (player.CanAttack)
-			{
-				switch (Input.LastDirection)
-				{
-					case Input.Direction.NORTH:
-						if (MonsterAt(player.Y-1, player.X))
-						{
-							Combat.PlayerAttack(ref player, ref target);
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.SOUTH:
-						if (MonsterAt(player.Y+1, player.X))
-						{ 
-							Combat.PlayerAttack(ref player, ref target);
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.EAST:
-						if (MonsterAt(player.Y, player.X+1))
-						{
-							Combat.PlayerAttack(ref player, ref target);
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.WEST:
-						if (MonsterAt(player.Y, player.X-1))
-						{ 
-							Combat.PlayerAttack(ref player, ref target);
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-				}
-			}
-		}
-
-		/*
-			Determines whether or not the monster
-			that was attacked by the player was killed.
-		*/
-		private static bool MonsterDied()
-		{
-			if (target.Health == 0)
-				return true;
-			else return false;
-		}
-
-		/*
-			Kills a monster and takes away its data
-			from the dungeon and GameManager.
-		*/
-		private static void KillMonster()
-		{
-			monsters.Remove(target);
-			Dungeon.Grid[target.Y][target.X].Rep = Dungeon.Grid[target.Y][target.X].Type;
-		}
-
-		/*
 			Determines if a monster exists at those
 			coordinates.
 		*/
-		private static bool MonsterAt(int y, int x)
+		public static bool MonsterAt(int y, int x, ref Monster target)
 		{
 			foreach (var m in monsters)
 			{

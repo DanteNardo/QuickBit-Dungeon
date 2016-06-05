@@ -11,8 +11,9 @@ namespace QuickBit_Dungeon
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
-
-		private static KeyboardState keyState;
+		
+		private static KeyboardState preState;
+		private static KeyboardState curState;
 
 		private static Direction currentDirection;
 		public static  Direction CurrentDirection
@@ -35,6 +36,19 @@ namespace QuickBit_Dungeon
 			NONE
 		}
 
+		private static Attack playerAttack;
+		public static  Attack PlayerAttack
+		{
+			get { return playerAttack; }
+			set { playerAttack = value; }
+		}
+		public enum Attack
+		{
+			PHYSICAL,
+			SPECIAL,
+			NONE
+		}
+
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
@@ -45,7 +59,8 @@ namespace QuickBit_Dungeon
 		*/
 		public static void Update()
 		{
-			keyState = Keyboard.GetState();
+			preState = curState;
+			curState = Keyboard.GetState();
 		}
 
 		/*
@@ -55,18 +70,47 @@ namespace QuickBit_Dungeon
 		*/
 		public static void GetInput()
 		{
+			// ======================================
+			// ============= Movement ===============
+			// ======================================
+
 			// North
-			if (keyState.IsKeyDown(Keys.W))
+			if (curState.IsKeyDown(Keys.W))
 				currentDirection = Direction.NORTH;
 			// South
-			if (keyState.IsKeyDown(Keys.S))
+			if (curState.IsKeyDown(Keys.S))
 				currentDirection = Direction.SOUTH;
 			// East
-			if (keyState.IsKeyDown(Keys.D))
+			if (curState.IsKeyDown(Keys.D))
 				currentDirection = Direction.EAST;
 			// West
-			if (keyState.IsKeyDown(Keys.A))
+			if (curState.IsKeyDown(Keys.A))
 				currentDirection = Direction.WEST;
+
+			// ======================================
+			// ============== Combat ================
+			// ======================================
+
+			// Physical
+			if (Released(Keys.J))
+				playerAttack = Attack.PHYSICAL;
+			// Special
+			if (Released(Keys.I))
+				playerAttack = Attack.SPECIAL;
+		}
+
+		/*
+			Returns true if the key was
+			just released.
+		*/
+		public static bool Released(Keys k)
+		{
+			if (preState.IsKeyDown(k) &&
+				curState.IsKeyUp(k))
+			{
+				return true;
+			}
+			else return false;
 		}
 	}
 }
