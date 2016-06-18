@@ -1,0 +1,60 @@
+﻿
+
+// Name: Dante Nardo
+// Game: QuickBit Dungeon
+// Date: 6/18/16
+
+=============================================
+=============== Milestones ==================
+=============================================
+
+1) COMBAT		Status: Incomplete
+2) DUNGEON		Status: Incomplete
+3) GRAPHICS		Status: Incomplete
+4) UI			Status: Incomplete
+5) AUDIO		Status: Incomplete
+
+=============================================
+================= Combat ====================
+=============================================
+
+1) XP and LEVEL UP
+2) SPECIAL ATTACK
+3) ENEMY AI
+4) PLAYER DEATH - GAME OVER
+
+Issues:
+	- Player instantly killed after first combat
+
+=============================================
+================ Dungeon ====================
+=============================================
+
+1) LEVEL EXITS
+2) NEXT LEVEL RESET
+3) INCREASE LEVEL DIFFICULTY
+4) TIMER (LOSS UPON RUNNING OUT OF TIME)
+
+=============================================
+================ Graphics ===================
+=============================================
+
+1) RGB SQUARES DURING ATTACKS
+2) FLICKERING LIGHTING EFFECT
+
+=============================================
+============= User Interface ================
+=============================================
+
+1) MAIN MENU
+2) LEVEL UP MENU
+3) GAME OVER MENU
+
+=============================================
+================= Audio =====================
+=============================================
+
+1) COMBAT SOUND EFFECTS
+2) MOVEMENT SOUND EFFECTS
+3) BACKGROUND MUSIC
+4) MENU SOUND EFFECTS (CLICKING)
