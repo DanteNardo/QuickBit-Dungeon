@@ -9,10 +9,11 @@
 =============================================
 
 1) COMBAT		Status: Incomplete
-2) DUNGEON		Status: Incomplete
-3) GRAPHICS		Status: Incomplete
-4) UI			Status: Incomplete
-5) AUDIO		Status: Incomplete
+2) INPUT		Status: Incomplete
+3) DUNGEON		Status: Incomplete
+4) GRAPHICS		Status: Incomplete
+5) UI			Status: Incomplete
+6) AUDIO		Status: Incomplete
 
 =============================================
 ================= Combat ====================
@@ -25,6 +26,13 @@
 
 Issues:
 	- Player instantly killed after first combat
+
+=============================================
+================= Input =====================
+=============================================
+
+1) ADD ALL CONTROLS
+2) ADD GAMEPAD SUPPORT
 
 =============================================
 ================ Dungeon ====================
