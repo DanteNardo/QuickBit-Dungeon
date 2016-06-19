@@ -37,6 +37,7 @@ namespace QuickBit_Dungeon
 		private int attackTime    = 10;
 
 		// Properties
+		public int MaxHealth	{ get { return eMaxHealth; } }
 		public int Health		{ get { return eHealth; }		set { eHealth     = value;     if (eHealth<0) eHealth = 0; } }
 		public int HealthRep	{ get { return eHealthRep; } }
 		public int Armor		{ get { return eArmor; }		set { eArmor	  = value;	   if (eArmor<0) eArmor   = 0; } }

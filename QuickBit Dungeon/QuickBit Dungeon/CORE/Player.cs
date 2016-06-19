@@ -41,6 +41,8 @@ namespace QuickBit_Dungeon
 		{
 			HealthMana += Wisdom/10;
 			AttackMana += Wisdom/10;
+			if (HealthMana > MaxMana) HealthMana = MaxMana;
+			if (AttackMana > MaxMana) AttackMana = MaxMana;
 		}
 
 		/*
@@ -49,10 +51,13 @@ namespace QuickBit_Dungeon
 		*/
 		public void RegenerateHealth()
 		{
-			if (HealthMana > ManaCost)
+			if (HealthMana > ManaCost && Health < MaxHealth)
 			{
 				Health += Wisdom;
 				HealthMana -= ManaCost;
+				if (Health > MaxHealth) Health = MaxHealth;
+				CalculateHealthRep();
+				Dungeon.Grid[x][y].Rep = GameManager.ConvertToChar(HealthRep);
 			}
 		}
 
@@ -63,6 +68,17 @@ namespace QuickBit_Dungeon
 		public bool CanSpecial()
 		{
 			if (AttackMana > ManaCost)
+				 return true;
+			else return false;
+		}
+
+		/*
+			Determines if the player can perform
+			self healing magic.
+		*/
+		public bool CanHeal()
+		{
+			if (HealthMana > ManaCost)
 				 return true;
 			else return false;
 		}

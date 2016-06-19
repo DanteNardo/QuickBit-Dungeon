@@ -140,6 +140,26 @@ namespace QuickBit_Dungeon
 		}
 
 		/*
+			Determines if a player is currently
+			regenerating health or mana.
+		*/
+		public void PlayerRegen()
+		{
+			switch (Input.PlayerState)
+			{
+				case Input.ePlayerState.HEALING:
+					if (player.CanHeal())
+						player.RegenerateHealth();
+					break;
+				case Input.ePlayerState.CHARGING:
+					player.RegenerateMana();
+					break;
+			}
+			
+			Input.PlayerState = Input.ePlayerState.NONE;
+		}
+
+		/*
 			Executes a player's attack on 
 			a monster's health.
 		*/
@@ -148,7 +168,7 @@ namespace QuickBit_Dungeon
 			int damage = player.Strength - target.Armor;
 			target.Health -= damage;
 			target.CalculateHealthRep();
-			Dungeon.Grid[target.Y][target.X].Rep = GameManager.ConvertChar(target.HealthRep);
+			Dungeon.Grid[target.Y][target.X].Rep = GameManager.ConvertToChar(target.HealthRep);
 			player.CanAttack = false;
 		}
 
@@ -168,10 +188,11 @@ namespace QuickBit_Dungeon
 				int damage = player.Wisdom + GameManager.Rand.Next(1, player.Wisdom*10);
 				targets[i].Health -= damage;
 				targets[i].CalculateHealthRep();
-				Dungeon.Grid[targets[i].Y][targets[i].X].Rep = GameManager.ConvertChar(targets[i].HealthRep);
-				player.AttackMana -= player.ManaCost;
-				player.CanAttack = false;
+				Dungeon.Grid[targets[i].Y][targets[i].X].Rep = GameManager.ConvertToChar(targets[i].HealthRep);
 			}
+			
+			player.AttackMana -= player.ManaCost;
+			player.CanAttack = false;
 		}
 
 		/*
@@ -205,11 +226,11 @@ namespace QuickBit_Dungeon
 		*/
 		private void MonsterAttack(ref Monster m)
 		{
-			int damage = target.Strength - player.Armor;
+			int damage = m.Strength - player.Armor;
 			player.Health -= damage;
 			player.CalculateHealthRep();
-			Dungeon.Grid[player.Y][player.X].Rep = GameManager.ConvertChar(player.HealthRep);
-			target.CanAttack = false;
+			Dungeon.Grid[player.Y][player.X].Rep = GameManager.ConvertToChar(player.HealthRep);
+			m.CanAttack = false;
 		}
 
 		/*

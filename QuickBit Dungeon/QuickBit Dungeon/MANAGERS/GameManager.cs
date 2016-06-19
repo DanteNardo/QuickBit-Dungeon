@@ -98,7 +98,7 @@ namespace QuickBit_Dungeon
 					m.ConstructMonster();
 					m.Y = ry;
 					m.X = rx;
-					Dungeon.Grid[ry][rx].Rep = ConvertChar(m.HealthRep);
+					Dungeon.Grid[ry][rx].Rep = ConvertToChar(m.HealthRep);
 					monsters.Add(m);
 				}
 			}
@@ -118,9 +118,10 @@ namespace QuickBit_Dungeon
 			Input.Update();
 			MovePlayer();
 
-			// Update all combat
+			// Update all combat and regeneration
 			if (CombatExists())
 				combat.PerformCombat(player, monsters);
+			combat.PlayerRegen();
 
 			// Update all progress bars
 			healthBar.UpdateValues((int)player.MaxMana, (int)player.HealthMana);
@@ -163,7 +164,7 @@ namespace QuickBit_Dungeon
 					case Input.Direction.NORTH:
 						if (Dungeon.CanMove(-1, 0))
 						{
-							Dungeon.MovePlayer(-1, 0, ConvertChar(player.HealthRep));
+							Dungeon.MovePlayer(-1, 0, ConvertToChar(player.HealthRep));
 							player.Y = Dungeon.PlayerY;
 							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
@@ -173,7 +174,7 @@ namespace QuickBit_Dungeon
 					case Input.Direction.SOUTH:
 						if (Dungeon.CanMove(1, 0))
 						{
-							Dungeon.MovePlayer(1, 0, ConvertChar(player.HealthRep));
+							Dungeon.MovePlayer(1, 0, ConvertToChar(player.HealthRep));
 							player.Y = Dungeon.PlayerY;
 							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
@@ -183,7 +184,7 @@ namespace QuickBit_Dungeon
 					case Input.Direction.EAST:
 						if (Dungeon.CanMove(0, 1))
 						{
-							Dungeon.MovePlayer(0, 1, ConvertChar(player.HealthRep));
+							Dungeon.MovePlayer(0, 1, ConvertToChar(player.HealthRep));
 							player.Y = Dungeon.PlayerY;
 							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
@@ -193,7 +194,7 @@ namespace QuickBit_Dungeon
 					case Input.Direction.WEST:
 						if (Dungeon.CanMove(0, -1))
 						{
-							Dungeon.MovePlayer(0, -1, ConvertChar(player.HealthRep));
+							Dungeon.MovePlayer(0, -1, ConvertToChar(player.HealthRep));
 							player.Y = Dungeon.PlayerY;
 							player.X = Dungeon.PlayerX;
 							player.CanMove = false;
@@ -213,7 +214,7 @@ namespace QuickBit_Dungeon
 			Returns the correct char relative
 			to the integer given.
 		*/ 
-		public static char ConvertChar(int i)
+		public static char ConvertToChar(int i)
 		{
 			return (char)(i+48);
 		}
