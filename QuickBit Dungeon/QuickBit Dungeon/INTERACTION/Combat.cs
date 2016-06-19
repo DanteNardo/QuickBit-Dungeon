@@ -9,7 +9,7 @@ namespace QuickBit_Dungeon
 		Handles all combat functions 
 		between two entities.
 	*/
-	public static class Combat
+	public class Combat
 	{
 		// ======================================
 		// ============= Variables ==============
@@ -27,7 +27,7 @@ namespace QuickBit_Dungeon
 		/*
 			Overall combat handling method.
 		*/
-		public static void PerformCombat(Player player, List<Monster> monsters)
+		public void PerformCombat(Player player, List<Monster> monsters)
 		{
 			// Set data
 			Combat.player = player;
@@ -48,7 +48,7 @@ namespace QuickBit_Dungeon
 			The player attacks the monster that is
 			in the current player's direction.
 		*/
-		private static void PlayerCombat()
+		private void PlayerCombat()
 		{
 			if (player.CanAttack)
 			{
@@ -56,7 +56,7 @@ namespace QuickBit_Dungeon
 				{
 					case Input.Direction.NORTH:
 						if (GameManager.MonsterAt(player.Y-1, player.X, ref target) &&
-							Input.PlayerAttack != Input.Attack.NONE)
+							Input.PlayerState != Input.ePlayerState.NONE)
 						{
 							PlayerAttack();
 							if (MonsterDied())
@@ -65,7 +65,7 @@ namespace QuickBit_Dungeon
 						break;
 					case Input.Direction.SOUTH:
 						if (GameManager.MonsterAt(player.Y+1, player.X, ref target) &&
-							Input.PlayerAttack != Input.Attack.NONE)
+							Input.PlayerState != Input.ePlayerState.NONE)
 						{
 							PlayerAttack();
 							if (MonsterDied())
@@ -74,7 +74,7 @@ namespace QuickBit_Dungeon
 						break;
 					case Input.Direction.EAST:
 						if (GameManager.MonsterAt(player.Y, player.X+1, ref target) &&
-							Input.PlayerAttack != Input.Attack.NONE)
+							Input.PlayerState != Input.ePlayerState.NONE)
 						{
 							PlayerAttack();
 							if (MonsterDied())
@@ -83,7 +83,7 @@ namespace QuickBit_Dungeon
 						break;
 					case Input.Direction.WEST:
 						if (GameManager.MonsterAt(player.Y, player.X-1, ref target) &&
-							Input.PlayerAttack != Input.Attack.NONE)
+							Input.PlayerState != Input.ePlayerState.NONE)
 						{
 							PlayerAttack();
 							if (MonsterDied())
@@ -94,14 +94,14 @@ namespace QuickBit_Dungeon
 			}
 
 			// Reset player variables
-			Input.PlayerAttack = Input.Attack.NONE;
+			Input.PlayerState = Input.ePlayerState.NONE;
 		}
 
 		/*
 			Attacks the player with every possible
 			monster.
 		*/
-		private static void MonstersCombat()
+		private void MonstersCombat()
 		{
 			Monster m;
 			for (int i = 0; i < monsters.Count; i++)
@@ -125,14 +125,14 @@ namespace QuickBit_Dungeon
 			Determines the player's attack and
 			executes the correct method in response.
 		*/
-		private static void PlayerAttack()
+		private void PlayerAttack()
 		{
-			switch (Input.PlayerAttack)
+			switch (Input.PlayerState)
 			{
-				case Input.Attack.PHYSICAL:
+				case Input.ePlayerState.PHYSICAL:
 					PlayerPhysicalAttack();
 					break;
-				case Input.Attack.SPECIAL:
+				case Input.ePlayerState.SPECIAL:
 					if (player.CanSpecial())
 						PlayerSpecialAttack();
 					break;
@@ -143,7 +143,7 @@ namespace QuickBit_Dungeon
 			Executes a player's attack on 
 			a monster's health.
 		*/
-		private static void PlayerPhysicalAttack()
+		private void PlayerPhysicalAttack()
 		{
 			int damage = player.Strength - target.Armor;
 			target.Health -= damage;
@@ -156,7 +156,7 @@ namespace QuickBit_Dungeon
 			Executes a player's special attack
 			on every adjacent monster's health.
 		*/
-		private static void PlayerSpecialAttack()
+		private void PlayerSpecialAttack()
 		{
 			// Determine targets
 			targets.Clear();
@@ -178,7 +178,7 @@ namespace QuickBit_Dungeon
 			Generates a list of valid targets
 			that would be hit by the special attack.
 		*/
-		private static void SpecialAttackTargets()
+		private void SpecialAttackTargets()
 		{
 			Monster m;
 			for (int i = 0; i < monsters.Count; i++)
@@ -203,7 +203,7 @@ namespace QuickBit_Dungeon
 			Executes a monster's attack on
 			a player's health.
 		*/
-		private static void MonsterAttack(ref Monster m)
+		private void MonsterAttack(ref Monster m)
 		{
 			int damage = target.Strength - player.Armor;
 			player.Health -= damage;
@@ -216,7 +216,7 @@ namespace QuickBit_Dungeon
 			Determines whether or not the monster
 			that was attacked by the player was killed.
 		*/
-		private static bool MonsterDied()
+		private bool MonsterDied()
 		{
 			if (target.Health == 0)
 				return true;
@@ -227,7 +227,7 @@ namespace QuickBit_Dungeon
 			Kills a monster and takes away its data
 			from the dungeon and GameManager.
 		*/
-		private static void KillMonster()
+		private void KillMonster()
 		{
 			// Add exp to the player
 			player.XP += target.XP;
@@ -239,7 +239,7 @@ namespace QuickBit_Dungeon
 			Sets the GameManagers values to the
 			post combat player and monster list values.
 		*/
-		private static void EndCombat()
+		private void EndCombat()
 		{
 			GameManager.MainPlayer = player;
 			GameManager.Monsters   = monsters;

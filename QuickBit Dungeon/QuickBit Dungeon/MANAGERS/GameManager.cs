@@ -22,6 +22,7 @@ namespace QuickBit_Dungeon
 		private static List<Monster> monsters;		// Stores all monsters in the level
 		private static Monster target;				// Stores the currently targeted enemy
 		private static Random rnd;					// Random number generator
+		private static Combat combat;				// Contains the methods for all combat
 		private static StatBox statBox;				// Displays the player's stats
 		private static Light light;					// Draws the lighting effect
 		private static ProgressBar healthBar;		// Displays the player's health mana bar
@@ -60,6 +61,7 @@ namespace QuickBit_Dungeon
 			player    = new Player();
 			monsters  = new List<Monster>();
 			rnd		  = new Random();
+			combat	  = new Combat();
 			light     = new Light();
 			statBox   = new StatBox();
 			healthBar = new ProgressBar("Health Mana");
@@ -118,7 +120,7 @@ namespace QuickBit_Dungeon
 
 			// Update all combat
 			if (CombatExists())
-				Combat.PerformCombat(player, monsters);
+				combat.PerformCombat(player, monsters);
 
 			// Update all progress bars
 			healthBar.UpdateValues((int)player.MaxMana, (int)player.HealthMana);

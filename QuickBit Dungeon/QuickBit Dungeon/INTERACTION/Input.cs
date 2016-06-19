@@ -12,8 +12,11 @@ namespace QuickBit_Dungeon
 		// ============= Variables ==============
 		// ======================================
 		
-		private static KeyboardState preState;
-		private static KeyboardState curState;
+		private static KeyboardState preKeyState;
+		private static KeyboardState curKeyState;
+
+		private static GamePadState preGamepadState;
+		private static GamePadState curGamepadState;
 
 		private static Direction currentDirection;
 		public static  Direction CurrentDirection
@@ -36,16 +39,18 @@ namespace QuickBit_Dungeon
 			NONE
 		}
 
-		private static Attack playerAttack;
-		public static  Attack PlayerAttack
+		private static ePlayerState playerState;
+		public static  ePlayerState PlayerState
 		{
-			get { return playerAttack; }
-			set { playerAttack = value; }
+			get { return playerState; }
+			set { playerState = value; }
 		}
-		public enum Attack
+		public enum ePlayerState
 		{
 			PHYSICAL,
 			SPECIAL,
+			HEALING,
+			CHARGING,
 			NONE
 		}
 
@@ -59,8 +64,11 @@ namespace QuickBit_Dungeon
 		*/
 		public static void Update()
 		{
-			preState = curState;
-			curState = Keyboard.GetState();
+			preKeyState = curKeyState;
+			curKeyState = Keyboard.GetState();
+
+			preGamepadState = curGamepadState;
+			curGamepadState = GamePad.GetState(0);
 		}
 
 		/*
@@ -75,28 +83,34 @@ namespace QuickBit_Dungeon
 			// ======================================
 
 			// North
-			if (curState.IsKeyDown(Keys.W))
+			if (Released(Keys.W) || Released(Buttons.DPadUp))
 				currentDirection = Direction.NORTH;
 			// South
-			if (curState.IsKeyDown(Keys.S))
+			if (Released(Keys.S) || Released(Buttons.DPadDown))
 				currentDirection = Direction.SOUTH;
 			// East
-			if (curState.IsKeyDown(Keys.D))
+			if (Released(Keys.D) || Released(Buttons.DPadLeft))
 				currentDirection = Direction.EAST;
 			// West
-			if (curState.IsKeyDown(Keys.A))
+			if (Released(Keys.A) || Released(Buttons.DPadRight))
 				currentDirection = Direction.WEST;
 
 			// ======================================
 			// ============== Combat ================
 			// ======================================
-
+			
 			// Physical
-			if (Released(Keys.J))
-				playerAttack = Attack.PHYSICAL;
+			if (Released(Keys.J) || Released(Buttons.A))
+				playerState = ePlayerState.PHYSICAL;
 			// Special
-			if (Released(Keys.I))
-				playerAttack = Attack.SPECIAL;
+			if (Released(Keys.I) || Released(Buttons.Y))
+				playerState = ePlayerState.SPECIAL;
+			// Healing
+			if (Released(Keys.L) || Released(Buttons.B))
+				playerState = ePlayerState.HEALING;
+			// Charging Mana
+			if (Released(Keys.K) || Released(Buttons.X))
+				playerState = ePlayerState.CHARGING;
 		}
 
 		/*
@@ -105,8 +119,22 @@ namespace QuickBit_Dungeon
 		*/
 		public static bool Released(Keys k)
 		{
-			if (preState.IsKeyDown(k) &&
-				curState.IsKeyUp(k))
+			if (preKeyState.IsKeyDown(k) &&
+				curKeyState.IsKeyUp(k))
+			{
+				return true;
+			}
+			else return false;
+		}
+
+		/*
+			Returns true if the gamepad button
+			was just released.
+		*/
+		public static bool Released(Buttons b)
+		{
+			if (preGamepadState.IsButtonDown(b) &&
+				curGamepadState.IsButtonUp(b))
 			{
 				return true;
 			}
