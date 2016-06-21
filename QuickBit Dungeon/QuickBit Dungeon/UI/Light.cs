@@ -1,67 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.UI
 {
-	class Light
+	internal class Light
 	{
 		// ======================================
-		// ============= Variables ==============
+		// ============== Members ===============
 		// ======================================
-		
-		Texture2D lightTex;
-		Rectangle lightPos;
 
-		const float LIGHT_SCALE_WIDTH = 1f;
-		const float LIGHT_SCALE_HEIGHT = .91f;
+		private const float LightScaleWidth = 1f;
+		private const float LightScaleHeight = .91f;
 
-		// Properties
-		Texture2D LightTex { get { return lightTex; } set { lightTex = value; } }
-		Rectangle LightPos { get { return lightPos; } set { lightPos = value; } }
+		private Texture2D LightTex { get; set; }
+		private Rectangle LightPos { get; set; }
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		// Constructor
-		public Light()
-		{
-			
-		}
-
-		/*
-			This method loads all content for the
-			light object.
-		*/
+		/// <summary>
+		/// This method loads all content for the
+		///	light object.
+		/// </summary>
 		public void LoadContent()
 		{
-			lightTex = ArtManager.LightTex;
+			LightTex = ArtManager.LightTex;
 		}
 
-		/*
-			This method generates a light
-			object's position data.
-		*/
+		/// <summary>
+		/// This method generates a light
+		///	object's position data.
+		/// </summary>
+		/// <param name="dungeonPosition">The position of the dungeon on screen</param>
 		public void PositionLight(Vector2 dungeonPosition)
 		{
-			lightPos = new Rectangle((int)dungeonPosition.X, 
-									 (int)dungeonPosition.Y, 
-									 (int)(lightTex.Width*LIGHT_SCALE_WIDTH), 
-									 (int)(lightTex.Height*LIGHT_SCALE_HEIGHT));
+			LightPos = new Rectangle((int) dungeonPosition.X,
+				(int) dungeonPosition.Y,
+				(int) (LightTex.Width*LightScaleWidth),
+				(int) (LightTex.Height*LightScaleHeight));
 		}
 
-		/*
-			This method draws the lighting
-			effect to the screen.
-		*/
+		/// <summary>
+		/// This method draws the lighting
+		///	effect to the screen.
+		/// </summary>
+		/// <param name="sb">The spritebatch</param>
 		public void DrawLight(SpriteBatch sb)
 		{
-			sb.Draw(lightTex, lightPos, Color.White);
+			sb.Draw(LightTex, LightPos, Color.White);
 		}
 	}
 }

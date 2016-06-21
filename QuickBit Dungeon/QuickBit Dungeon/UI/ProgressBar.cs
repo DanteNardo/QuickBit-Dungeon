@@ -1,94 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.UI
 {
-	class ProgressBar
+	internal class ProgressBar
 	{
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
 		
-		private Vector2 position;
-		private string name;
-		private string progressBar;
-		private float maxValue = 100;
-		private float curValue = 100;
-		private int percent;
-		const int BAR_SIZE = 20;
+		private const int BarSize = 20;
+		private readonly string _name;
+		private int _percent;
+		private string _progressBar;
 
-		// Properties
-		public Vector2 Position { get { return position; } set { position = value; } }
-		public float MaxValue {	  get { return maxValue; } set { maxValue = value; } }
-		public float CurValue {   get { return curValue; } set { curValue = value; } }
+		public Vector2 Position { get; set; }
+		public float MaxValue { get; set; } = 100;
+		public float CurValue { get; set; } = 100;
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		// Constructor
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="name">Name of the bar</param>
 		public ProgressBar(string name)
 		{
-			this.name = name;
+			_name = name;
 		}
 
-		/*
-			Updates the progress bar so that it
-			loads and appears to load to the user.
-		*/
+		/// <summary>
+		/// Updates the progress bar so that it
+		///	loads and appears to load to the user.
+		/// </summary>
 		public void Update()
 		{
 			DeterminePercent();
 			GenerateProgressBar();
 		}
 
-		/*
-			Update the values for the progress
-			bars.
-		*/
+		/// <summary>
+		/// Update the values for the progress
+		///	bars.
+		/// </summary>
+		/// <param name="max">The max value of the data source</param>
+		/// <param name="cur">The current value of the data source</param>
 		public void UpdateValues(int max, int cur)
 		{
-			maxValue = max;
-			curValue = cur;
+			MaxValue = max;
+			CurValue = cur;
 		}
 
-		/*
-			Determines the percent loaded from
-			the max and current values.
-		*/
+		/// <summary>
+		/// Determines the percent loaded from
+		/// the max and current values.
+		/// </summary>
 		private void DeterminePercent()
 		{
-			percent = (int)(curValue/(maxValue/BAR_SIZE));
+			_percent = (int) (CurValue/(MaxValue/BarSize));
 		}
 
-		/*
-			Generates the string that represents
-			the progress bar.
-		*/
+		/// <summary>
+		/// Generates the string that represents
+		/// the progress bar.
+		/// </summary>
 		private void GenerateProgressBar()
 		{
-			progressBar = name + ": |";
+			_progressBar = _name + ": |";
 
-			for (int i = 0; i < percent; i++)
-				progressBar += "#";
-			for (int j = percent; j < BAR_SIZE; j++)
-				progressBar += " ";
+			for (var i = 0; i < _percent; i++)
+				_progressBar += "#";
+			for (var j = _percent; j < BarSize; j++)
+				_progressBar += " ";
 
-			progressBar += "|";
+			_progressBar += "|";
 		}
 
-		/*
-			Draws the progress bar at the
-			initial position that was set.
-		*/
+		/// <summary>
+		/// Draws the progress bar at the
+		/// initial position that was set.
+		/// </summary>
+		/// <param name="sb">The spritebatch</param>
 		public void DrawProgressBar(SpriteBatch sb)
 		{
-			sb.DrawString(ArtManager.StatsFont, progressBar, position, Color.White);
+			sb.DrawString(ArtManager.StatsFont, _progressBar, Position, Color.White);
 		}
 	}
 }

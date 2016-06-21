@@ -38,14 +38,15 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MANAGERS\ArtManager.cs" />
+    <Compile Include="ArtManager.cs" />
     <Compile Include="DUNGEON\Cell.cs" />
     <Compile Include="INTERACTION\Combat.cs" />
     <Compile Include="DUNGEON\Dungeon.cs" />
     <Compile Include="CORE\Entity.cs" />
-    <Compile Include="CORE\Game1.cs" />
-    <Compile Include="MANAGERS\GameManager.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="CORE\World.cs" />
     <Compile Include="INTERACTION\Input.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="UI\Light.cs" />
     <Compile Include="CORE\Monster.cs" />
     <Compile Include="CORE\Player.cs" />

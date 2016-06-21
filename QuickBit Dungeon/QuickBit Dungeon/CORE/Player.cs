@@ -1,42 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using QuickBit_Dungeon.DUNGEON;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.CORE
 {
 	public class Player : Entity
 	{
 		// ======================================
 		// ============= Variables ==============
-		// ======================================
-		
-		private int x;				// The x coordinate of the player's position
-		private int y;				// The y coordinate of the player's position
-		private int xpNeeded;		// The amount of xp necessary to level up
-		private int manaCost;		// The amount of mana the player loses each use
-		
+		// ======================================	
+
 		// Properties
-		public int X		{ get { return x; }		   set { x		  = value; } }
-		public int Y		{ get { return y; }		   set { y		  = value; } }
-		public int ManaCost { get { return manaCost; } set { manaCost = value; } }
+		public int XpNeeded { get; }
+		public int ManaCost { get; set; }
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		// Constructor
-		public Player() : base()
+		#region Methods
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public Player()
 		{
 			ConstructPlayer();
-			xpNeeded = 100;
-			manaCost = 50;
+			XpNeeded = 100;
+			ManaCost = 50;
 		}
 
-		/*
-			Regenerates the player's mana based
-			off of their wisdom.
-		*/
+		/// <summary>
+		/// Regenerates the player's mana based
+		///	off of their wisdom.
+		/// </summary>
 		public void RegenerateMana()
 		{
 			HealthMana += Wisdom/10;
@@ -45,10 +40,10 @@ namespace QuickBit_Dungeon
 			if (AttackMana > MaxMana) AttackMana = MaxMana;
 		}
 
-		/*
-			Regenerates the player's health based
-			off of their mana.
-		*/
+		/// <summary>
+		/// Regenerates the player's health based
+		/// off of their mana.
+		/// </summary>
 		public void RegenerateHealth()
 		{
 			if (HealthMana > ManaCost && Health < MaxHealth)
@@ -57,30 +52,30 @@ namespace QuickBit_Dungeon
 				HealthMana -= ManaCost;
 				if (Health > MaxHealth) Health = MaxHealth;
 				CalculateHealthRep();
-				Dungeon.Grid[x][y].Rep = GameManager.ConvertToChar(HealthRep);
+				Dungeon.Grid[X][Y].Rep = World.ConvertToChar(HealthRep);
 			}
 		}
 
-		/*
-			Determines if the player can perform
-			a special attack.
-		*/
+		/// <summary>
+		/// Determines if the player can perform
+		///	a special attack.
+		/// </summary>
+		/// <returns>Whether or not a special attack can be performed</returns>
 		public bool CanSpecial()
 		{
-			if (AttackMana > ManaCost)
-				 return true;
-			else return false;
+			return AttackMana > ManaCost;
 		}
 
-		/*
-			Determines if the player can perform
-			self healing magic.
-		*/
+		/// <summary>
+		/// Determines if the player can perform
+		///	self healing magic.
+		/// </summary>
+		/// <returns>Whether or not healing can be performed</returns>
 		public bool CanHeal()
 		{
-			if (HealthMana > ManaCost)
-				 return true;
-			else return false;
+			return HealthMana > ManaCost;
 		}
+
+		#endregion
 	}
 }

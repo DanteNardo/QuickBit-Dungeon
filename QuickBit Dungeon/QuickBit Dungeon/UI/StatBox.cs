@@ -1,69 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using QuickBit_Dungeon.CORE;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.UI
 {
-	class StatBox
+	internal class StatBox
 	{
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
 		
-		Texture2D boxTex;
-		Rectangle boxRec;
-		string stats;
-		const int PADDING = 40;
-
-		// Properties
-		Texture2D BoxTex { get { return boxTex; } set { boxTex = value; } }
-		Rectangle BoxRec { get { return boxRec; } set { boxRec = value; } }
+		private const int Padding = 40;
+		private string _stats;
+		
+		private Texture2D BoxTex { get; set; }
+		private Rectangle BoxRec { get; }
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		// Constructor
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public StatBox()
 		{
-			boxRec = new Rectangle(0, 450, 600, 150);
+			BoxRec = new Rectangle(0, 450, 600, 150);
 		}
 
-		/*
-			This method passes in and saves the
-			box's background texture.
-		*/
+		/// <summary>
+		/// This method passes in and saves the
+		/// box's background texture.
+		/// </summary>
 		public void LoadContent()
 		{
-			boxTex = ArtManager.StatsBoxTex;
+			BoxTex = ArtManager.StatsBoxTex;
 		}
 
-		/*
-			This gives the stats box the current
-			player's stats.
-		*/
+		/// <summary>
+		/// This gives the stats box the current
+		/// player's stats.
+		/// </summary>
+		/// <param name="p">The player to generate stats from</param>
 		public void GenerateStats(Player p)
 		{
-			stats = "";
-			stats += "Strength: "  + p.Strength  + "\n";
-			stats += "Dexterity: " + p.Dexterity + "\n";
-			stats += "Wisdom: "    + p.Wisdom    + "\n";
+			_stats = "";
+			_stats += "Strength: " + p.Strength + "\n";
+			_stats += "Dexterity: " + p.Dexterity + "\n";
+			_stats += "Wisdom: " + p.Wisdom + "\n";
 		}
 
-		/*
-			Performs the drawing operations for
-			the stats box.
-		*/
+		/// <summary>
+		/// Performs the drawing operations for
+		/// the stats box.
+		/// </summary>
+		/// <param name="sb">The spritebatch</param>
 		public void DrawStats(SpriteBatch sb)
 		{
-			sb.Draw(boxTex, boxRec, Color.White);
-			sb.DrawString(ArtManager.StatsFont, stats, 
-						  new Vector2(boxRec.X+PADDING, boxRec.Y+PADDING), 
-						  Color.White);
+			sb.Draw(BoxTex, BoxRec, Color.White);
+			sb.DrawString(ArtManager.StatsFont, _stats,
+				new Vector2(BoxRec.X + Padding, BoxRec.Y + Padding),
+				Color.White);
 		}
 	}
 }

@@ -1,38 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using QuickBit_Dungeon.CORE;
+using QuickBit_Dungeon.DUNGEON;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.INTERACTION
 {
-	/*
-		Handles all combat functions 
-		between two entities.
-	*/
+	/// <summary>
+	/// Handles all combat functions 
+	///	between two entities.
+	/// </summary>
 	public class Combat
 	{
 		// ======================================
-		// ============= Variables ==============
+		// ============== Members ===============
 		// ======================================
 		
-		private static Player player;
-		private static Monster target;
-		private static List<Monster> targets;
-		private static List<Monster> monsters;
+		private static Player _player;
+		private static Monster _target;
+		private static List<Monster> _targets;
+		private static List<Monster> _monsters;
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		/*
-			Overall combat handling method.
-		*/
+		/// <summary>
+		/// Overall combat handling method.
+		/// </summary>
+		/// <param name="player">Player object</param>
+		/// <param name="monsters">List of monsters in current level</param>
 		public void PerformCombat(Player player, List<Monster> monsters)
 		{
 			// Set data
-			Combat.player = player;
-			Combat.monsters = monsters;
-			targets = new List<Monster>();
+			_player = player;
+			_monsters = monsters;
+			_targets = new List<Monster>();
 
 			// Player combat
 			PlayerCombat();
@@ -44,226 +45,209 @@ namespace QuickBit_Dungeon
 			EndCombat();
 		}
 
-		/*
-			The player attacks the monster that is
-			in the current player's direction.
-		*/
+		/// <summary>
+		/// The player attacks the monster that is
+		///	in the current player's direction.
+		/// </summary>
 		private void PlayerCombat()
 		{
-			if (player.CanAttack)
+			if (Input.PlayerState == Input.EPlayerState.None) return;
+			switch (Input.LastDirection)
 			{
-				switch (Input.LastDirection)
-				{
-					case Input.Direction.NORTH:
-						if (GameManager.MonsterAt(player.Y-1, player.X, ref target) &&
-							Input.PlayerState != Input.ePlayerState.NONE)
-						{
-							PlayerAttack();
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.SOUTH:
-						if (GameManager.MonsterAt(player.Y+1, player.X, ref target) &&
-							Input.PlayerState != Input.ePlayerState.NONE)
-						{
-							PlayerAttack();
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.EAST:
-						if (GameManager.MonsterAt(player.Y, player.X+1, ref target) &&
-							Input.PlayerState != Input.ePlayerState.NONE)
-						{
-							PlayerAttack();
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-					case Input.Direction.WEST:
-						if (GameManager.MonsterAt(player.Y, player.X-1, ref target) &&
-							Input.PlayerState != Input.ePlayerState.NONE)
-						{
-							PlayerAttack();
-							if (MonsterDied())
-								KillMonster();
-						}
-						break;
-				}
+				case Input.Direction.North:
+					if (World.MonsterAt(_player.Y-1, _player.X, ref _target))
+					{
+						PlayerAttack();
+						if (MonsterDied())
+							KillMonster();
+					}
+					break;
+				case Input.Direction.South:
+					if (World.MonsterAt(_player.Y+1, _player.X, ref _target))
+					{
+						PlayerAttack();
+						if (MonsterDied())
+							KillMonster();
+					}
+					break;
+				case Input.Direction.East:
+					if (World.MonsterAt(_player.Y, _player.X+1, ref _target))
+					{
+						PlayerAttack();
+						if (MonsterDied())
+							KillMonster();
+					}
+					break;
+				case Input.Direction.West:
+					if (World.MonsterAt(_player.Y, _player.X-1, ref _target))
+					{
+						PlayerAttack();
+						if (MonsterDied())
+							KillMonster();
+					}
+					break;
 			}
 
 			// Reset player variables
-			Input.PlayerState = Input.ePlayerState.NONE;
+			Input.PlayerState = Input.EPlayerState.None;
 		}
 
-		/*
-			Attacks the player with every possible
-			monster.
-		*/
+		/// <summary>
+		/// Attacks the player with every possible
+		///	monster.
+		/// </summary>
 		private void MonstersCombat()
 		{
-			Monster m;
-			for (int i = 0; i < monsters.Count; i++)
+			foreach (var t in _monsters)
 			{
-				m = monsters[i];
+				var m = t;
 
-				if ((m.Y == player.Y && m.X == player.X+1) ||
-					(m.Y == player.Y && m.X == player.X-1) ||
-					(m.Y == player.Y+1 && m.X == player.X) ||
-					(m.Y == player.Y-1 && m.X == player.X))
-				{
-					if (m.CanAttack)
-					{
-						MonsterAttack(ref m);
-					}
-				}
+				if ((m.Y != _player.Y || m.X != _player.X + 1) && (m.Y != _player.Y || m.X != _player.X - 1) &&
+				    (m.Y != _player.Y + 1 || m.X != _player.X) && (m.Y != _player.Y - 1 || m.X != _player.X)) continue;
+				if (m.CanAttack)
+					MonsterAttack(ref m);
 			}
 		}
 
-		/*
-			Determines the player's attack and
-			executes the correct method in response.
-		*/
+		/// <summary>
+		/// Determines the player's attack and
+		///	executes the correct method in response.
+		/// </summary>
 		private void PlayerAttack()
 		{
 			switch (Input.PlayerState)
 			{
-				case Input.ePlayerState.PHYSICAL:
+				case Input.EPlayerState.Physical:
 					PlayerPhysicalAttack();
 					break;
-				case Input.ePlayerState.SPECIAL:
-					if (player.CanSpecial())
+				case Input.EPlayerState.Special:
+					if (_player.CanSpecial())
 						PlayerSpecialAttack();
 					break;
 			}
 		}
 
-		/*
-			Determines if a player is currently
-			regenerating health or mana.
-		*/
+		/// <summary>
+		/// Determines if a player is currently
+		///	regenerating health or mana.
+		/// </summary>
 		public void PlayerRegen()
 		{
 			switch (Input.PlayerState)
 			{
-				case Input.ePlayerState.HEALING:
-					if (player.CanHeal())
-						player.RegenerateHealth();
+				case Input.EPlayerState.Healing:
+					if (_player.CanHeal())
+						_player.RegenerateHealth();
 					break;
-				case Input.ePlayerState.CHARGING:
-					player.RegenerateMana();
+				case Input.EPlayerState.Charging:
+					_player.RegenerateMana();
 					break;
 			}
 			
-			Input.PlayerState = Input.ePlayerState.NONE;
+			Input.PlayerState = Input.EPlayerState.None;
 		}
 
-		/*
-			Executes a player's attack on 
-			a monster's health.
-		*/
+		/// <summary>
+		/// Executes a player's attack on 
+		///	a monster's health.
+		/// </summary>
 		private void PlayerPhysicalAttack()
 		{
-			int damage = player.Strength - target.Armor;
-			target.Health -= damage;
-			target.CalculateHealthRep();
-			Dungeon.Grid[target.Y][target.X].Rep = GameManager.ConvertToChar(target.HealthRep);
-			player.CanAttack = false;
+			var damage = _player.Strength - _target.Armor;
+			_target.Health -= damage;
+			_target.CalculateHealthRep();
+			Dungeon.Grid[_target.Y][_target.X].Rep = World.ConvertToChar(_target.HealthRep);
 		}
 
-		/*
-			Executes a player's special attack
-			on every adjacent monster's health.
-		*/
+		/// <summary>
+		/// Executes a player's special attack
+		///	on every adjacent monster's health.
+		/// </summary>
 		private void PlayerSpecialAttack()
 		{
 			// Determine targets
-			targets.Clear();
+			_targets.Clear();
 			SpecialAttackTargets();
 
 			// Perform special attack
-			for (int i = 0; i < targets.Count; i++)
+			foreach (var t in _targets)
 			{
-				int damage = player.Wisdom + GameManager.Rand.Next(1, player.Wisdom*10);
-				targets[i].Health -= damage;
-				targets[i].CalculateHealthRep();
-				Dungeon.Grid[targets[i].Y][targets[i].X].Rep = GameManager.ConvertToChar(targets[i].HealthRep);
+				var damage = _player.Wisdom + World.Rand.Next(1, _player.Wisdom*10);
+				t.Health -= damage;
+				t.CalculateHealthRep();
+				Dungeon.Grid[t.Y][t.X].Rep = World.ConvertToChar(t.HealthRep);
 			}
 			
-			player.AttackMana -= player.ManaCost;
-			player.CanAttack = false;
+			// Take away mana from player for the attack
+			_player.AttackMana -= _player.ManaCost;
 		}
 
-		/*
-			Generates a list of valid targets
-			that would be hit by the special attack.
-		*/
+		/// <summary>
+		/// Generates a list of valid targets
+		///	that would be hit by the special attack.
+		/// </summary>
 		private void SpecialAttackTargets()
 		{
-			Monster m;
-			for (int i = 0; i < monsters.Count; i++)
+			foreach (var m in _monsters)
 			{
-				m = monsters[i];
-
-				if ((m.Y == player.Y && m.X == player.X + 1) ||
-					(m.Y == player.Y && m.X == player.X - 1) ||
-					(m.Y == player.Y + 1 && m.X == player.X) ||
-					(m.Y == player.Y - 1 && m.X == player.X) ||
-					(m.Y == player.Y + 1 && m.X == player.X + 1) ||
-					(m.Y == player.Y + 1 && m.X == player.X - 1) ||
-					(m.Y == player.Y - 1 && m.X == player.X + 1) ||
-					(m.Y == player.Y - 1 && m.X == player.X - 1))
+				if ((m.Y == _player.Y && m.X == _player.X + 1) ||
+				    (m.Y == _player.Y && m.X == _player.X - 1) ||
+				    (m.Y == _player.Y + 1 && m.X == _player.X) ||
+				    (m.Y == _player.Y - 1 && m.X == _player.X) ||
+				    (m.Y == _player.Y + 1 && m.X == _player.X + 1) ||
+				    (m.Y == _player.Y + 1 && m.X == _player.X - 1) ||
+				    (m.Y == _player.Y - 1 && m.X == _player.X + 1) ||
+				    (m.Y == _player.Y - 1 && m.X == _player.X - 1))
 				{
-					targets.Add(m);
+					_targets.Add(m);
 				}
 			}
 		}
 
-		/*
-			Executes a monster's attack on
-			a player's health.
-		*/
+		/// <summary>
+		/// Executes a monster's attack on
+		///	a player's health.
+		/// </summary>
+		/// <param name="m">The monster that is currently attacking</param>
 		private void MonsterAttack(ref Monster m)
 		{
-			int damage = m.Strength - player.Armor;
-			player.Health -= damage;
-			player.CalculateHealthRep();
-			Dungeon.Grid[player.Y][player.X].Rep = GameManager.ConvertToChar(player.HealthRep);
+			var damage = m.Strength - _player.Armor;
+			_player.Health -= damage;
+			_player.CalculateHealthRep();
+			Dungeon.Grid[_player.Y][_player.X].Rep = GameManager.ConvertToChar(_player.HealthRep);
 			m.CanAttack = false;
 		}
 
-		/*
-			Determines whether or not the monster
-			that was attacked by the player was killed.
-		*/
+		/// <summary>
+		/// Determines whether or not the monster
+		///	that was attacked by the player was killed.
+		/// </summary>
+		/// <returns>Whether or not the monster last attacked died</returns>
 		private bool MonsterDied()
 		{
-			if (target.Health == 0)
-				return true;
-			else return false;
+			return _target.Health == 0;
 		}
 
-		/*
-			Kills a monster and takes away its data
-			from the dungeon and GameManager.
-		*/
+		/// <summary>
+		/// Kills a monster and takes away its data
+		///	from the dungeon and World.
+		/// </summary>
 		private void KillMonster()
 		{
 			// Add exp to the player
-			player.XP += target.XP;
-			monsters.Remove(target);
-			Dungeon.Grid[target.Y][target.X].Rep = Dungeon.Grid[target.Y][target.X].Type;
+			_player.Xp += _target.Xp;
+			_monsters.Remove(_target);
+			Dungeon.Grid[_target.Y][_target.X].Rep = Dungeon.Grid[_target.Y][_target.X].Type;
 		}
 
-		/*
-			Sets the GameManagers values to the
-			post combat player and monster list values.
-		*/
+		/// <summary>
+		/// Sets the GameManagers values to the
+		///	post combat player and monster list values.
+		/// </summary>
 		private void EndCombat()
 		{
-			GameManager.MainPlayer = player;
-			GameManager.Monsters   = monsters;
+			World.MainPlayer = _player;
+			World.Monsters   = _monsters;
 		}
 	}
 }

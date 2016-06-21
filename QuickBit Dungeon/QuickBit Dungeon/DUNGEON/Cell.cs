@@ -1,55 +1,60 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class Cell {
-
-	// ======================================
-	// ============= Variables ==============
-	// ======================================
-
-	private char type;				// Represents the type of cell
-	private char rep;				// The current visual representation
-	private int size;				// The size of the dungeon
-	private int x;					// The x coordinate in dungeon
-	private int y;					// The y coordinate in dungeon
-	private List<int[]> neighbors;	// This cell's neighboring locations
-
-	// Properties
-	public char Type			 { get { return type; } set { type = value; rep = value; } }
-	public char Rep				 { get { return rep; }  set { rep  = value; } }
-	public int X				 { get { return x; } }
-	public int Y				 { get { return y; } }
-	public List<int[]> Neighbors { get { return neighbors; } }
-
-
-	// ======================================
-	// ============== Methods ===============
-	// ======================================
-
-	// Constructor
-	public void Construct(int size, int y, int x)
+namespace QuickBit_Dungeon.DUNGEON
+{
+	public class Cell
 	{
-		// Initialize variables
-		type      = ' ';
-		rep	      = type;
-		this.size = size;
-		this.x    = x;
-		this.y    = y;
-		neighbors = new List<int[]>();
-	}
 
-	// Generates a list of int arrays
-	// The arrays correspond to x,y cooridnates
-	public void GenerateNeighbors()
-	{
-		if (x+1 < size)
-			neighbors.Add(new int[2] { y, x+1 });
-		if (x-1 >= 0)
-			neighbors.Add(new int[2] { y, x-1 });
-		if (y+1 < size)
-			neighbors.Add(new int[2] { y+1, x });
-		if (y-1 >= 0)
-			neighbors.Add(new int[2] { y-1, x });
+		// ======================================
+		// ============= Variables ==============
+		// ======================================
+		
+		private int _size; // The size of the dungeon
+		private char _type; // Represents the type of cell
+		
+		public char Type { get; set; }
+		public char Rep { get; set; }
+
+		public int X { get; private set; }
+		public int Y { get; private set; }
+		public List<int[]> Neighbors { get; private set; }
+
+
+		// ======================================
+		// ============== Methods ===============
+		// ======================================
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="size">The size of the grid</param>
+		/// <param name="y">The y coordinate of the cell</param>
+		/// <param name="x">The x coordinate of the cell</param>
+		public void Construct(int size, int y, int x)
+		{
+			// Initialize variables
+			_type = ' ';
+			Rep = _type;
+			_size = size;
+			X = x;
+			Y = y;
+			Neighbors = new List<int[]>();
+		}
+
+		/// <summary>
+		/// Generates a list of int arrays
+		/// The arrays correspond to x,y cooridnates
+		/// </summary>
+		public void GenerateNeighbors()
+		{
+			if (X + 1 < _size)
+				Neighbors.Add(new int[2] {Y, X + 1});
+			if (X - 1 >= 0)
+				Neighbors.Add(new int[2] {Y, X - 1});
+			if (Y + 1 < _size)
+				Neighbors.Add(new int[2] {Y + 1, X});
+			if (Y - 1 >= 0)
+				Neighbors.Add(new int[2] {Y - 1, X});
+		}
 	}
 }

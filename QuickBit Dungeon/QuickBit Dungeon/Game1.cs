@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using QuickBit_Dungeon.CORE;
+using QuickBit_Dungeon.DUNGEON;
 
 namespace QuickBit_Dungeon
 {
@@ -9,17 +11,16 @@ namespace QuickBit_Dungeon
 	/// </summary>
 	public class Game1 : Game
 	{
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
-
 		// Window size variables
-		const int SCREEN_WIDTH  = 600;
-		const int SCREEN_HEIGHT = 600;
-		Vector2 SCREEN_CENTER;
+		private const int SCREEN_WIDTH = 600;
+		private const int SCREEN_HEIGHT = 600;
+		private readonly GraphicsDeviceManager _graphics;
+		private Vector2 _screenCenter;
+		private SpriteBatch _spriteBatch;
 
 		public Game1()
 		{
-			graphics = new GraphicsDeviceManager(this);
+			_graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 		}
 
@@ -31,23 +32,21 @@ namespace QuickBit_Dungeon
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
-
 			/*
 				Determine the center of the screen. Initialize
 				the size of the window.
 			*/
-			SCREEN_CENTER = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-			graphics.PreferredBackBufferWidth= SCREEN_WIDTH;
-			graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
-			graphics.ApplyChanges();
+			_screenCenter = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+			_graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+			_graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+			_graphics.ApplyChanges();
 
 
 			// Dungeon initialiazation
 			Dungeon.Construct();
 
-			// GameManager initialization
-			GameManager.Init();
+			// World initialization
+			World.Init();
 
 			base.Initialize();
 		}
@@ -59,13 +58,11 @@ namespace QuickBit_Dungeon
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			// TODO: use this.Content to load your game content here
+			_spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// Load and save all game content
 			ArtManager.LoadContent(Content);
-			GameManager.LoadContent();
+			World.LoadContent();
 		}
 
 		/// <summary>
@@ -74,7 +71,7 @@ namespace QuickBit_Dungeon
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
+
 		}
 
 		/// <summary>
@@ -84,12 +81,11 @@ namespace QuickBit_Dungeon
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || 
-				Keyboard.GetState().IsKeyDown(Keys.Escape))
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+			    Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			// TODO: Add your update logic here
-			GameManager.Update();
+			World.Update();
 
 			base.Update(gameTime);
 		}
@@ -102,12 +98,11 @@ namespace QuickBit_Dungeon
 		{
 			GraphicsDevice.Clear(Color.Black);
 
-			// TODO: Add your drawing code here
-			spriteBatch.Begin();
-			GameManager.Draw(spriteBatch);
-			spriteBatch.End();
+			_spriteBatch.Begin();
+			World.Draw(_spriteBatch);
+			_spriteBatch.End();
 
 			base.Draw(gameTime);
-		}	
+		}
 	}
 }

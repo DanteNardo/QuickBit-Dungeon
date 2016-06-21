@@ -1,81 +1,62 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.INTERACTION
 {
 	public static class Input
 	{
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
-		
-		private static KeyboardState preKeyState;
-		private static KeyboardState curKeyState;
 
-		private static GamePadState preGamepadState;
-		private static GamePadState curGamepadState;
+		private static KeyboardState _preKeyState;
+		private static KeyboardState _curKeyState;
 
-		private static Direction currentDirection;
-		public static  Direction CurrentDirection
-		{
-			get { return currentDirection; }
-			set { currentDirection = value; }
-		}
-		private static Direction lastDirection;
-		public static  Direction LastDirection
-		{
-			get { return lastDirection; }
-			set { lastDirection = value; }
-		}
+		private static GamePadState _preGamepadState;
+		private static GamePadState _curGamepadState;
+
+		public static Direction CurrentDirection { get; set; }
+		public static Direction LastDirection { get; set; }
 		public enum Direction
 		{
-			NORTH,
-			SOUTH,
-			EAST,
-			WEST,
-			NONE
+			North,
+			South,
+			East,
+			West,
+			None
 		}
 
-		private static ePlayerState playerState;
-		public static  ePlayerState PlayerState
+		public static EPlayerState PlayerState { get; set; }
+		public enum EPlayerState
 		{
-			get { return playerState; }
-			set { playerState = value; }
-		}
-		public enum ePlayerState
-		{
-			PHYSICAL,
-			SPECIAL,
-			HEALING,
-			CHARGING,
-			NONE
+			Physical,
+			Special,
+			Healing,
+			Charging,
+			None
 		}
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
-		/*
-			Updates the keyboard state variable
-			every frame.
-		*/
+		/// <summary>
+		/// Updates the keyboard state variable
+		///	every frame.
+		/// </summary>
 		public static void Update()
 		{
-			preKeyState = curKeyState;
-			curKeyState = Keyboard.GetState();
+			_preKeyState = _curKeyState;
+			_curKeyState = Keyboard.GetState();
 
-			preGamepadState = curGamepadState;
-			curGamepadState = GamePad.GetState(0);
+			_preGamepadState = _curGamepadState;
+			_curGamepadState = GamePad.GetState(0);
 		}
 
-		/*
-			Determines if correct keys are
-			being pressed to count as input.
-			Updates direction accordingly.
-		*/
+		/// <summary>
+		/// Determines if correct keys are
+		///	being pressed to count as input.
+		///	Updates direction accordingly.
+		/// </summary>
 		public static void GetInput()
 		{
 			// ======================================
@@ -84,61 +65,57 @@ namespace QuickBit_Dungeon
 
 			// North
 			if (Released(Keys.W) || Released(Buttons.DPadUp))
-				currentDirection = Direction.NORTH;
+				CurrentDirection = Direction.North;
 			// South
 			if (Released(Keys.S) || Released(Buttons.DPadDown))
-				currentDirection = Direction.SOUTH;
+				CurrentDirection = Direction.South;
 			// East
 			if (Released(Keys.D) || Released(Buttons.DPadLeft))
-				currentDirection = Direction.EAST;
+				CurrentDirection = Direction.East;
 			// West
 			if (Released(Keys.A) || Released(Buttons.DPadRight))
-				currentDirection = Direction.WEST;
+				CurrentDirection = Direction.West;
 
 			// ======================================
 			// ============== Combat ================
 			// ======================================
-			
+
 			// Physical
 			if (Released(Keys.J) || Released(Buttons.A))
-				playerState = ePlayerState.PHYSICAL;
+				PlayerState = EPlayerState.Physical;
 			// Special
 			if (Released(Keys.I) || Released(Buttons.Y))
-				playerState = ePlayerState.SPECIAL;
+				PlayerState = EPlayerState.Special;
 			// Healing
 			if (Released(Keys.L) || Released(Buttons.B))
-				playerState = ePlayerState.HEALING;
+				PlayerState = EPlayerState.Healing;
 			// Charging Mana
 			if (Released(Keys.K) || Released(Buttons.X))
-				playerState = ePlayerState.CHARGING;
+				PlayerState = EPlayerState.Charging;
 		}
 
-		/*
-			Returns true if the key was
-			just released.
-		*/
+		/// <summary>
+		/// Returns true if the key was
+		///	just released.
+		/// </summary>
+		/// <param name="k">The key to check if pressed</param>
+		/// <returns>Whether the key was pressed or not</returns>
 		public static bool Released(Keys k)
 		{
-			if (preKeyState.IsKeyDown(k) &&
-				curKeyState.IsKeyUp(k))
-			{
-				return true;
-			}
-			else return false;
+			return _preKeyState.IsKeyDown(k) &&
+			       _curKeyState.IsKeyUp(k);
 		}
 
-		/*
-			Returns true if the gamepad button
-			was just released.
-		*/
+		/// <summary>
+		/// Returns true if the gamepad button
+		///	was just released.
+		/// </summary>
+		/// <param name="b">The button to check if pressed</param>
+		/// <returns>Whether the button was pressed or not</returns>
 		public static bool Released(Buttons b)
 		{
-			if (preGamepadState.IsButtonDown(b) &&
-				curGamepadState.IsButtonUp(b))
-			{
-				return true;
-			}
-			else return false;
+			return _preGamepadState.IsButtonDown(b) &&
+			       _curGamepadState.IsButtonUp(b);
 		}
 	}
 }
