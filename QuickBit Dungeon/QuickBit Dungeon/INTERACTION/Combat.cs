@@ -156,7 +156,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			var damage = _player.Strength - _target.Armor;
 			_target.Health -= damage;
 			_target.CalculateHealthRep();
-			Dungeon.Grid[_target.Y][_target.X].Rep = World.ConvertToChar(_target.HealthRep);
+			Dungeon.Grid[_target.Y][_target.X].Rep = GameManager.ConvertToChar(_target.HealthRep);
 		}
 
 		/// <summary>
@@ -175,7 +175,7 @@ namespace QuickBit_Dungeon.INTERACTION
 				var damage = _player.Wisdom + World.Rand.Next(1, _player.Wisdom*10);
 				t.Health -= damage;
 				t.CalculateHealthRep();
-				Dungeon.Grid[t.Y][t.X].Rep = World.ConvertToChar(t.HealthRep);
+				Dungeon.Grid[t.Y][t.X].Rep = GameManager.ConvertToChar(t.HealthRep);
 			}
 			
 			// Take away mana from player for the attack

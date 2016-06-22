@@ -5,10 +5,9 @@ namespace QuickBit_Dungeon.CORE
 	public class Player : Entity
 	{
 		// ======================================
-		// ============= Variables ==============
+		// ============== Members ===============
 		// ======================================	
-
-		// Properties
+		
 		public int XpNeeded { get; }
 		public int ManaCost { get; set; }
 
@@ -52,7 +51,7 @@ namespace QuickBit_Dungeon.CORE
 				HealthMana -= ManaCost;
 				if (Health > MaxHealth) Health = MaxHealth;
 				CalculateHealthRep();
-				Dungeon.Grid[X][Y].Rep = World.ConvertToChar(HealthRep);
+				Dungeon.Grid[X][Y].Rep = GameManager.ConvertToChar(HealthRep);
 			}
 		}
 

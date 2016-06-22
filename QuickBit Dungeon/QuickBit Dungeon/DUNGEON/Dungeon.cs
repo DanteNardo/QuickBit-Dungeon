@@ -11,9 +11,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============= Variables ==============
 		// ======================================
 
-		private const int _gridSize = 50;
+		private const int GridSize = 50;
 		private static int[] _pPos;
-		private const int _viewSize = 5;
+		private const int ViewSize = 5;
 		private static Random _rnd;
 
 		public static int PlayerY
@@ -75,7 +75,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// <returns>Whether or not a cell exists within the dungeon</returns>
 		private static bool ValidSquare(int y, int x)
 		{
-			return y >= 0 && x >= 0 && y < _gridSize && x < _gridSize;
+			return y >= 0 && x >= 0 && y < GridSize && x < GridSize;
 		}
 
 		/// <summary>
@@ -103,8 +103,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		private static int[] FindPockets()
 		{
 			var count = 0;
-			for (var i = 0; i < _gridSize; i++)
-				for (var j = 0; j < _gridSize; j++)
+			for (var i = 0; i < GridSize; i++)
+				for (var j = 0; j < GridSize; j++)
 				{
 					if (ValidMazeCell(Grid[i][j]) &&
 					    RoomNearNeighbor(i, j) == false)
@@ -184,9 +184,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static string DungeonView()
 		{
 			var s = "";
-			for (var i = 0; i < _gridSize; i++)
+			for (var i = 0; i < GridSize; i++)
 			{
-				for (var j = 0; j < _gridSize; j++)
+				for (var j = 0; j < GridSize; j++)
 					s += Grid[i][j].Rep + " ";
 				s += "\n";
 			}
@@ -201,11 +201,11 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static string PlayerView()
 		{
 			var s = "";
-			for (var i = _pPos[0] - _viewSize; i <= _pPos[0] + _viewSize; i++)
+			for (var i = _pPos[0] - ViewSize; i <= _pPos[0] + ViewSize; i++)
 			{
-				for (var j = _pPos[1] - _viewSize; j <= _pPos[1] + _viewSize; j++)
+				for (var j = _pPos[1] - ViewSize; j <= _pPos[1] + ViewSize; j++)
 				{
-					if (i >= 0 && i < _gridSize && j >= 0 && j < _gridSize)
+					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
 					{
 						s += Grid[i][j].Rep + " ";
 					}
@@ -250,13 +250,13 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// </summary>
 		private static void GenerateGrid()
 		{
-			for (var i = 0; i < _gridSize; i++)
+			for (var i = 0; i < GridSize; i++)
 			{
 				Grid.Add(new List<Cell>());
-				for (var j = 0; j < _gridSize; j++)
+				for (var j = 0; j < GridSize; j++)
 				{
 					var c = new Cell();
-					c.Construct(_gridSize, i, j);
+					c.Construct(GridSize, i, j);
 					c.GenerateNeighbors();
 					Grid[i].Add(c);
 				}
@@ -304,8 +304,8 @@ namespace QuickBit_Dungeon.DUNGEON
 				var h = _rnd.Next(3, 7);
 
 				// Generate x and y position (0, gridSize)
-				var x = _rnd.Next(0, _gridSize);
-				var y = _rnd.Next(0, _gridSize);
+				var x = _rnd.Next(0, GridSize);
+				var y = _rnd.Next(0, GridSize);
 
 				var validRoom = true;
 
@@ -350,8 +350,8 @@ namespace QuickBit_Dungeon.DUNGEON
 			// Find a valid starting location
 			while (true)
 			{
-				startx = _rnd.Next(0, _gridSize - 1);
-				starty = _rnd.Next(0, _gridSize - 1);
+				startx = _rnd.Next(0, GridSize - 1);
+				starty = _rnd.Next(0, GridSize - 1);
 
 				if (RoomNeighbor(starty, startx) == false)
 					break;
@@ -477,8 +477,8 @@ namespace QuickBit_Dungeon.DUNGEON
 			{
 				cannotBreak = false;
 
-				for (var i = 0; i < _gridSize; i++)
-					for (var j = 0; j < _gridSize; j++)
+				for (var i = 0; i < GridSize; i++)
+					for (var j = 0; j < GridSize; j++)
 
 						/*
 							If it is a dead end:
@@ -510,8 +510,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			while (true)
 			{
-				var y = _rnd.Next(0, _gridSize - 1);
-				var x = _rnd.Next(0, _gridSize - 1);
+				var y = _rnd.Next(0, GridSize - 1);
+				var x = _rnd.Next(0, GridSize - 1);
 
 				if (Grid[y][x].Type != '.') continue;
 				SetPlayer(y, x);
@@ -559,7 +559,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			var ny = e.Y + y;
 			var nx = e.X + x;
 
-			if (ny < 0 || ny >= _gridSize || nx < 0 || nx >= _gridSize) return false;
+			if (ny < 0 || ny >= GridSize || nx < 0 || nx >= GridSize) return false;
 			return Grid[ny][nx].Rep == '.' || Grid[ny][nx].Rep == '#';
 		}
 

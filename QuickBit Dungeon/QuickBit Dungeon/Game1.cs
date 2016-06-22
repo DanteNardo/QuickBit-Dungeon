@@ -12,8 +12,8 @@ namespace QuickBit_Dungeon
 	public class Game1 : Game
 	{
 		// Window size variables
-		private const int SCREEN_WIDTH = 600;
-		private const int SCREEN_HEIGHT = 600;
+		private const int ScreenWidth = 600;
+		private const int ScreenHeight = 600;
 		private readonly GraphicsDeviceManager _graphics;
 		private Vector2 _screenCenter;
 		private SpriteBatch _spriteBatch;
@@ -36,9 +36,9 @@ namespace QuickBit_Dungeon
 				Determine the center of the screen. Initialize
 				the size of the window.
 			*/
-			_screenCenter = new Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-			_graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
-			_graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+			_screenCenter = new Vector2(ScreenWidth/2, ScreenHeight/2);
+			_graphics.PreferredBackBufferWidth = ScreenWidth;
+			_graphics.PreferredBackBufferHeight = ScreenHeight;
 			_graphics.ApplyChanges();
 
 

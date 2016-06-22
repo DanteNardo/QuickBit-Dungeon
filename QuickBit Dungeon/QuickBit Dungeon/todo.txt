@@ -46,6 +46,9 @@ Issues:
 3) INCREASE LEVEL DIFFICULTY
 4) TIMER (LOSS UPON RUNNING OUT OF TIME)
 
+Issues:
+	- Dungeon Generation currently fails
+
 =============================================
 ================ Graphics ===================
 =============================================
