@@ -47,9 +47,8 @@ namespace QuickBit_Dungeon.CORE
 		{
 			if (HealthMana > ManaCost && Health < MaxHealth)
 			{
-				Health += Wisdom;
 				HealthMana -= ManaCost;
-				if (Health > MaxHealth) Health = MaxHealth;
+				UpdateHealth(Wisdom);
 				CalculateHealthRep();
 				Dungeon.Grid[X][Y].Rep = GameManager.ConvertToChar(HealthRep);
 			}

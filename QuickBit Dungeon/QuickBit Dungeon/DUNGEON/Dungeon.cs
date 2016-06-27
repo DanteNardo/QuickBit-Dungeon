@@ -14,7 +14,6 @@ namespace QuickBit_Dungeon.DUNGEON
 		private const int GridSize = 50;
 		private static int[] _pPos;
 		private const int ViewSize = 5;
-		private static Random _rnd;
 
 		public static int PlayerY
 		{
@@ -151,7 +150,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			while (n > 1)
 			{
 				n--;
-				var k = _rnd.Next(0, n + 1);
+				var k = GameManager.Random.Next(0, n + 1);
 				var value = list[k];
 				list[k] = list[n];
 				list[n] = value;
@@ -235,7 +234,6 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			Grid = new List<List<Cell>>();
 			Rooms = new List<Room>();
-			_rnd = new Random();
 			_pPos = new int[2] {0, 0};
 			GenerateDungeon();
 			FindStart();
@@ -300,12 +298,12 @@ namespace QuickBit_Dungeon.DUNGEON
 			while (attempts > 0)
 			{
 				// Generate width and height (3, 7)
-				var w = _rnd.Next(3, 7);
-				var h = _rnd.Next(3, 7);
+				var w = GameManager.Random.Next(3, 7);
+				var h = GameManager.Random.Next(3, 7);
 
 				// Generate x and y position (0, gridSize)
-				var x = _rnd.Next(0, GridSize);
-				var y = _rnd.Next(0, GridSize);
+				var x = GameManager.Random.Next(0, GridSize);
+				var y = GameManager.Random.Next(0, GridSize);
 
 				var validRoom = true;
 
@@ -331,7 +329,10 @@ namespace QuickBit_Dungeon.DUNGEON
 
 					for (var i = y; i < y + h; i++)
 						for (var j = x; j < x + w; j++)
+						{
 							Grid[i][j].Type = '#';
+							Grid[i][j].Rep  = '#';
+						}
 				}
 			}
 		}
@@ -350,8 +351,8 @@ namespace QuickBit_Dungeon.DUNGEON
 			// Find a valid starting location
 			while (true)
 			{
-				startx = _rnd.Next(0, GridSize - 1);
-				starty = _rnd.Next(0, GridSize - 1);
+				startx = GameManager.Random.Next(0, GridSize - 1);
+				starty = GameManager.Random.Next(0, GridSize - 1);
 
 				if (RoomNeighbor(starty, startx) == false)
 					break;
@@ -382,12 +383,13 @@ namespace QuickBit_Dungeon.DUNGEON
 				while (cells.Count > 0)
 				{
 					// Select a random cell from the cell list
-					var rcell = _rnd.Next(0, cells.Count - 1);
+					var rcell = GameManager.Random.Next(0, cells.Count - 1);
 					cc = Grid[cells[rcell][0]][cells[rcell][1]];
 
 					if (ValidMazeCell(cc) && !RoomNearNeighbor(cc.Y, cc.X))
 					{
 						Grid[cc.Y][cc.X].Type = '.';
+						Grid[cc.Y][cc.X].Rep  = '.';
 						cells.AddRange(cc.Neighbors);
 					}
 
@@ -453,6 +455,7 @@ namespace QuickBit_Dungeon.DUNGEON
 						{
 							// Connect room
 							Grid[n[0]][n[1]].Type = '.';
+							Grid[n[0]][n[1]].Rep  = '.';
 
 							connectedCount++;
 							if (connectedCount < 3) continue;
@@ -489,6 +492,7 @@ namespace QuickBit_Dungeon.DUNGEON
 						if (DeadEnd(new int[2] {i, j}))
 						{
 							Grid[i][j].Type = ' ';
+							Grid[i][j].Rep  = ' ';
 							cannotBreak = true;
 						}
 			}
@@ -503,24 +507,26 @@ namespace QuickBit_Dungeon.DUNGEON
 		#region DungeonInteraction
 
 		/// <summary>
-		///     Finds a random starting coordinate
-		///     for the player.
+		/// Finds a random starting coordinate
+		/// for the player.
 		/// </summary>
 		public static void FindStart()
 		{
 			while (true)
 			{
-				var y = _rnd.Next(0, GridSize - 1);
-				var x = _rnd.Next(0, GridSize - 1);
+				var y = GameManager.Random.Next(0, GridSize - 1);
+				var x = GameManager.Random.Next(0, GridSize - 1);
 
-				if (Grid[y][x].Type != '.') continue;
-				SetPlayer(y, x);
-				return;
+				if (Grid[y][x].Type == '.')
+				{
+					SetPlayer(y, x);
+					return;
+				}
 			}
 		}
 
 		/// <summary>
-		///     Sets the player's position in the grid.
+		/// Sets the player's position in the grid.
 		/// </summary>
 		/// <param name="y">Initial y position</param>
 		/// <param name="x">Initial x position</param>
@@ -528,12 +534,23 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			_pPos[0] = y;
 			_pPos[1] = x;
-			Grid[y][x].Rep = '0';
+			Grid[y][x].Rep = '9';
 		}
 
 		/// <summary>
-		///     Sets the entity's position relative
-		///     to it's current position.
+		/// This updates the player object's internal 
+		/// position.
+		/// </summary>
+		/// <param name="p">The player to update</param>
+		public static void GetPlayerPosition(Player p)
+		{
+			p.Y = _pPos[0];
+			p.X = _pPos[1];
+		}
+
+		/// <summary>
+		/// Sets the entity's position relative
+		/// to it's current position.
 		/// </summary>
 		/// <param name="e">The entity that is moving</param>
 		/// <param name="y">The y modifying value</param>
@@ -545,11 +562,18 @@ namespace QuickBit_Dungeon.DUNGEON
 			e.Y += y;
 			e.X += x;
 			Grid[e.Y][e.X].Rep = rep;
+
+			// Update internal player position if necessary
+			if (e is Player)
+			{
+				_pPos[0] += y;
+				_pPos[1] += x;
+			}
 		}
 
 		/// <summary>
-		///     Determines if the location the player
-		///     is trying to move to is a valid location.
+		/// Determines if the location the player
+		/// is trying to move to is a valid location.
 		/// </summary>
 		/// <param name="y">The y position to move to</param>
 		/// <param name="x">The x position to move to</param>

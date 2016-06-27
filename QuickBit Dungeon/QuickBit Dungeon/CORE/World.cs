@@ -53,8 +53,8 @@ namespace QuickBit_Dungeon.CORE
 			_attackBar          = new ProgressBar("Attack Mana");
 			_healthBar.Position = new Vector2(10, 10);
 			_attackBar.Position = new Vector2(10, 50);
-			GameManager.Init();
 			GenerateMonsters();
+			Dungeon.GetPlayerPosition(MainPlayer);
 		}
 
 		/// <summary>
@@ -179,11 +179,6 @@ namespace QuickBit_Dungeon.CORE
 					}
 					break;
 			}
-
-			// Reset input variables
-			if (Input.CurrentDirection != Input.Direction.None)
-				Input.LastDirection = Input.CurrentDirection;
-			Input.CurrentDirection = Input.Direction.None;
 		}
 
 
@@ -218,9 +213,9 @@ namespace QuickBit_Dungeon.CORE
 		///	coordinates.
 		/// </summary>
 		/// <param name="y">The y coordinate</param>
-		/// <param name="x">The y coordinate</param>
+		/// <param name="x">The x coordinate</param>
 		/// <param name="target">The monster to check for</param>
-		/// <returns></returns>
+		/// <returns>Whether or not a monster is at that position</returns>
 		public static bool MonsterAt(int y, int x, ref Monster target)
 		{
 			foreach (var m in Monsters)

@@ -8,9 +8,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
-		
-		private int _size; // The size of the dungeon
-		private char _type; // Represents the type of cell
+
+		private int _size;
 		
 		public char Type { get; set; }
 		public char Rep { get; set; }
@@ -33,8 +32,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		public void Construct(int size, int y, int x)
 		{
 			// Initialize variables
-			_type = ' ';
-			Rep = _type;
+			Type = ' ';
+			Rep = Type;
 			_size = size;
 			X = x;
 			Y = y;

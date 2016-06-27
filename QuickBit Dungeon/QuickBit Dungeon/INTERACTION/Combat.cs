@@ -87,9 +87,6 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 			}
-
-			// Reset player variables
-			Input.PlayerState = Input.EPlayerState.None;
 		}
 
 		/// <summary>
@@ -154,7 +151,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void PlayerPhysicalAttack()
 		{
 			var damage = _player.Strength - _target.Armor;
-			_target.Health -= damage;
+			_target.UpdateHealth(-damage);
 			_target.CalculateHealthRep();
 			Dungeon.Grid[_target.Y][_target.X].Rep = GameManager.ConvertToChar(_target.HealthRep);
 		}
@@ -173,7 +170,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			foreach (var t in _targets)
 			{
 				var damage = _player.Wisdom + World.Rand.Next(1, _player.Wisdom*10);
-				t.Health -= damage;
+				t.UpdateHealth(-damage);
 				t.CalculateHealthRep();
 				Dungeon.Grid[t.Y][t.X].Rep = GameManager.ConvertToChar(t.HealthRep);
 			}
@@ -212,7 +209,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void MonsterAttack(ref Monster m)
 		{
 			var damage = m.Strength - _player.Armor;
-			_player.Health -= damage;
+			_player.UpdateHealth(-damage);
 			_player.CalculateHealthRep();
 			Dungeon.Grid[_player.Y][_player.X].Rep = GameManager.ConvertToChar(_player.HealthRep);
 			m.CanAttack = false;

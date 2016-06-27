@@ -59,6 +59,12 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		public static void GetInput()
 		{
+			// Reset input variables
+			if (CurrentDirection != Direction.None)
+				LastDirection = CurrentDirection;
+			CurrentDirection = Direction.None;
+			PlayerState = EPlayerState.None;
+
 			// ======================================
 			// ============= Movement ===============
 			// ======================================
