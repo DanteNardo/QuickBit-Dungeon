@@ -45,9 +45,11 @@ namespace QuickBit_Dungeon.UI
 		public void GenerateStats(Player p)
 		{
 			_stats = "";
-			_stats += "Strength: " + p.Strength + "\n";
-			_stats += "Dexterity: " + p.Dexterity + "\n";
-			_stats += "Wisdom: " + p.Wisdom + "\n";
+			_stats += "Strength:  " + p.Strength;
+			_stats += "    Current XP: " + p.Xp + "\n";
+			_stats += "Dexterity: " + p.Dexterity;
+			_stats += "    XP Needed:  " + p.XpNeeded + "\n";
+			_stats += "Wisdom:    " + p.Wisdom + "\n";
 		}
 
 		/// <summary>

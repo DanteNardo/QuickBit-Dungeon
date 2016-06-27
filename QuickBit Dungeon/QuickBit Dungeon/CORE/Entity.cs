@@ -106,7 +106,7 @@
 		}
 
 		/// <summary>
-		/// Levels up the character based on
+		/// Levels up an entity based on
 		///	their desired stat change.
 		/// </summary>
 		/// <param name="color">The color the player picked to level up</param>

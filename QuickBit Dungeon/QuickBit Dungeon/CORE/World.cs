@@ -106,6 +106,10 @@ namespace QuickBit_Dungeon.CORE
 			if (CombatExists())
 				_combat.PerformCombat(MainPlayer, Monsters);
 			_combat.PlayerRegen();
+			
+			// XP and Level Up
+			if (MainPlayer.HasEnoughXp())
+				MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
 
 			// Update all progress bars
 			_healthBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);

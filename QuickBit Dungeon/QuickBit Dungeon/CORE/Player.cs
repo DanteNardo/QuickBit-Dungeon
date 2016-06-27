@@ -1,4 +1,5 @@
-﻿using QuickBit_Dungeon.DUNGEON;
+﻿using System;
+using QuickBit_Dungeon.DUNGEON;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -8,7 +9,7 @@ namespace QuickBit_Dungeon.CORE
 		// ============== Members ===============
 		// ======================================	
 		
-		public int XpNeeded { get; }
+		public int XpNeeded { get; internal set; }
 		public int ManaCost { get; set; }
 
 		// ======================================
@@ -72,6 +73,23 @@ namespace QuickBit_Dungeon.CORE
 		public bool CanHeal()
 		{
 			return HealthMana > ManaCost;
+		}
+
+		/// <summary>
+		/// Determines if the player has enough Xp
+		/// to level up.
+		/// </summary>
+		/// <returns>Whether or not the player can level up</returns>
+		public bool HasEnoughXp()
+		{
+			return Xp > XpNeeded;
+		}
+
+		public new void LevelUp(string color)
+		{
+			base.LevelUp(color);
+			Xp = 0;
+			XpNeeded = (int)Math.Pow(XpNeeded, 1.2);
 		}
 
 		#endregion

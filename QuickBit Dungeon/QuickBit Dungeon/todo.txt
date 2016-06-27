@@ -19,10 +19,9 @@
 ================= Combat ====================
 =============================================
 
-1) XP and LEVEL UP
-2) SPECIAL ATTACK
-3) ENEMY AI
-4) PLAYER DEATH - GAME OVER
+1) CRIT CHANCE (dexterity)
+2) ENEMY AI
+3) PLAYER DEATH - GAME OVER
 
 Issues:
 	- Player is visually placed in the wrong spot after healing sometimes
@@ -45,9 +44,6 @@ Issues:
 2) NEXT LEVEL RESET
 3) INCREASE LEVEL DIFFICULTY
 4) TIMER (LOSS UPON RUNNING OUT OF TIME)
-
-Issues:
-	- Dungeon Generation currently fails
 
 =============================================
 ================ Graphics ===================
