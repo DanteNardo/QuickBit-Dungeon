@@ -151,6 +151,8 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void PlayerPhysicalAttack()
 		{
 			var damage = _player.Strength - _target.Armor;
+			if (_player.IsCrit())
+				damage *= 2;
 			_target.UpdateHealth(-damage);
 			_target.CalculateHealthRep();
 			Dungeon.Grid[_target.Y][_target.X].Rep = GameManager.ConvertToChar(_target.HealthRep);

@@ -19,9 +19,8 @@
 ================= Combat ====================
 =============================================
 
-1) CRIT CHANCE (dexterity)
-2) ENEMY AI
-3) PLAYER DEATH - GAME OVER
+1) ENEMY AI
+2) PLAYER DEATH - GAME OVER
 
 Issues:
 	- Player is visually placed in the wrong spot after healing sometimes

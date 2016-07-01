@@ -9,10 +9,10 @@ namespace QuickBit_Dungeon.CORE
 		// ======================================
 
 		// Timing variables
-		private int maxMoveTime   = 20;
-		private int moveTime      = 20;
-		private int maxAttackTime = 10;
-		private int attackTime    = 10;
+		private const int MaxMoveTime   = 30;
+		private int _moveTime           = 30;
+		private const int MaxAttackTime = 40;
+		private int _attackTime         = 40;
 
 		public bool CanAttack { get; internal set; }
 		public bool CanMove { get; internal set; }
@@ -44,18 +44,18 @@ namespace QuickBit_Dungeon.CORE
 		public void Update()
 		{
 			// Handle move time
-			if (!CanMove) moveTime--;
-			if (moveTime == 0)
+			if (!CanMove) _moveTime--;
+			if (_moveTime == 0)
 			{
-				moveTime = maxMoveTime;
+				_moveTime = MaxMoveTime;
 				CanMove  = true;
 			}
 
 			// Handle attack time
-			if (!CanAttack) attackTime--;
-			if (attackTime == 0)
+			if (!CanAttack) _attackTime--;
+			if (_attackTime == 0)
 			{
-				attackTime = maxAttackTime;
+				_attackTime = MaxAttackTime;
 				CanAttack  = true;
 			}
 		}
