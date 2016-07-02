@@ -53,8 +53,11 @@ namespace QuickBit_Dungeon.CORE
 			_attackBar          = new ProgressBar("Attack Mana");
 			_healthBar.Position = new Vector2(10, 10);
 			_attackBar.Position = new Vector2(10, 50);
+			_healthBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
+			_attackBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
 			GenerateMonsters();
 			Dungeon.GetPlayerPosition(MainPlayer);
+			_statBox.GenerateStats(MainPlayer);
 		}
 
 		/// <summary>
@@ -97,9 +100,6 @@ namespace QuickBit_Dungeon.CORE
 			// Update all entities
 			foreach (var m in Monsters)
 				m.Update();
-
-			// Update all input
-			Input.Update();
 			MovePlayer();
 
 			// Update all combat and regeneration

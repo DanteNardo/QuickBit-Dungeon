@@ -32,6 +32,19 @@ namespace QuickBit_Dungeon.UI
 		}
 
 		/// <summary>
+		/// Initializes all progress bar data.
+		/// </summary>
+		/// <param name="max">The max value of the data source</param>
+		/// <param name="cur">The current value of the data source</param>
+		public void Init(int max, int cur)
+		{
+			MaxValue = max;
+			CurValue = cur;
+			DeterminePercent();
+			GenerateProgressBar();
+		}
+
+		/// <summary>
 		/// Updates the progress bar so that it
 		///	loads and appears to load to the user.
 		/// </summary>

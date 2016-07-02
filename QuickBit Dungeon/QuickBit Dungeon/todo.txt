@@ -29,8 +29,7 @@ Issues:
 ================= Input =====================
 =============================================
 
-1) ADD ALL CONTROLS
-2) ADD GAMEPAD SUPPORT
+1) ADD GAMEPAD SUPPORT
 
 Issues:
 	- GamePad Released function not returning true when data is correct
@@ -55,7 +54,7 @@ Issues:
 ============= User Interface ================
 =============================================
 
-1) MAIN MENU
+1) HOW TO MENU/PAUSE
 2) LEVEL UP MENU
 3) GAME OVER MENU
 
@@ -66,4 +65,4 @@ Issues:
 1) COMBAT SOUND EFFECTS
 2) MOVEMENT SOUND EFFECTS
 3) BACKGROUND MUSIC
-4) MENU SOUND EFFECTS (CLICKING)
+4) MENU SOUND EFFECTS (SELECTION SOUNDS)
