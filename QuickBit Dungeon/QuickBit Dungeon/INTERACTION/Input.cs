@@ -35,6 +35,8 @@ namespace QuickBit_Dungeon.INTERACTION
 			None
 		}
 
+		public static bool GamePaused { get; set; }
+
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
@@ -64,6 +66,13 @@ namespace QuickBit_Dungeon.INTERACTION
 				LastDirection = CurrentDirection;
 			CurrentDirection = Direction.None;
 			PlayerState = EPlayerState.None;
+
+			// Check to see if game is paused
+			if (Released(Keys.P) || Released(Buttons.Start))
+			{
+				GamePaused = true;
+				return;
+			}
 
 			// ======================================
 			// ============= Movement ===============

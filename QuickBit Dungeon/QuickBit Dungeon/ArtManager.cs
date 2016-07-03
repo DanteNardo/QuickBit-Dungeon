@@ -22,12 +22,14 @@ namespace QuickBit_Dungeon
 
 		// Menu Backgrounds
 		public static Texture2D MainMenuBackground { get; set; }
+		public static Texture2D PauseMenuBackground { get; set; }
 		public static Texture2D GameOverBackground { get; set; }
 
 		// Menu Buttons
 		public static Texture2D MainMenuButton { get; set; }
 		public static Texture2D StartButton { get; set; }
 		public static Texture2D HowToButton { get; set; }
+		public static Texture2D ResumeButton { get; set; }
 		public static Texture2D ExitButton { get; set; }
 
 		// ======================================
@@ -54,12 +56,14 @@ namespace QuickBit_Dungeon
 
 			// Menu Backgrounds
 			MainMenuBackground = cm.Load<Texture2D>("UI/MainMenuTexture");
+			PauseMenuBackground = cm.Load<Texture2D>("UI/PauseMenuTexture");
 			GameOverBackground = cm.Load<Texture2D>("UI/GameOverTexture");
 
 			// Menu Buttons
 			MainMenuButton = cm.Load<Texture2D>("Buttons/MainMenuButtonTexture");
 			StartButton = cm.Load<Texture2D>("Buttons/StartButtonTexture");
 			HowToButton = cm.Load<Texture2D>("Buttons/HowToButtonTexture");
+			ResumeButton = cm.Load<Texture2D>("Buttons/ResumeButtonTexture");
 			ExitButton = cm.Load<Texture2D>("Buttons/ExitButtonTexture");
 		}
 	}

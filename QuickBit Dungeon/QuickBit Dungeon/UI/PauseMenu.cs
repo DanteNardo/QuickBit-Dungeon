@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace QuickBit_Dungeon.UI
 {
-	internal class GameOverMenu : Menu
+	internal class PauseMenu : Menu
 	{
 		// ======================================
 		// ============== Members ===============
 		// ======================================	
 
-		private const int NumberOfButtons = 2;
-		private const int MainMenuIndex = 0;
-		private const int ExitIndex = 1;
+		private const int NumberOfButtons = 3;
+		private const int ResumeIndex = 0;
+		private const int MainMenuIndex = 1;
+		private const int ExitIndex = 2;
 
 		// ======================================
 		// ============== Methods ===============
@@ -24,7 +26,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Main Menu constructor.
 		/// </summary>
-		public GameOverMenu()
+		public PauseMenu()
 		{
 			MaxId = NumberOfButtons;
 			Buttons = new List<Button>();
@@ -37,7 +39,7 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		private void MakeButtons()
 		{
-			var rec = new Rectangle(100, 300, 400, 100);
+			var rec = new Rectangle(100, 200, 400, 100);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
 				Button b = new Button(i, Color.White, rec);
@@ -45,6 +47,7 @@ namespace QuickBit_Dungeon.UI
 				Buttons.Add(b);
 			}
 
+			Buttons[ResumeIndex].SetPressedState(StateManager.EGameState.Game);
 			Buttons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
 			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
 		}
@@ -54,7 +57,8 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		public void LoadContent()
 		{
-			BackgroundTexture = ArtManager.GameOverBackground;
+			BackgroundTexture = ArtManager.PauseMenuBackground;
+			Buttons[ResumeIndex].Texture = ArtManager.ResumeButton;
 			Buttons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
 			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
 		}

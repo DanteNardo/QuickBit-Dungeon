@@ -56,7 +56,6 @@ Issues:
 
 1) HOW TO MENU/PAUSE
 2) LEVEL UP MENU
-3) GAME OVER MENU
 
 =============================================
 ================= Audio =====================

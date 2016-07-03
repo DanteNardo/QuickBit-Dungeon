@@ -97,27 +97,29 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public static void Update()
 		{
-			// Update all entities
+			if (Input.GamePaused)
+			{
+				StateManager.GameState = StateManager.EGameState.Pause;
+				Input.GamePaused = false; // resets, won't be checked until state changes
+				return;
+			}
+
 			foreach (var m in Monsters)
 				m.Update();
-			MovePlayer();
 
-			// Update all combat and regeneration
+			MovePlayer();
+			
 			if (CombatExists())
 				_combat.PerformCombat(MainPlayer, Monsters);
 			_combat.PlayerRegen();
 			
-			// XP and Level Up
 			if (MainPlayer.HasEnoughXp())
 				MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
-
-			// Update all progress bars
+			
 			_healthBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
 			_attackBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
 			_healthBar.Update();
 			_attackBar.Update();
-
-			// Update the stats box
 			_statBox.GenerateStats(MainPlayer);
 
 			if (PlayerDied())
