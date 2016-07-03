@@ -119,6 +119,9 @@ namespace QuickBit_Dungeon.CORE
 
 			// Update the stats box
 			_statBox.GenerateStats(MainPlayer);
+
+			if (PlayerDied())
+				StateManager.GameState = StateManager.EGameState.GameOver;
 		}
 
 		/// <summary>
@@ -229,6 +232,15 @@ namespace QuickBit_Dungeon.CORE
 				return true;
 			}
 			return false;
+		}
+
+		/// <summary>
+		/// Determines if the player died or not.
+		/// </summary>
+		/// <returns>Whether player died</returns>
+		private static bool PlayerDied()
+		{
+			return MainPlayer.Health <= 0;
 		}
 
 		// ======================================

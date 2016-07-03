@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace QuickBit_Dungeon.UI
 {
-	/// <summary>
-	/// Represents the visuals for the main menu
-	/// and also handles all interaction between
-	/// menu and the user.
-	/// </summary>
-	internal class MainMenu : Menu
+	internal class GameOverMenu : Menu
 	{
 		// ======================================
 		// ============== Members ===============
 		// ======================================	
 
-		private const int NumberOfButtons = 3;
-		private const int StartIndex = 0;
-		private const int HowToIndex = 1;
-		private const int ExitIndex = 2;
+		private const int NumberOfButtons = 2;
+		private const int MainMenuIndex = 0;
+		private const int ExitIndex = 1;
 
 		// ======================================
 		// ============== Methods ===============
@@ -30,7 +24,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Main Menu constructor.
 		/// </summary>
-		public MainMenu()
+		public GameOverMenu()
 		{
 			MaxId = NumberOfButtons;
 			Buttons = new List<Button>();
@@ -43,16 +37,15 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		private void MakeButtons()
 		{
-			var rec = new Rectangle(100, 225, 400, 100);
+			var rec = new Rectangle(100, 300, 400, 100);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
 				Button b = new Button(i, Color.White, rec);
-				rec = new Rectangle(rec.X, rec.Y + rec.Height + 20, rec.Width, rec.Height);
+				rec = new Rectangle(rec.X, rec.Y + rec.Height + 25, rec.Width, rec.Height);
 				Buttons.Add(b);
 			}
 
-			Buttons[StartIndex].SetPressedState(StateManager.EGameState.Game);
-			Buttons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
+			Buttons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
 			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
 		}
 
@@ -61,9 +54,8 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		public void LoadContent()
 		{
-			BackgroundTexture = ArtManager.MainMenuBackground;
-			Buttons[StartIndex].Texture = ArtManager.StartButton;
-			Buttons[HowToIndex].Texture = ArtManager.HowToButton;
+			BackgroundTexture = ArtManager.GameOverBackground;
+			Buttons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
 			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
 	}
