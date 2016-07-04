@@ -21,6 +21,7 @@ namespace QuickBit_Dungeon
 
 		// User Interface Objects
 		private MainMenu _mainMenu;
+		private HowToMenu _howToMenu;
 		private PauseMenu _pauseMenu;
 		private GameOverMenu _gameOverMenu;
 
@@ -57,6 +58,7 @@ namespace QuickBit_Dungeon
 
 			// User Interface initialization
 			_mainMenu = new MainMenu();
+			_howToMenu = new HowToMenu();
 			_pauseMenu = new PauseMenu();
 			_gameOverMenu = new GameOverMenu();
 
@@ -76,6 +78,7 @@ namespace QuickBit_Dungeon
 			ArtManager.LoadContent(Content);
 			World.LoadContent();
 			_mainMenu.LoadContent();
+			_howToMenu.LoadContent();
 			_pauseMenu.LoadContent();
 			_gameOverMenu.LoadContent();
 		}
@@ -112,6 +115,11 @@ namespace QuickBit_Dungeon
 				case StateManager.EGameState.Game:
 					World.Update();
 					break;
+				case StateManager.EGameState.HowTo:
+					_howToMenu.SetLastState();
+					_howToMenu.Update();
+					_howToMenu.Hover();
+					break;
 				case StateManager.EGameState.Pause:
 					_pauseMenu.Update();
 					_pauseMenu.Hover();
@@ -144,6 +152,9 @@ namespace QuickBit_Dungeon
 					break;
 				case StateManager.EGameState.Game:
 					World.Draw(_spriteBatch);
+					break;
+				case StateManager.EGameState.HowTo:
+					_howToMenu.Draw(_spriteBatch);
 					break;
 				case StateManager.EGameState.Pause:
 					_pauseMenu.Draw(_spriteBatch);

@@ -72,7 +72,7 @@ namespace QuickBit_Dungeon.UI
 		public void Released(int id)
 		{
 			if (Id == id)
-				StateManager.GameState = GameState;
+				StateManager.SetState(GameState);
 		}
 
 		/// <summary>

@@ -50,6 +50,7 @@
     <Compile Include="StateManager.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameOverMenu.cs" />
+    <Compile Include="UI\HowToMenu.cs" />
     <Compile Include="UI\Light.cs" />
     <Compile Include="CORE\Monster.cs" />
     <Compile Include="CORE\Player.cs" />
@@ -85,7 +86,13 @@
     <Content Include="Content\Buttons\ResumeButtonTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Buttons\ReturnButtonTexture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\UI\GameOverTexture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\HowToMenuTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\LightTexture.png">

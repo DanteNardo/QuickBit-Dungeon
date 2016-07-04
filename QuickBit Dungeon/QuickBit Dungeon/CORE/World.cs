@@ -99,7 +99,7 @@ namespace QuickBit_Dungeon.CORE
 		{
 			if (Input.GamePaused)
 			{
-				StateManager.GameState = StateManager.EGameState.Pause;
+				StateManager.SetState(StateManager.EGameState.Pause);
 				Input.GamePaused = false; // resets, won't be checked until state changes
 				return;
 			}
@@ -123,7 +123,7 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.GenerateStats(MainPlayer);
 
 			if (PlayerDied())
-				StateManager.GameState = StateManager.EGameState.GameOver;
+				StateManager.SetState(StateManager.EGameState.GameOver);
 		}
 
 		/// <summary>

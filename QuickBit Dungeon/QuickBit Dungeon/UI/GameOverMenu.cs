@@ -22,7 +22,7 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 
 		/// <summary>
-		/// Main Menu constructor.
+		/// Game Over Menu constructor.
 		/// </summary>
 		public GameOverMenu()
 		{
@@ -33,7 +33,7 @@ namespace QuickBit_Dungeon.UI
 
 		/// <summary>
 		/// Generates all of the buttons for the
-		/// main menu.
+		/// game over menu.
 		/// </summary>
 		private void MakeButtons()
 		{

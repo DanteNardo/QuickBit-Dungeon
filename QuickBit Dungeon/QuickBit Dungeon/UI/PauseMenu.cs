@@ -14,17 +14,18 @@ namespace QuickBit_Dungeon.UI
 		// ============== Members ===============
 		// ======================================	
 
-		private const int NumberOfButtons = 3;
+		private const int NumberOfButtons = 4;
 		private const int ResumeIndex = 0;
-		private const int MainMenuIndex = 1;
-		private const int ExitIndex = 2;
+		private const int HowToIndex = 1;
+		private const int MainMenuIndex = 2;
+		private const int ExitIndex = 3;
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
 		/// <summary>
-		/// Main Menu constructor.
+		/// Pause Menu constructor.
 		/// </summary>
 		public PauseMenu()
 		{
@@ -35,11 +36,11 @@ namespace QuickBit_Dungeon.UI
 
 		/// <summary>
 		/// Generates all of the buttons for the
-		/// main menu.
+		/// pause menu.
 		/// </summary>
 		private void MakeButtons()
 		{
-			var rec = new Rectangle(100, 200, 400, 100);
+			var rec = new Rectangle(150, 200, 300, 75);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
 				Button b = new Button(i, Color.White, rec);
@@ -48,6 +49,7 @@ namespace QuickBit_Dungeon.UI
 			}
 
 			Buttons[ResumeIndex].SetPressedState(StateManager.EGameState.Game);
+			Buttons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
 			Buttons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
 			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
 		}
@@ -59,6 +61,7 @@ namespace QuickBit_Dungeon.UI
 		{
 			BackgroundTexture = ArtManager.PauseMenuBackground;
 			Buttons[ResumeIndex].Texture = ArtManager.ResumeButton;
+			Buttons[HowToIndex].Texture = ArtManager.HowToButton;
 			Buttons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
 			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
 		}

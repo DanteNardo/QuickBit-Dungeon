@@ -27,5 +27,15 @@ namespace QuickBit_Dungeon
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		/// <summary>
+		/// Sets the current and previous game states.
+		/// </summary>
+		/// <param name="s">The game state to change to</param>
+		public static void SetState(EGameState newState)
+		{
+			LastState = GameState;
+			GameState = newState;
+		}
 	}
 }

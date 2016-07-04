@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace QuickBit_Dungeon.UI
 {
-	/// <summary>
-	/// Represents the visuals for the main menu
-	/// and also handles all interaction between
-	/// menu and the user.
-	/// </summary>
-	internal class MainMenu : Menu
+	internal class HowToMenu : Menu
 	{
 		// ======================================
 		// ============== Members ===============
 		// ======================================	
 
-		private const int NumberOfButtons = 3;
-		private const int StartIndex = 0;
-		private const int HowToIndex = 1;
-		private const int ExitIndex = 2;
+		private const int NumberOfButtons = 1;
+		private const int ReturnIndex = 0;
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
 
 		/// <summary>
-		/// Main Menu constructor.
+		/// Pause Menu constructor.
 		/// </summary>
-		public MainMenu()
+		public HowToMenu()
 		{
 			MaxId = NumberOfButtons;
 			Buttons = new List<Button>();
@@ -39,11 +33,11 @@ namespace QuickBit_Dungeon.UI
 
 		/// <summary>
 		/// Generates all of the buttons for the
-		/// main menu.
+		/// pause menu.
 		/// </summary>
 		private void MakeButtons()
 		{
-			var rec = new Rectangle(150, 275, 300, 75);
+			var rec = new Rectangle(150, 500, 300, 75);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
 				Button b = new Button(i, Color.White, rec);
@@ -51,9 +45,7 @@ namespace QuickBit_Dungeon.UI
 				Buttons.Add(b);
 			}
 
-			Buttons[StartIndex].SetPressedState(StateManager.EGameState.Game);
-			Buttons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
-			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
+			SetLastState();
 		}
 
 		/// <summary>
@@ -61,10 +53,19 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		public void LoadContent()
 		{
-			BackgroundTexture = ArtManager.MainMenuBackground;
-			Buttons[StartIndex].Texture = ArtManager.StartButton;
-			Buttons[HowToIndex].Texture = ArtManager.HowToButton;
-			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
+			BackgroundTexture = ArtManager.HowToMenuBackground;
+			Buttons[ReturnIndex].Texture = ArtManager.ReturnButton;
+		}
+
+		/// <summary>
+		/// Sets the previous game state so the
+		/// how to menu knows which state to return to,
+		/// ie pause menu, or main menu.
+		/// </summary>
+		/// <param name="s">The state to return to</param>
+		public void SetLastState()
+		{
+			Buttons[ReturnIndex].SetPressedState(StateManager.LastState);
 		}
 	}
 }
