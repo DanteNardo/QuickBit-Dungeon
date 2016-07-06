@@ -76,5 +76,14 @@ namespace QuickBit_Dungeon.CORE
 		{
 			
 		}
+
+		/// <summary>
+		/// Passively regenerates health based
+		/// off of the Monster's Wisdom.
+		/// </summary>
+		public void RegenHealth()
+		{
+			
+		}
 	}
 }

@@ -49,7 +49,8 @@ namespace QuickBit_Dungeon.UI
 			_stats += "    Current XP: " + p.Xp + "\n";
 			_stats += "Dexterity: " + p.Dexterity;
 			_stats += "    XP Needed:  " + p.XpNeeded + "\n";
-			_stats += "Wisdom:    " + p.Wisdom + "\n";
+			_stats += "Wisdom:    " + p.Wisdom;
+			_stats += "    Level:      " + p.Level + "\n";
 		}
 
 		/// <summary>

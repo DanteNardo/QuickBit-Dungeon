@@ -20,10 +20,6 @@
 =============================================
 
 1) ENEMY AI
-2) PLAYER DEATH - GAME OVER
-
-Issues:
-	- Player is visually placed in the wrong spot after healing sometimes
 
 =============================================
 ================= Input =====================
@@ -38,10 +34,7 @@ Issues:
 ================ Dungeon ====================
 =============================================
 
-1) LEVEL EXITS
-2) NEXT LEVEL RESET
-3) INCREASE LEVEL DIFFICULTY
-4) TIMER (LOSS UPON RUNNING OUT OF TIME)
+1) TIMER (LOSS UPON RUNNING OUT OF TIME)
 
 =============================================
 ================ Graphics ===================

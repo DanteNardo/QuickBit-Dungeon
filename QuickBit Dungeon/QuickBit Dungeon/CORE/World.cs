@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.UI;
+using QuickBit_Dungeon.UI.Effects;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -33,6 +34,7 @@ namespace QuickBit_Dungeon.CORE
 		public static Player MainPlayer { get; set; }
 		public static List<Monster> Monsters { get; set; }
 		public static Random Rand { get; set; }
+		public static int LevelCount { get; set; } = 1;
 
 		// ======================================
 		// =========== Main Methods =============
@@ -86,10 +88,24 @@ namespace QuickBit_Dungeon.CORE
 					m.ConstructMonster();
 					m.Y = ry;
 					m.X = rx;
-					Dungeon.Grid[ry][rx].Rep = GameManager.ConvertToChar(m.HealthRep);
+					Dungeon.ResetRep(ry, rx, m.HealthRep);
 					Monsters.Add(m);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Levels up all of the monsters in a
+		/// level. Increases level difficulty.
+		/// </summary>
+		/// <param name="levelCount"></param>
+		private static void LevelUpMonsters(int levelCount)
+		{
+			var colors = new List<string> {"red", "blue", "green"};
+
+			for (int i = 0; i < levelCount; i++)
+				foreach (var m in Monsters)
+					m.LevelUp(colors[GameManager.Random.Next(0, 3)]);
 		}
 
 		/// <summary>
@@ -102,6 +118,17 @@ namespace QuickBit_Dungeon.CORE
 				StateManager.SetState(StateManager.EGameState.Pause);
 				Input.GamePaused = false; // resets, won't be checked until state changes
 				return;
+			}
+
+			if (Dungeon.EndReached())
+			{
+				Dungeon.NewLevel();
+				Dungeon.GetPlayerPosition(MainPlayer);
+				Monsters.Clear();
+				Monsters = new List<Monster>();
+				GenerateMonsters();
+				LevelUpMonsters(LevelCount);
+				LevelCount++;
 			}
 
 			foreach (var m in Monsters)

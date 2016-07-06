@@ -11,8 +11,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============= Variables ==============
 		// ======================================
 
-		private const int GridSize = 50;
-		private static int[] _pPos;
+		private const int GridSize = 10;
+		private static int[] _pPos;			// player position
+		private static int[] _ePos;			// exit position
 		private const int ViewSize = 5;
 
 		public static int PlayerY
@@ -235,8 +236,21 @@ namespace QuickBit_Dungeon.DUNGEON
 			Grid = new List<List<Cell>>();
 			Rooms = new List<Room>();
 			_pPos = new int[2] {0, 0};
+			_ePos = new int[2] {0, 0};
 			GenerateDungeon();
 			FindStart();
+			FindEnd();
+		}
+
+		/// <summary>
+		/// Completely clears the current level
+		/// then constructs a new one.
+		/// </summary>
+		public static void NewLevel()
+		{
+			Grid.Clear();
+			Rooms.Clear();
+			Construct();
 		}
 
 		/// <summary>
@@ -538,6 +552,48 @@ namespace QuickBit_Dungeon.DUNGEON
 		}
 
 		/// <summary>
+		/// Finds a random ending coordinate
+		/// for the level.
+		/// </summary>
+		public static void FindEnd()
+		{
+			while (true)
+			{
+				var y = GameManager.Random.Next(0, GridSize - 1);
+				var x = GameManager.Random.Next(0, GridSize - 1);
+
+				if (Grid[y][x].Type == '#')
+				{
+					SetEnd(y, x);
+					return;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the exit position in the grid.
+		/// </summary>
+		/// <param name="y">Final y position</param>
+		/// <param name="x">Final x position</param>
+		public static void SetEnd(int y, int x)
+		{
+			_ePos[0] = y;
+			_ePos[1] = x;
+			Grid[y][x].Type = '@';
+			Grid[y][x].Rep = '@';
+		}
+
+		/// <summary>
+		/// Determines if the player reached
+		/// the current level's exit.
+		/// </summary>
+		/// <returns>Whether exit was reached or not</returns>
+		public static bool EndReached()
+		{
+			return _pPos[0] == _ePos[0] && _pPos[1] == _ePos[1];
+		}
+
+		/// <summary>
 		/// This updates the player object's internal 
 		/// position.
 		/// </summary>
@@ -584,7 +640,29 @@ namespace QuickBit_Dungeon.DUNGEON
 			var nx = e.X + x;
 
 			if (ny < 0 || ny >= GridSize || nx < 0 || nx >= GridSize) return false;
-			return Grid[ny][nx].Rep == '.' || Grid[ny][nx].Rep == '#';
+			return Grid[ny][nx].Rep == '.' || Grid[ny][nx].Rep == '#' || Grid[ny][nx].Rep == '@';
+		}
+
+		/// <summary>
+		/// Resets the representation of an entity
+		/// in the game. ie they were damaged
+		/// </summary>
+		/// <param name="e"></param>
+		public static void ResetRep(Entity e)
+		{
+			Grid[e.Y][e.X].Rep = GameManager.ConvertToChar(e.HealthRep);
+		}
+
+		/// <summary>
+		/// Resets the representation based off
+		/// of coordinates and an integer representation.
+		/// </summary>
+		/// <param name="y">The y coordinate</param>
+		/// <param name="x">The x coordinate</param>
+		/// <param name="rep">The representation to change to</param>
+		public static void ResetRep(int y, int x, int rep)
+		{
+			Grid[y][x].Rep = GameManager.ConvertToChar(rep);
 		}
 
 		#endregion

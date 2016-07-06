@@ -11,7 +11,6 @@ namespace QuickBit_Dungeon.CORE
 		
 		public int XpNeeded { get; internal set; }
 		public int ManaCost { get; set; }
-		public int CritChance { get; internal set; }
 
 		// ======================================
 		// ============== Methods ===============
@@ -53,7 +52,7 @@ namespace QuickBit_Dungeon.CORE
 				HealthMana -= ManaCost;
 				UpdateHealth(Wisdom);
 				CalculateHealthRep();
-				Dungeon.Grid[X][Y].Rep = GameManager.ConvertToChar(HealthRep);
+				Dungeon.ResetRep(this);
 			}
 		}
 
@@ -97,16 +96,24 @@ namespace QuickBit_Dungeon.CORE
 		}
 
 		/// <summary>
+		/// Resets the Xp after a level up and also
+		/// increases the time to the next level up.
+		/// </summary>
+		private void ResetXp()
+		{
+			Xp = 0;
+			XpNeeded = (int)Math.Pow(XpNeeded, 1.2);
+		}
+
+		/// <summary>
 		/// Levels up the player and resets their Xp
 		/// </summary>
 		/// <param name="color">The color used for leveling up</param>
 		public new void LevelUp(string color)
 		{
 			base.LevelUp(color);
-			if (color == "green")
-				CritChance += GameManager.Random.Next(1, Dexterity)/2;
-			Xp = 0;
-			XpNeeded = (int)Math.Pow(XpNeeded, 1.2);
+			ResetXp();
+			Dungeon.ResetRep(this);
 		}
 
 		#endregion

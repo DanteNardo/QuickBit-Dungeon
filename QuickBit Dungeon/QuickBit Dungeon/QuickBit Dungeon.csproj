@@ -51,7 +51,7 @@
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameOverMenu.cs" />
     <Compile Include="UI\HowToMenu.cs" />
-    <Compile Include="UI\Light.cs" />
+    <Compile Include="UI\Effects\Light.cs" />
     <Compile Include="CORE\Monster.cs" />
     <Compile Include="CORE\Player.cs" />
     <Compile Include="Program.cs" />

@@ -13,6 +13,7 @@
 		public int X { get; set; }
 		public int Y { get; set; }
 
+		public int Level { get; private set; }
 		public int MaxHealth { get; private set; }
 		public int Health { get; set; }
 		public int HealthRep { get; private set; }
@@ -23,6 +24,7 @@
 		public float MaxMana { get; set; }
 		public float HealthMana { get; set; }
 		public float AttackMana { get; set; }
+		public int CritChance { get; internal set; }
 		public int Xp { get; set; }
 
 		// ======================================
@@ -37,6 +39,7 @@
 		/// </summary>
 		public void ConstructPlayer()
 		{
+			Level = 1;
 			MaxHealth = 100;
 			Health = 100;
 			HealthRep = 9;
@@ -118,16 +121,27 @@
 					Strength += GameManager.Random.Next(1, 4);
 					MaxHealth += Strength;
 					Health = MaxHealth;
+					CalculateHealthRep();
+					Level++;
 					break;
 				case "green":
 					Dexterity += GameManager.Random.Next(1, 4);
+					CritChance += GameManager.Random.Next(1, Dexterity)/2;
+					Armor += GameManager.Random.Next(1, Dexterity)/3;
 					MaxHealth += Strength;
 					Health = MaxHealth;
+					CalculateHealthRep();
+					Level++;
 					break;
 				case "blue":
 					Wisdom += GameManager.Random.Next(1, 4);
+					MaxMana += Wisdom;
+					HealthMana = MaxMana;
+					AttackMana = MaxMana;
 					MaxHealth += Strength;
 					Health = MaxHealth;
+					CalculateHealthRep();
+					Level++;
 					break;
 			}
 		}

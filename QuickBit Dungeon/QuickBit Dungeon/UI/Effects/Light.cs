@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace QuickBit_Dungeon.UI
+namespace QuickBit_Dungeon.UI.Effects
 {
 	internal class Light
 	{
