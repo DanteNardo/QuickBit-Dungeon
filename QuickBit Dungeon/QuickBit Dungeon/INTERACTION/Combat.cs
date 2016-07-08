@@ -101,7 +101,7 @@ namespace QuickBit_Dungeon.INTERACTION
 
 				if ((m.Y != _player.Y || m.X != _player.X + 1) && (m.Y != _player.Y || m.X != _player.X - 1) &&
 				    (m.Y != _player.Y + 1 || m.X != _player.X) && (m.Y != _player.Y - 1 || m.X != _player.X)) continue;
-				if (m.CanAttack)
+				if (m._attackTimer.ActionReady)
 					MonsterAttack(ref m);
 			}
 		}
@@ -151,10 +151,8 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void PlayerPhysicalAttack()
 		{
 			var damage = _player.Strength - _target.Armor;
-			if (_player.IsCrit())
-				damage *= 2;
+			if (_player.IsCrit()) damage *= 2;
 			_target.UpdateHealth(-damage);
-			_target.CalculateHealthRep();
 			Dungeon.ResetRep(_target);
 		}
 
@@ -173,7 +171,6 @@ namespace QuickBit_Dungeon.INTERACTION
 			{
 				var damage = _player.Wisdom + World.Rand.Next(1, _player.Wisdom*10);
 				t.UpdateHealth(-damage);
-				t.CalculateHealthRep();
 				Dungeon.ResetRep(t);
 			}
 			
@@ -210,11 +207,10 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <param name="m">The monster that is currently attacking</param>
 		private void MonsterAttack(ref Monster m)
 		{
+			m._attackTimer.PerformAction();
 			var damage = m.Strength - _player.Armor;
 			_player.UpdateHealth(-damage);
-			_player.CalculateHealthRep();
 			Dungeon.ResetRep(_player);
-			m.CanAttack = false;
 		}
 
 		/// <summary>

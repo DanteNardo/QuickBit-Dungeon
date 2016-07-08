@@ -36,12 +36,16 @@ Issues:
 
 1) TIMER (LOSS UPON RUNNING OUT OF TIME)
 
+Issues:
+	- Smaller dungeons sometimes aren't structured correctly
+
 =============================================
 ================ Graphics ===================
 =============================================
 
 1) RGB SQUARES DURING ATTACKS
 2) FLICKERING LIGHTING EFFECT
+3) LEVEL TRANSITION ANIMATION
 
 =============================================
 ============= User Interface ================

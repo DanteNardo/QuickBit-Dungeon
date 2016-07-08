@@ -1,4 +1,5 @@
 ﻿using System;
+using QuickBit_Dungeon.INTERACTION;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -9,13 +10,8 @@ namespace QuickBit_Dungeon.CORE
 		// ======================================
 
 		// Timing variables
-		private const int MaxMoveTime   = 30;
-		private int _moveTime           = 30;
-		private const int MaxAttackTime = 40;
-		private int _attackTime         = 40;
-
-		public bool CanAttack { get; internal set; }
-		public bool CanMove { get; internal set; }
+		public Timer _attackTimer;
+		public Timer _moveTimer;
 
 		public EMonsterState MonsterState { get; set; }
 		public enum EMonsterState
@@ -34,8 +30,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public Monster() : base()
 		{
-			CanAttack = true;
-			CanMove = true;
+			_attackTimer = new Timer(30);
+			_moveTimer = new Timer(40);
 		}
 
 		/// <summary>
@@ -43,21 +39,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void Update()
 		{
-			// Handle move time
-			if (!CanMove) _moveTime--;
-			if (_moveTime == 0)
-			{
-				_moveTime = MaxMoveTime;
-				CanMove  = true;
-			}
-
-			// Handle attack time
-			if (!CanAttack) _attackTime--;
-			if (_attackTime == 0)
-			{
-				_attackTime = MaxAttackTime;
-				CanAttack  = true;
-			}
+			_attackTimer.Update();
+			_moveTimer.Update();
 		}
 
 		/// <summary>
@@ -65,7 +48,7 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void Wander()
 		{
-			
+			RegenHealth();
 		}
 
 		/// <summary>
@@ -74,6 +57,15 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void HuntPlayer()
 		{
+			RegenHealth();
+		}
+
+		/// <summary>
+		/// AI, causes monster to attack
+		/// the player.
+		/// </summary>
+		public void AttackPlayer()
+		{
 			
 		}
 
@@ -81,7 +73,7 @@ namespace QuickBit_Dungeon.CORE
 		/// Passively regenerates health based
 		/// off of the Monster's Wisdom.
 		/// </summary>
-		public void RegenHealth()
+		private void RegenHealth()
 		{
 			
 		}

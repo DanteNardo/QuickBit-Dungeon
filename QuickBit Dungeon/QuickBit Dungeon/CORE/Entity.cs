@@ -92,6 +92,7 @@
 				Health = MaxHealth;
 			if (Health < 0)
 				Health = 0;
+			CalculateHealthRep();
 		}
 
 		/// <summary>

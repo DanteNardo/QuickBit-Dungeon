@@ -47,6 +47,7 @@
     <Compile Include="CORE\World.cs" />
     <Compile Include="INTERACTION\Input.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="INTERACTION\Timer.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameOverMenu.cs" />
