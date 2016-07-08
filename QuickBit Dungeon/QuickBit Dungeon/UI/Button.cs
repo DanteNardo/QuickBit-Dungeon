@@ -61,7 +61,7 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="id">The ID to cross check</param>
 		public void Hover(int id)
 		{
-			Alpha = Id == id ? Color.Gray : Color.White;
+			Alpha = Id == id ? Color.White : Color.Gray;
 		}
 
 		/// <summary>

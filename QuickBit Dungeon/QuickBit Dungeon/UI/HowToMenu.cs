@@ -40,7 +40,7 @@ namespace QuickBit_Dungeon.UI
 			var rec = new Rectangle(150, 500, 300, 75);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
-				Button b = new Button(i, Color.White, rec);
+				Button b = new Button(i, Color.Gray, rec);
 				rec = new Rectangle(rec.X, rec.Y + rec.Height + 20, rec.Width, rec.Height);
 				Buttons.Add(b);
 			}
