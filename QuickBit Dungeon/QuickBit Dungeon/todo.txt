@@ -34,10 +34,10 @@ Issues:
 ================ Dungeon ====================
 =============================================
 
-1) TIMER (LOSS UPON RUNNING OUT OF TIME)
+1) ADD RESET AFTER GAME OVER
 
 Issues:
-	- Smaller dungeons sometimes aren't structured correctly
+	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 
 =============================================
 ================ Graphics ===================

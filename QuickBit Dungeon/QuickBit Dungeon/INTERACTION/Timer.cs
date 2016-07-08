@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace QuickBit_Dungeon.INTERACTION
 {
@@ -38,6 +40,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		public void PerformAction()
 		{
 			ActionReady = false;
+			ActionTime = MaxActionTime;
 		}
 
 		/// <summary>
@@ -52,6 +55,20 @@ namespace QuickBit_Dungeon.INTERACTION
 				ActionTime = MaxActionTime;
 				ActionReady  = true;
 			}
+		}
+
+		/// <summary>
+		/// Draws the timer at a location on the screen.
+		/// </summary>
+		/// <param name="sb">The spritebatch to draw with</param>
+		/// <param name="x">The x coordinate</param>
+		/// <param name="y">The y coordinate</param>
+		public void Draw(SpriteBatch sb, int x, int y)
+		{
+			sb.DrawString(ArtManager.TitleFont, 
+						  (ActionTime/60).ToString(), 
+						  new Vector2(x, y), 
+						  Color.White);
 		}
 	}
 }

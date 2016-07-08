@@ -19,12 +19,13 @@ namespace QuickBit_Dungeon.CORE
 		// ============== Members ===============
 		// ======================================
 
-		private static Monster _target; // Stores the currently targeted enemy
-		private static Combat _combat; // Contains the methods for all combat
-		private static StatBox _statBox; // Displays the player's stats
-		private static Light _light; // Draws the lighting effect
-		private static ProgressBar _healthBar; // Displays the player's health mana bar
-		private static ProgressBar _attackBar; // Displays the player's attack mana bar
+		private static Monster _target;			// Stores the currently targeted enemy
+		private static Combat _combat;			// Contains the methods for all combat
+		private static StatBox _statBox;		// Displays the player's stats
+		private static Light _light;			// Draws the lighting effect
+		private static ProgressBar _healthBar;	// Displays the player's health mana bar
+		private static ProgressBar _attackBar;	// Displays the player's attack mana bar
+		private static Timer _levelTimer;		// Counts down how much time is left for this level
 
 		// For drawing placement
 		private static readonly Vector2 ScreenCenter = new Vector2(300, 300);
@@ -51,15 +52,17 @@ namespace QuickBit_Dungeon.CORE
 			_combat             = new Combat();
 			_light              = new Light();
 			_statBox            = new StatBox();
+			_levelTimer			= new Timer(120*60);
 			_healthBar          = new ProgressBar("Health Mana");
 			_attackBar          = new ProgressBar("Attack Mana");
 			_healthBar.Position = new Vector2(10, 10);
 			_attackBar.Position = new Vector2(10, 50);
 			_healthBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
 			_attackBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
+			_levelTimer.PerformAction();
+			_statBox.GenerateStats(MainPlayer);
 			GenerateMonsters();
 			Dungeon.GetPlayerPosition(MainPlayer);
-			_statBox.GenerateStats(MainPlayer);
 		}
 
 		/// <summary>
@@ -81,7 +84,9 @@ namespace QuickBit_Dungeon.CORE
 						ry = Rand.Next(r.Position[0], r.Position[0] + r.Height);
 						rx = Rand.Next(r.Position[1], r.Position[1] + r.Width);
 
-						if (!MonsterAt(ry, rx, ref _target)) break;
+						if (!MonsterAt(ry, rx, ref _target) &&
+							Dungeon.Grid[ry][rx].Type != '@')
+							break;
 					}
 
 					var m = new Monster();
@@ -113,6 +118,14 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public static void Update()
 		{
+			// TODO: Make this one method
+			if (_levelTimer.ActionReady)
+			{
+				StateManager.GameState = StateManager.EGameState.GameOver;
+				return;
+			}
+
+			// TODO: Make this one method
 			if (Input.GamePaused)
 			{
 				StateManager.SetState(StateManager.EGameState.Pause);
@@ -120,6 +133,7 @@ namespace QuickBit_Dungeon.CORE
 				return;
 			}
 
+			// TODO: Make this one method
 			if (Dungeon.EndReached())
 			{
 				Dungeon.NewLevel();
@@ -128,6 +142,7 @@ namespace QuickBit_Dungeon.CORE
 				Monsters = new List<Monster>();
 				GenerateMonsters();
 				LevelUpMonsters(LevelCount);
+				_levelTimer.PerformAction();
 				LevelCount++;
 			}
 
@@ -142,7 +157,8 @@ namespace QuickBit_Dungeon.CORE
 			
 			if (MainPlayer.HasEnoughXp())
 				MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
-			
+
+			_levelTimer.Update();
 			_healthBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
 			_attackBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
 			_healthBar.Update();
@@ -287,6 +303,7 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.DrawStats(sb);
 			_healthBar.DrawProgressBar(sb);
 			_attackBar.DrawProgressBar(sb);
+			_levelTimer.Draw(sb, 500, 25);
 		}
 
 		/// <summary>

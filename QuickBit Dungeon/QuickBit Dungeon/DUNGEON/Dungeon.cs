@@ -11,7 +11,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============= Variables ==============
 		// ======================================
 
-		private const int GridSize = 10;
+		private const int GridSize = 20;
 		private static int[] _pPos;			// player position
 		private static int[] _ePos;			// exit position
 		private const int ViewSize = 5;
