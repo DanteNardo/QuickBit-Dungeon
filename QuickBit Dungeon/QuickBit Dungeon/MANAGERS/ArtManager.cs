@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.MANAGERS
 {
 	public static class ArtManager
 	{

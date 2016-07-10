@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace QuickBit_Dungeon
+namespace QuickBit_Dungeon.MANAGERS
 {
 	public static class GameManager
 	{

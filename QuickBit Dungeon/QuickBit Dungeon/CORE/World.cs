@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
+using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
 using QuickBit_Dungeon.UI.Effects;
 
@@ -118,42 +119,14 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public static void Update()
 		{
-			// TODO: Make this one method
-			if (_levelTimer.ActionReady)
-			{
-				StateManager.GameState = StateManager.EGameState.GameOver;
-				return;
-			}
+			if (OutOfTime()) return;
+			if (GamePaused()) return;
 
-			// TODO: Make this one method
-			if (Input.GamePaused)
-			{
-				StateManager.SetState(StateManager.EGameState.Pause);
-				Input.GamePaused = false; // resets, won't be checked until state changes
-				return;
-			}
+			NextLevel();
 
-			// TODO: Make this one method
-			if (Dungeon.EndReached())
-			{
-				Dungeon.NewLevel();
-				Dungeon.GetPlayerPosition(MainPlayer);
-				Monsters.Clear();
-				Monsters = new List<Monster>();
-				GenerateMonsters();
-				LevelUpMonsters(LevelCount);
-				_levelTimer.PerformAction();
-				LevelCount++;
-			}
-
-			foreach (var m in Monsters)
-				m.Update();
-
+			UpdateMonsters();
 			MovePlayer();
-			
-			if (CombatExists())
-				_combat.PerformCombat(MainPlayer, Monsters);
-			_combat.PlayerRegen();
+			PerformCombat();
 			
 			if (MainPlayer.HasEnoughXp())
 				MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
@@ -166,7 +139,10 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.GenerateStats(MainPlayer);
 
 			if (PlayerDied())
+			{
 				StateManager.SetState(StateManager.EGameState.GameOver);
+				return;
+			}
 		}
 
 		/// <summary>
@@ -239,6 +215,16 @@ namespace QuickBit_Dungeon.CORE
 		// ======================================
 
 		/// <summary>
+		/// Handles all combat.
+		/// </summary>
+		private static void PerformCombat()
+		{
+			if (CombatExists())
+				_combat.PerformCombat(MainPlayer, Monsters);
+			_combat.PlayerRegen();
+		}
+
+		/// <summary>
 		/// Determines if combat is being exchanged.
 		/// </summary>
 		/// <returns>Whether or not combat can be exchanged</returns>
@@ -258,6 +244,15 @@ namespace QuickBit_Dungeon.CORE
 
 			// Default return
 			return false;
+		}
+
+		/// <summary>
+		/// Updates all monsters.
+		/// </summary>
+		private static void UpdateMonsters()
+		{
+			foreach (var m in Monsters)
+				m.Update();
 		}
 
 		/// <summary>
@@ -316,6 +311,51 @@ namespace QuickBit_Dungeon.CORE
 							Dungeon.PlayerView(),
 							_dgPos,
 							Color.White);
+		}
+
+		// ======================================
+		// ============== Utility ===============
+		// ======================================
+
+		/// <summary>
+		/// Returns whether or not the player
+		/// ran out of time for this level.
+		/// </summary>
+		/// <returns></returns>
+		private static bool OutOfTime()
+		{
+			if (_levelTimer.ActionReady)
+			{
+				StateManager.GameState = StateManager.EGameState.GameOver;
+				return true;
+			}
+			else return false;
+		}
+
+		private static bool GamePaused()
+		{
+			if (Input.GamePaused)
+			{
+				StateManager.SetState(StateManager.EGameState.Pause);
+				Input.GamePaused = false; // resets, won't be checked until state changes
+				return true;
+			}
+			else return false;
+		}
+
+		private static void NextLevel()
+		{
+			if (Dungeon.EndReached())
+			{
+				Dungeon.NewLevel();
+				Dungeon.GetPlayerPosition(MainPlayer);
+				Monsters.Clear();
+				Monsters = new List<Monster>();
+				GenerateMonsters();
+				LevelUpMonsters(LevelCount);
+				_levelTimer.PerformAction();
+				LevelCount++;
+			}
 		}
 	}
 }

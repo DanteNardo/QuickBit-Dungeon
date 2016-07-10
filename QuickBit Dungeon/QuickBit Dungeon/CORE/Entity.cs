@@ -1,4 +1,6 @@
-﻿namespace QuickBit_Dungeon.CORE
+﻿using QuickBit_Dungeon.MANAGERS;
+
+namespace QuickBit_Dungeon.CORE
 {
 	/*
 		Every object that attacks or moves

@@ -10,15 +10,15 @@ namespace QuickBit_Dungeon.CORE
 		// ======================================
 
 		// Timing variables
-		public Timer _attackTimer;
-		public Timer _moveTimer;
+		public Timer AttackTimer { get; set; }
+		public Timer MoveTimer { get; set; }
 
 		public EMonsterState MonsterState { get; set; }
 		public enum EMonsterState
 		{
 			Attack,
 			Hunt,
-			Idle
+			Wander
 		}
 
 		// ======================================
@@ -30,8 +30,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public Monster() : base()
 		{
-			_attackTimer = new Timer(30);
-			_moveTimer = new Timer(40);
+			AttackTimer = new Timer(30);
+			MoveTimer = new Timer(40);
 		}
 
 		/// <summary>
@@ -39,8 +39,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void Update()
 		{
-			_attackTimer.Update();
-			_moveTimer.Update();
+			AttackTimer.Update();
+			MoveTimer.Update();
 		}
 
 		/// <summary>

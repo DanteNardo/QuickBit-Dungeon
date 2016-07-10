@@ -101,7 +101,7 @@ namespace QuickBit_Dungeon.INTERACTION
 
 				if ((m.Y != _player.Y || m.X != _player.X + 1) && (m.Y != _player.Y || m.X != _player.X - 1) &&
 				    (m.Y != _player.Y + 1 || m.X != _player.X) && (m.Y != _player.Y - 1 || m.X != _player.X)) continue;
-				if (m._attackTimer.ActionReady)
+				if (m.AttackTimer.ActionReady)
 					MonsterAttack(ref m);
 			}
 		}
@@ -207,7 +207,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <param name="m">The monster that is currently attacking</param>
 		private void MonsterAttack(ref Monster m)
 		{
-			m._attackTimer.PerformAction();
+			m.AttackTimer.PerformAction();
 			var damage = m.Strength - _player.Armor;
 			_player.UpdateHealth(-damage);
 			Dungeon.ResetRep(_player);

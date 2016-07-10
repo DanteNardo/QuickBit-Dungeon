@@ -1,5 +1,6 @@
 ﻿using System;
 using QuickBit_Dungeon.DUNGEON;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.CORE
 {

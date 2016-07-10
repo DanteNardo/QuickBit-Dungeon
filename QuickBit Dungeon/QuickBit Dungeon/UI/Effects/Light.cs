@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.UI.Effects
 {

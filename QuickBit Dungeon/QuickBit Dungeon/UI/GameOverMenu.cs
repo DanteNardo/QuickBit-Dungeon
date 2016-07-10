@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.UI
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using QuickBit_Dungeon.CORE;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.DUNGEON
 {

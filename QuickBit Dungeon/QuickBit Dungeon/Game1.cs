@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
+using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
 
 namespace QuickBit_Dungeon

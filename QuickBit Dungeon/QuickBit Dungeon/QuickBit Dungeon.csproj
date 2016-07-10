@@ -38,7 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ArtManager.cs" />
+    <Compile Include="MANAGERS\ArtManager.cs" />
     <Compile Include="DUNGEON\Cell.cs" />
     <Compile Include="INTERACTION\Combat.cs" />
     <Compile Include="DUNGEON\Dungeon.cs" />
@@ -46,9 +46,9 @@
     <Compile Include="Game1.cs" />
     <Compile Include="CORE\World.cs" />
     <Compile Include="INTERACTION\Input.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="MANAGERS\GameManager.cs" />
     <Compile Include="INTERACTION\Timer.cs" />
-    <Compile Include="StateManager.cs" />
+    <Compile Include="MANAGERS\StateManager.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameOverMenu.cs" />
     <Compile Include="UI\HowToMenu.cs" />
