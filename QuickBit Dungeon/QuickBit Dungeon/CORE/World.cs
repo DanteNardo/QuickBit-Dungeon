@@ -20,7 +20,6 @@ namespace QuickBit_Dungeon.CORE
 		// ============== Members ===============
 		// ======================================
 
-		private static Monster _target;			// Stores the currently targeted enemy
 		private static Combat _combat;			// Contains the methods for all combat
 		private static StatBox _statBox;		// Displays the player's stats
 		private static Light _light;			// Draws the lighting effect
@@ -32,10 +31,6 @@ namespace QuickBit_Dungeon.CORE
 		private static readonly Vector2 ScreenCenter = new Vector2(300, 300);
 		private static Vector2 _dgPos;
 
-		// Properties
-		public static Player MainPlayer { get; set; }
-		public static List<Monster> Monsters { get; set; }
-		public static Random Rand { get; set; }
 		public static int LevelCount { get; set; } = 1;
 
 		// ======================================
@@ -47,9 +42,6 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public static void Init()
 		{
-			MainPlayer          = new Player();
-			Monsters            = new List<Monster>();
-			Rand                = new Random();
 			_combat             = new Combat();
 			_light              = new Light();
 			_statBox            = new StatBox();
@@ -58,60 +50,10 @@ namespace QuickBit_Dungeon.CORE
 			_attackBar          = new ProgressBar("Attack Mana");
 			_healthBar.Position = new Vector2(10, 10);
 			_attackBar.Position = new Vector2(10, 50);
-			_healthBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
-			_attackBar.Init((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
+			_healthBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
+			_attackBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
 			_levelTimer.PerformAction();
-			_statBox.GenerateStats(MainPlayer);
-			GenerateMonsters();
-			Dungeon.GetPlayerPosition(MainPlayer);
-		}
-
-		/// <summary>
-		/// Initializes and places monsters 
-		///	in rooms throughout the dungeon.
-		/// </summary>
-		private static void GenerateMonsters()
-		{
-			foreach (var r in Dungeon.Rooms)
-			{
-				var monsterAmount = Rand.Next(1, 4);
-
-				for (var i = 0; i < monsterAmount; i++)
-				{
-					int ry;
-					int rx;
-					while (true)
-					{
-						ry = Rand.Next(r.Position[0], r.Position[0] + r.Height);
-						rx = Rand.Next(r.Position[1], r.Position[1] + r.Width);
-
-						if (!MonsterAt(ry, rx, ref _target) &&
-							Dungeon.Grid[ry][rx].Type != '@')
-							break;
-					}
-
-					var m = new Monster();
-					m.ConstructMonster();
-					m.Y = ry;
-					m.X = rx;
-					Dungeon.ResetRep(ry, rx, m.HealthRep);
-					Monsters.Add(m);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Levels up all of the monsters in a
-		/// level. Increases level difficulty.
-		/// </summary>
-		/// <param name="levelCount"></param>
-		private static void LevelUpMonsters(int levelCount)
-		{
-			var colors = new List<string> {"red", "blue", "green"};
-
-			for (int i = 0; i < levelCount; i++)
-				foreach (var m in Monsters)
-					m.LevelUp(colors[GameManager.Random.Next(0, 3)]);
+			_statBox.GenerateStats(Dungeon.MainPlayer);
 		}
 
 		/// <summary>
@@ -122,21 +64,22 @@ namespace QuickBit_Dungeon.CORE
 			if (OutOfTime()) return;
 			if (GamePaused()) return;
 
+			Dungeon.Update();
 			NextLevel();
 
 			UpdateMonsters();
 			MovePlayer();
 			PerformCombat();
 			
-			if (MainPlayer.HasEnoughXp())
-				MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
+			if (Dungeon.MainPlayer.HasEnoughXp())
+				Dungeon.MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
 
 			_levelTimer.Update();
-			_healthBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.HealthMana);
-			_attackBar.UpdateValues((int) MainPlayer.MaxMana, (int) MainPlayer.AttackMana);
+			_healthBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
+			_attackBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
 			_healthBar.Update();
 			_attackBar.Update();
-			_statBox.GenerateStats(MainPlayer);
+			_statBox.GenerateStats(Dungeon.MainPlayer);
 
 			if (PlayerDied())
 			{
@@ -152,62 +95,13 @@ namespace QuickBit_Dungeon.CORE
 		{
 			// Stats box
 			_statBox.LoadContent();
-			var stringSize = ArtManager.DungeonFont.MeasureString(Dungeon.PlayerView())/2;
-			_dgPos = ScreenCenter - stringSize;
 
 			// Special Effects
 			_light.LoadContent();
 			_light.PositionLight(_dgPos);
 		}
 
-		/// <summary>
-		/// Moves the player in the dungeon using
-		///	the input class, dungeon class, and
-		///	the user's given input.
-		/// </summary>
-		private static void MovePlayer()
-		{
-			Input.GetInput();
-
-			switch (Input.CurrentDirection)
-			{
-				case Input.Direction.North:
-					if (Dungeon.CanMove(MainPlayer, -1, 0))
-					{
-						Dungeon.MoveEntity(MainPlayer, -1, 0, GameManager.ConvertToChar(MainPlayer.HealthRep));
-						MainPlayer.Y = Dungeon.PlayerY;
-						MainPlayer.X = Dungeon.PlayerX;
-					}
-					break;
-
-				case Input.Direction.South:
-					if (Dungeon.CanMove(MainPlayer, 1, 0))
-					{
-						Dungeon.MoveEntity(MainPlayer, 1, 0, GameManager.ConvertToChar(MainPlayer.HealthRep));
-						MainPlayer.Y = Dungeon.PlayerY;
-						MainPlayer.X = Dungeon.PlayerX;
-					}
-					break;
-
-				case Input.Direction.East:
-					if (Dungeon.CanMove(MainPlayer, 0, 1))
-					{
-						Dungeon.MoveEntity(MainPlayer, 0, 1, GameManager.ConvertToChar(MainPlayer.HealthRep));
-						MainPlayer.Y = Dungeon.PlayerY;
-						MainPlayer.X = Dungeon.PlayerX;
-					}
-					break;
-
-				case Input.Direction.West:
-					if (Dungeon.CanMove(MainPlayer, 0, -1))
-					{
-						Dungeon.MoveEntity(MainPlayer, 0, -1, GameManager.ConvertToChar(MainPlayer.HealthRep));
-						MainPlayer.Y = Dungeon.PlayerY;
-						MainPlayer.X = Dungeon.PlayerX;
-					}
-					break;
-			}
-		}
+		
 
 
 		// ======================================

@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUNGEON\DungeonGenerator.cs" />
     <Compile Include="MANAGERS\ArtManager.cs" />
     <Compile Include="DUNGEON\Cell.cs" />
     <Compile Include="INTERACTION\Combat.cs" />
