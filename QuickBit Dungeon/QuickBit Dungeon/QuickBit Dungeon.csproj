@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5788D8A6-2200-456B-AE1D-EDA67267323C}</ProjectGuid>
+    <ProjectGuid>{39A154CA-EEF8-48E7-8EBD-A14557D28B52}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuickBit_Dungeon</RootNamespace>
     <AssemblyName>QuickBit Dungeon</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MonoGamePlatform>WindowsGL</MonoGamePlatform>
-    <MonoGameContentBuilderExe>
-    </MonoGameContentBuilderExe>
+    <MonoGamePlatform>DesktopGL</MonoGamePlatform>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\WindowsGL\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -29,8 +29,8 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\WindowsGL\Release\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -38,39 +38,43 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUNGEON\DungeonGenerator.cs" />
-    <Compile Include="MANAGERS\ArtManager.cs" />
-    <Compile Include="DUNGEON\Cell.cs" />
-    <Compile Include="INTERACTION\Combat.cs" />
-    <Compile Include="DUNGEON\Dungeon.cs" />
     <Compile Include="CORE\Entity.cs" />
-    <Compile Include="Game1.cs" />
-    <Compile Include="CORE\World.cs" />
-    <Compile Include="INTERACTION\Input.cs" />
-    <Compile Include="MANAGERS\GameManager.cs" />
-    <Compile Include="INTERACTION\Timer.cs" />
-    <Compile Include="MANAGERS\StateManager.cs" />
-    <Compile Include="UI\Button.cs" />
-    <Compile Include="UI\GameOverMenu.cs" />
-    <Compile Include="UI\HowToMenu.cs" />
-    <Compile Include="UI\Effects\Light.cs" />
     <Compile Include="CORE\Monster.cs" />
     <Compile Include="CORE\Player.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="UI\MainMenu.cs" />
-    <Compile Include="UI\Menu.cs" />
-    <Compile Include="UI\PauseMenu.cs" />
-    <Compile Include="UI\ProgressBar.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CORE\World.cs" />
+    <Compile Include="DUNGEON\Cell.cs" />
+    <Compile Include="DUNGEON\DrawCell.cs" />
+    <Compile Include="DUNGEON\Dungeon.cs" />
+    <Compile Include="DUNGEON\DungeonGenerator.cs" />
     <Compile Include="DUNGEON\Room.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="INTERACTION\Combat.cs" />
+    <Compile Include="INTERACTION\Input.cs" />
+    <Compile Include="INTERACTION\Timer.cs" />
+    <Compile Include="MANAGERS\ArtManager.cs" />
+    <Compile Include="MANAGERS\GameManager.cs" />
+    <Compile Include="MANAGERS\StateManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\EFFECTS\Light.cs" />
+    <Compile Include="UI\MENUS\Button.cs" />
+    <Compile Include="UI\MENUS\GameOverMenu.cs" />
+    <Compile Include="UI\MENUS\HowToMenu.cs" />
+    <Compile Include="UI\MENUS\MainMenu.cs" />
+    <Compile Include="UI\MENUS\Menu.cs" />
+    <Compile Include="UI\MENUS\PauseMenu.cs" />
+    <Compile Include="UI\ProgressBar.cs" />
     <Compile Include="UI\StatBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
-      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis">
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\NVorbis.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -91,6 +95,9 @@
     <Content Include="Content\Buttons\ReturnButtonTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Buttons\StartButtonTexture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\UI\GameOverTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -98,9 +105,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\LightTexture.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Buttons\StartButtonTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\MainMenuTexture.png">
@@ -112,8 +116,11 @@
     <Content Include="Content\UI\StatsBoxTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Icon.ico" />
     <Content Include="todo.txt" />
+    <EmbeddedResource Include="Icon.ico" />
+    <Content Include="OpenTK.dll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -122,20 +129,13 @@
     <None Include="Content\Fonts\DungeonFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Fonts\TitleFont.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Content\Fonts\StatsFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Fonts\TitleFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup />
-  <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
-  <Target Name="BeforeResolveReferences">
-    <CreateProperty Value="$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows;$(AssemblySearchPaths)">
-      <Output TaskParameter="Value" PropertyName="AssemblySearchPaths" />
-    </CreateProperty>
-  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

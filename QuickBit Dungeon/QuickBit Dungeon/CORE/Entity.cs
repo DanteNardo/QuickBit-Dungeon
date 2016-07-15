@@ -1,4 +1,6 @@
-﻿using QuickBit_Dungeon.MANAGERS;
+﻿using Microsoft.Xna.Framework;
+using QuickBit_Dungeon.INTERACTION;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -29,6 +31,14 @@ namespace QuickBit_Dungeon.CORE
 		public int CritChance { get; internal set; }
 		public int Xp { get; set; }
 
+		public Color EntityColor { get; set; } = Color.White;
+		private Color PlayerColor { get; set; } = Color.Blue;
+		private Color MonsterColor { get; set; } = Color.Green;
+		private Color PlayerAttackedColor { get; set; } = Color.DarkRed;
+		private Color MonsterAttackedColor { get; set; } = Color.Red;
+		private Timer ColorTimer;
+
+
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
@@ -52,6 +62,8 @@ namespace QuickBit_Dungeon.CORE
 			MaxMana = 100f;
 			HealthMana = MaxMana;
 			AttackMana = MaxMana;
+			ColorTimer = new Timer((int)(.25*60));
+			ResetColor();
 		}
 
 		/// <summary>
@@ -68,6 +80,18 @@ namespace QuickBit_Dungeon.CORE
 			Wisdom = GameManager.Random.Next(7, 14);
 			CalculateHealthRep();
 			GenerateXp();
+			ColorTimer = new Timer((int)(.25*60));
+			ResetColor();
+		}
+
+		/// <summary>
+		/// Updates the entire entity.
+		/// </summary>
+		public void Update()
+		{
+			ColorTimer.Update();
+			if (ColorTimer.ActionReady)
+				ResetColor();
 		}
 
 		/// <summary>
@@ -147,6 +171,31 @@ namespace QuickBit_Dungeon.CORE
 					Level++;
 					break;
 			}
+		}
+
+		/// <summary>
+		/// Resets the entity color to the default color
+		/// for this entity.
+		/// </summary>
+		public void ResetColor()
+		{
+			if (this is Player)
+				EntityColor = PlayerColor;
+			else if (this is Monster)
+				EntityColor = MonsterColor;
+		}
+
+		/// <summary>
+		/// Changes the color of the entity to the
+		/// correct entity attacked coloring.
+		/// </summary>
+		public void AttackColor()
+		{
+			if (this is Player)
+				EntityColor = PlayerAttackedColor;
+			else if (this is Monster)
+				EntityColor = MonsterAttackedColor;
+			ColorTimer.PerformAction();
 		}
 
 		#endregion

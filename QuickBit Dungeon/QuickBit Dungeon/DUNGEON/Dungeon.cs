@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.INTERACTION;
@@ -13,17 +14,20 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 		// ============= Variables ==============
 		// ======================================
-		
+
 		private const int GridSize = 20;
 		private const int ViewSize = 5;
+		private const int DrawGridSize = (ViewSize*2) + 1;
 		
 		public static Player MainPlayer { get; set; }		
 		public static List<Monster> Monsters { get; set; }
-		private static Monster Target { get; set; }	
+		private static Monster _target;
 		
 		private static DungeonGenerator DungeonGeneration { get; set; }
+		private static List<List<DrawCell>> DrawGrid { get; set; }
 		public static List<List<Cell>> Grid { get; private set; }
 		public static List<Room> Rooms { get; set; }
+		private static int LevelCount { get; set; } = 1;
 
 		// ======================================
 		// =============== Main =================
@@ -35,6 +39,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static void Update()
 		{
 			UpdatePlayerMovement();
+			UpdateMonsters();
 		}
 
 		// ======================================
@@ -50,7 +55,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			MainPlayer = new Player();
 			Monsters   = new List<Monster>();
-			GenerateMonsters();
+			Construct();
+			GenerateDrawCells();
 		}
 
 		/// <summary>
@@ -63,6 +69,9 @@ namespace QuickBit_Dungeon.DUNGEON
 			Rooms = new List<Room>();
 			DungeonGeneration = new DungeonGenerator(Grid, Rooms);
 			DungeonGeneration.GenerateDungeon();
+			MainPlayer.Y = DungeonGeneration.Start.Item1;
+			MainPlayer.X = DungeonGeneration.Start.Item2;
+			GenerateMonsters();
 		}
 
 		/// <summary>
@@ -74,6 +83,8 @@ namespace QuickBit_Dungeon.DUNGEON
 			Grid.Clear();
 			Rooms.Clear();
 			Construct();
+			LevelUpMonsters(LevelCount);
+			LevelCount++;
 		}
 
 		#endregion
@@ -96,23 +107,23 @@ namespace QuickBit_Dungeon.DUNGEON
 			switch (Input.CurrentDirection)
 			{
 				case Input.Direction.North:
-					if (Dungeon.CanMove(MainPlayer, -1, 0))
-						Dungeon.MoveEntity(MainPlayer, -1, 0);
+					if (CanMove(MainPlayer, -1, 0))
+						MoveEntity(MainPlayer, -1, 0);
 					break;
 
 				case Input.Direction.South:
-					if (Dungeon.CanMove(MainPlayer, 1, 0))
-						Dungeon.MoveEntity(MainPlayer, 1, 0);
+					if (CanMove(MainPlayer, 1, 0))
+						MoveEntity(MainPlayer, 1, 0);
 					break;
 
 				case Input.Direction.East:
-					if (Dungeon.CanMove(MainPlayer, 0, 1))
-						Dungeon.MoveEntity(MainPlayer, 0, 1);
+					if (CanMove(MainPlayer, 0, 1))
+						MoveEntity(MainPlayer, 0, 1);
 					break;
 
 				case Input.Direction.West:
-					if (Dungeon.CanMove(MainPlayer, 0, -1))
-						Dungeon.MoveEntity(MainPlayer, 0, -1);
+					if (CanMove(MainPlayer, 0, -1))
+						MoveEntity(MainPlayer, 0, -1);
 					break;
 			}
 		}
@@ -123,7 +134,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// </summary>
 		private static void GenerateMonsters()
 		{
-			foreach (var r in Dungeon.Rooms)
+			foreach (var r in Rooms)
 			{
 				var monsterAmount = GameManager.Random.Next(1, 4);
 
@@ -137,7 +148,7 @@ namespace QuickBit_Dungeon.DUNGEON
 						rx = GameManager.Random.Next(r.Position[1], r.Position[1] + r.Width);
 
 						if (!MonsterAt(ry, rx, ref _target) &&
-							Dungeon.Grid[ry][rx].Type != '@')
+							Grid[ry][rx].Type != '@')
 							break;
 					}
 
@@ -145,10 +156,19 @@ namespace QuickBit_Dungeon.DUNGEON
 					m.ConstructMonster();
 					m.Y = ry;
 					m.X = rx;
-					Dungeon.ResetRep(m);
+					ResetRep(m);
 					Monsters.Add(m);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Updates all monsters.
+		/// </summary>
+		private static void UpdateMonsters()
+		{
+			foreach (var m in Monsters)
+				m.Update();
 		}
 
 		/// <summary>
@@ -163,6 +183,25 @@ namespace QuickBit_Dungeon.DUNGEON
 			for (int i = 0; i < levelCount; i++)
 				foreach (var m in Monsters)
 					m.LevelUp(colors[GameManager.Random.Next(0, 3)]);
+		}
+
+		/// <summary>
+		/// Determines if a monster exists at those
+		///	coordinates.
+		/// </summary>
+		/// <param name="y">The y coordinate</param>
+		/// <param name="x">The x coordinate</param>
+		/// <param name="target">The monster to check for</param>
+		/// <returns>Whether or not a monster is at that position</returns>
+		public static bool MonsterAt(int y, int x, ref Monster target)
+		{
+			foreach (var m in Monsters)
+			{
+				if (m.Y != y || m.X != x) continue;
+				target = m;
+				return true;
+			}
+			return false;
 		}
 
 		#endregion
@@ -180,7 +219,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// <returns>Whether exit was reached or not</returns>
 		public static bool EndReached()
 		{
-			return _pPos[0] == _ePos[0] && _pPos[1] == _ePos[1];
+			return MainPlayer.Y == DungeonGeneration.Exit.Item1 &&
+			       MainPlayer.X == DungeonGeneration.Exit.Item2;
 		}
 
 		/// <summary>
@@ -208,19 +248,13 @@ namespace QuickBit_Dungeon.DUNGEON
 			e.Y += y;
 			e.X += x;
 			Grid[e.Y][e.X].NewLocal(e);
-
-			// Update internal player position if necessary
-			if (e is Player)
-			{
-				_pPos[0] += y;
-				_pPos[1] += x;
-			}
 		}
 
 		/// <summary>
 		/// Determines if the location the player
 		/// is trying to move to is a valid location.
 		/// </summary>
+		/// <param name="e">The entity we want to move</param>
 		/// <param name="y">The y position to move to</param>
 		/// <param name="x">The x position to move to</param>
 		/// <returns>Whether or not the entity can move to that position</returns>
@@ -229,15 +263,19 @@ namespace QuickBit_Dungeon.DUNGEON
 			var ny = e.Y + y;
 			var nx = e.X + x;
 
-			if (ny < 0 || ny >= GridSize || nx < 0 || nx >= GridSize) return false;
-			return Grid[ny][nx].Rep == '.' || Grid[ny][nx].Rep == '#' || Grid[ny][nx].Rep == '@';
+			if (ny < 0 || ny >= GridSize || nx < 0 || nx >= GridSize)
+				return false;
+			else
+				return Grid[ny][nx].Rep == '.' || 
+					   Grid[ny][nx].Rep == '#' || 
+					   Grid[ny][nx].Rep == '@';
 		}
 
 		/// <summary>
 		/// Resets the representation of an entity
 		/// in the game. ie they were damaged
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="e">The entity to reset the rep of</param>
 		public static void ResetRep(Entity e)
 		{
 			Grid[e.Y][e.X].Rep = GameManager.ConvertToChar(e.HealthRep);
@@ -250,28 +288,65 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 
 		/// <summary>
+		/// Generates the drawgrid and draw cells
+		/// to handle all dungeon drawing.
+		/// </summary>
+		public static void GenerateDrawCells()
+		{
+			const int startX = 100;
+			const int startY = 100;
+			const int xIncr = 25;
+			const int yIncr = 25;
+			var newX = startX;
+			var newY = startY;
+
+			DrawGrid = new List<List<DrawCell>>();
+
+			for (var i = 0; i < DrawGridSize; i++)
+			{
+				DrawGrid.Add(new List<DrawCell>());
+				for (var j = 0; j < DrawGridSize; j++)
+				{
+					newX += xIncr;
+					var dc = new DrawCell {Position = new Vector2(newX, newY)};
+					DrawGrid[i].Add(dc);
+				}
+				newX = startX;
+				newY += yIncr;
+			}
+		}
+
+		/// <summary>
 		/// Returns a string representing the player's
 		/// view in the game.
 		/// </summary>
 		/// <returns>The string that represents the entire player view</returns>
-		public static void PlayerView()
+		public static void GeneratePlayerView()
 		{
-			var x = MainPlayer.X;
-			var y = MainPlayer.Y;
+			int x = MainPlayer.X;
+			int y = MainPlayer.Y;
+			int i1 = 0;
+			int i2 = 0;
 
-			for (var i = y - ViewSize; i <= y + ViewSize; i++)
+			for (var i = y - ViewSize; i < y + ViewSize; i++)
 			{
-				for (var j = x - ViewSize; j <= x + ViewSize; j++)
+				for (var j = x - ViewSize; j < x + ViewSize; j++)
 				{
 					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
 					{
-						
+						DrawGrid[i1][i2].GameObject = Grid[i][j].Rep;
+						DrawGrid[i1][i2].Shade = Grid[i][j].Local == null ? Color.White : 
+																			Grid[i][j].Local.EntityColor;
 					}
 					else
 					{
-						
+						DrawGrid[i1][i2].GameObject = ' ';
+						DrawGrid[i1][i2].Shade = Color.White;
 					}
+					i2++;
 				}
+				i2 = 0;
+				i1++;
 			}
 		}
 
@@ -281,7 +356,14 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// <param name="sb">The spritebatch to draw with</param>
 		public static void Draw(SpriteBatch sb)
 		{
-			
+			GeneratePlayerView();
+
+			foreach (var row in DrawGrid)
+				foreach (var cell in row)
+					sb.DrawString(ArtManager.DungeonFont, 
+								  cell.GameObject.ToString(), 
+								  cell.Position, 
+								  cell.Shade);
 		}
 	}
 }

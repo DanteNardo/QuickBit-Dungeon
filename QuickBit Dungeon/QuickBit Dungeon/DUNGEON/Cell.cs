@@ -7,7 +7,7 @@ namespace QuickBit_Dungeon.DUNGEON
 	public class Cell
 	{
 		// ======================================
-		// ============= Variables ==============
+		// ============== Members ===============
 		// ======================================
 
 		public Entity Local { get; set; } = null;

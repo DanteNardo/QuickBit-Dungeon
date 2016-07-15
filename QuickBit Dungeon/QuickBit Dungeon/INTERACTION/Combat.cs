@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.DUNGEON;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.INTERACTION
 {
@@ -55,7 +56,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			switch (Input.LastDirection)
 			{
 				case Input.Direction.North:
-					if (World.MonsterAt(_player.Y-1, _player.X, ref _target))
+					if (Dungeon.MonsterAt(_player.Y-1, _player.X, ref _target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -63,7 +64,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.South:
-					if (World.MonsterAt(_player.Y+1, _player.X, ref _target))
+					if (Dungeon.MonsterAt(_player.Y+1, _player.X, ref _target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -71,7 +72,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.East:
-					if (World.MonsterAt(_player.Y, _player.X+1, ref _target))
+					if (Dungeon.MonsterAt(_player.Y, _player.X+1, ref _target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -79,7 +80,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.West:
-					if (World.MonsterAt(_player.Y, _player.X-1, ref _target))
+					if (Dungeon.MonsterAt(_player.Y, _player.X-1, ref _target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -169,7 +170,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			// Perform special attack
 			foreach (var t in _targets)
 			{
-				var damage = _player.Wisdom + World.Rand.Next(1, _player.Wisdom*10);
+				var damage = _player.Wisdom + GameManager.Random.Next(1, _player.Wisdom*10);
 				t.UpdateHealth(-damage);
 				Dungeon.ResetRep(t);
 			}
@@ -241,8 +242,8 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void EndCombat()
 		{
-			World.MainPlayer = _player;
-			World.Monsters   = _monsters;
+			Dungeon.MainPlayer = _player;
+			Dungeon.Monsters   = _monsters;
 		}
 	}
 }

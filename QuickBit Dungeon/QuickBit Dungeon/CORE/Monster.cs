@@ -30,15 +30,16 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public Monster() : base()
 		{
-			AttackTimer = new Timer(30);
-			MoveTimer = new Timer(40);
+			AttackTimer = new Timer(60);
+			MoveTimer = new Timer(80);
 		}
 
 		/// <summary>
 		/// Updates a Monster
 		/// </summary>
-		public void Update()
+		public new void Update()
 		{
+			base.Update();
 			AttackTimer.Update();
 			MoveTimer.Update();
 		}

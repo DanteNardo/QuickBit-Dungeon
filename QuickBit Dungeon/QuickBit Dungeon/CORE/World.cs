@@ -29,7 +29,6 @@ namespace QuickBit_Dungeon.CORE
 
 		// For drawing placement
 		private static readonly Vector2 ScreenCenter = new Vector2(300, 300);
-		private static Vector2 _dgPos;
 
 		public static int LevelCount { get; set; } = 1;
 
@@ -42,6 +41,7 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public static void Init()
 		{
+			Dungeon.Init();
 			_combat             = new Combat();
 			_light              = new Light();
 			_statBox            = new StatBox();
@@ -63,12 +63,11 @@ namespace QuickBit_Dungeon.CORE
 		{
 			if (OutOfTime()) return;
 			if (GamePaused()) return;
+			if (PlayerDied()) return;
 
 			Dungeon.Update();
 			NextLevel();
 
-			UpdateMonsters();
-			MovePlayer();
 			PerformCombat();
 			
 			if (Dungeon.MainPlayer.HasEnoughXp())
@@ -80,12 +79,6 @@ namespace QuickBit_Dungeon.CORE
 			_healthBar.Update();
 			_attackBar.Update();
 			_statBox.GenerateStats(Dungeon.MainPlayer);
-
-			if (PlayerDied())
-			{
-				StateManager.SetState(StateManager.EGameState.GameOver);
-				return;
-			}
 		}
 
 		/// <summary>
@@ -97,12 +90,9 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.LoadContent();
 
 			// Special Effects
-			_light.LoadContent();
-			_light.PositionLight(_dgPos);
+			//_light.LoadContent();
+			//_light.PositionLight(_dgPos);
 		}
-
-		
-
 
 		// ======================================
 		// =============== Combat ===============
@@ -114,7 +104,7 @@ namespace QuickBit_Dungeon.CORE
 		private static void PerformCombat()
 		{
 			if (CombatExists())
-				_combat.PerformCombat(MainPlayer, Monsters);
+				_combat.PerformCombat(Dungeon.MainPlayer, Dungeon.Monsters);
 			_combat.PlayerRegen();
 		}
 
@@ -125,12 +115,12 @@ namespace QuickBit_Dungeon.CORE
 		private static bool CombatExists()
 		{
 			// Check player's position vs all monsters
-			foreach (var m in Monsters)
+			foreach (var m in Dungeon.Monsters)
 			{
-				if ((m.Y == MainPlayer.Y && m.X == MainPlayer.X + 1) ||
-				    (m.Y == MainPlayer.Y && m.X == MainPlayer.X - 1) ||
-				    (m.Y == MainPlayer.Y + 1 && m.X == MainPlayer.X) ||
-				    (m.Y == MainPlayer.Y - 1 && m.X == MainPlayer.X))
+				if ((m.Y == Dungeon.MainPlayer.Y && m.X == Dungeon.MainPlayer.X + 1) ||
+				    (m.Y == Dungeon.MainPlayer.Y && m.X == Dungeon.MainPlayer.X - 1) ||
+				    (m.Y == Dungeon.MainPlayer.Y + 1 && m.X == Dungeon.MainPlayer.X) ||
+				    (m.Y == Dungeon.MainPlayer.Y - 1 && m.X == Dungeon.MainPlayer.X))
 				{
 					return true;
 				}
@@ -141,40 +131,17 @@ namespace QuickBit_Dungeon.CORE
 		}
 
 		/// <summary>
-		/// Updates all monsters.
-		/// </summary>
-		private static void UpdateMonsters()
-		{
-			foreach (var m in Monsters)
-				m.Update();
-		}
-
-		/// <summary>
-		/// Determines if a monster exists at those
-		///	coordinates.
-		/// </summary>
-		/// <param name="y">The y coordinate</param>
-		/// <param name="x">The x coordinate</param>
-		/// <param name="target">The monster to check for</param>
-		/// <returns>Whether or not a monster is at that position</returns>
-		public static bool MonsterAt(int y, int x, ref Monster target)
-		{
-			foreach (var m in Monsters)
-			{
-				if (m.Y != y || m.X != x) continue;
-				target = m;
-				return true;
-			}
-			return false;
-		}
-
-		/// <summary>
 		/// Determines if the player died or not.
 		/// </summary>
 		/// <returns>Whether player died</returns>
 		private static bool PlayerDied()
 		{
-			return MainPlayer.Health <= 0;
+			if (Dungeon.MainPlayer.Health <= 0)
+			{
+				StateManager.SetState(StateManager.EGameState.GameOver);
+				return true;
+			}
+			return false;
 		}
 
 		// ======================================
@@ -187,24 +154,12 @@ namespace QuickBit_Dungeon.CORE
 		/// <param name="sb">The spritebatch</param>
 		public static void Draw(SpriteBatch sb)
 		{
-			DrawDungeon(sb);
-			_light.DrawLight(sb);
+			Dungeon.Draw(sb);
+			//_light.DrawLight(sb);
 			_statBox.DrawStats(sb);
 			_healthBar.DrawProgressBar(sb);
 			_attackBar.DrawProgressBar(sb);
 			_levelTimer.Draw(sb, 500, 25);
-		}
-
-		/// <summary>
-		/// Draws the player's view of the dungeon.
-		/// </summary>
-		/// <param name="sb">The spritebatch</param>
-		private static void DrawDungeon(SpriteBatch sb)
-		{
-			sb.DrawString(ArtManager.DungeonFont,
-							Dungeon.PlayerView(),
-							_dgPos,
-							Color.White);
 		}
 
 		// ======================================
@@ -215,7 +170,7 @@ namespace QuickBit_Dungeon.CORE
 		/// Returns whether or not the player
 		/// ran out of time for this level.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Whether or not the player ran out of time</returns>
 		private static bool OutOfTime()
 		{
 			if (_levelTimer.ActionReady)
@@ -226,6 +181,11 @@ namespace QuickBit_Dungeon.CORE
 			else return false;
 		}
 
+		/// <summary>
+		/// Returns whether or not the player
+		/// has paused the game.
+		/// </summary>
+		/// <returns>Whether or not the game is paused</returns>
 		private static bool GamePaused()
 		{
 			if (Input.GamePaused)
@@ -237,18 +197,17 @@ namespace QuickBit_Dungeon.CORE
 			else return false;
 		}
 
+		/// <summary>
+		/// Checks if the player has reached
+		/// the next level. If they have, 
+		/// generate the new level.
+		/// </summary>
 		private static void NextLevel()
 		{
 			if (Dungeon.EndReached())
 			{
 				Dungeon.NewLevel();
-				Dungeon.GetPlayerPosition(MainPlayer);
-				Monsters.Clear();
-				Monsters = new List<Monster>();
-				GenerateMonsters();
-				LevelUpMonsters(LevelCount);
 				_levelTimer.PerformAction();
-				LevelCount++;
 			}
 		}
 	}
