@@ -85,10 +85,10 @@ namespace QuickBit_Dungeon.INTERACTION
 			if (Released(Keys.S) || Released(Buttons.DPadDown))
 				CurrentDirection = Direction.South;
 			// East
-			if (Released(Keys.D) || Released(Buttons.DPadLeft))
+			if (Released(Keys.D) || Released(Buttons.DPadRight))
 				CurrentDirection = Direction.East;
 			// West
-			if (Released(Keys.A) || Released(Buttons.DPadRight))
+			if (Released(Keys.A) || Released(Buttons.DPadLeft))
 				CurrentDirection = Direction.West;
 
 			// ======================================

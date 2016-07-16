@@ -249,9 +249,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			while (attempts > 0)
 			{
-				// Generate width and height (3, 7)
-				var w = GameManager.Random.Next(3, 7);
-				var h = GameManager.Random.Next(3, 7);
+				// Generate width and height (3, 5)
+				var w = GameManager.Random.Next(3, 5);
+				var h = GameManager.Random.Next(3, 5);
 
 				// Generate x and y position (0, gridSize)
 				var x = GameManager.Random.Next(0, GridSize);

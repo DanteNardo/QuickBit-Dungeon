@@ -22,7 +22,7 @@ namespace QuickBit_Dungeon.UI
 		public int MaxId { get; set; }
 		public Texture2D BackgroundTexture { get; internal set; }
 		public Rectangle BackgroundPosition { get; internal set; } = new Rectangle(0, 0, 600, 600);
-		public List<Button> Buttons { get; internal set; }
+		public List<Button> MenuButtons { get; internal set; }
 
 		public const int ButtonWidth = 100;
 		public const int ButtonHeight = 25;
@@ -37,7 +37,7 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		public void Hover()
 		{
-			foreach (var button in Buttons)
+			foreach (var button in MenuButtons)
 				button.Hover(CurrentId);
 		}
 
@@ -47,7 +47,7 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		public void Released()
 		{
-			foreach (var button in Buttons)
+			foreach (var button in MenuButtons)
 				button.Released(CurrentId);
 		}
 
@@ -68,7 +68,8 @@ namespace QuickBit_Dungeon.UI
 			}
 
 			if (Input.Released(Keys.Enter) ||
-			    Input.Released(Keys.Space))
+			    Input.Released(Keys.Space) ||
+                Input.Released(Buttons.A))
 				Released();
 		}
 
@@ -95,7 +96,7 @@ namespace QuickBit_Dungeon.UI
 		{
 			sb.Draw(BackgroundTexture, BackgroundPosition, Color.White);
 
-			foreach (var button in Buttons)
+			foreach (var button in MenuButtons)
 				button.Draw(sb);
 		}
 	}

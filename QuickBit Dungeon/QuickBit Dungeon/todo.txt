@@ -2,14 +2,14 @@
 
 // Name: Dante Nardo
 // Game: QuickBit Dungeon
-// Date: 6/18/16
+// Date: 7/16/2016
 
 =============================================
 =============== Milestones ==================
 =============================================
 
 1) COMBAT		Status: Incomplete
-2) INPUT		Status: Incomplete
+2) INPUT		Status: COMPLETE!
 3) DUNGEON		Status: Incomplete
 4) GRAPHICS		Status: Incomplete
 5) UI			Status: Incomplete
@@ -22,15 +22,6 @@
 1) ENEMY AI
 
 =============================================
-================= Input =====================
-=============================================
-
-1) ADD GAMEPAD SUPPORT
-
-Issues:
-	- GamePad Released function not returning true when data is correct
-
-=============================================
 ================ Dungeon ====================
 =============================================
 
@@ -38,6 +29,7 @@ Issues:
 
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
+	- Invisible Enemies
 
 =============================================
 ================ Graphics ===================

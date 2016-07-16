@@ -31,7 +31,7 @@ namespace QuickBit_Dungeon.UI
 		public PauseMenu()
 		{
 			MaxId = NumberOfButtons;
-			Buttons = new List<Button>();
+			MenuButtons = new List<Button>();
 			MakeButtons();
 		}
 
@@ -46,13 +46,13 @@ namespace QuickBit_Dungeon.UI
 			{
 				Button b = new Button(i, Color.Gray, rec);
 				rec = new Rectangle(rec.X, rec.Y + rec.Height + 20, rec.Width, rec.Height);
-				Buttons.Add(b);
+				MenuButtons.Add(b);
 			}
 
-			Buttons[ResumeIndex].SetPressedState(StateManager.EGameState.Game);
-			Buttons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
-			Buttons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
-			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
+			MenuButtons[ResumeIndex].SetPressedState(StateManager.EGameState.Game);
+			MenuButtons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
+			MenuButtons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
+			MenuButtons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
 		}
 
 		/// <summary>
@@ -61,10 +61,10 @@ namespace QuickBit_Dungeon.UI
 		public void LoadContent()
 		{
 			BackgroundTexture = ArtManager.PauseMenuBackground;
-			Buttons[ResumeIndex].Texture = ArtManager.ResumeButton;
-			Buttons[HowToIndex].Texture = ArtManager.HowToButton;
-			Buttons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
-			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
+			MenuButtons[ResumeIndex].Texture = ArtManager.ResumeButton;
+			MenuButtons[HowToIndex].Texture = ArtManager.HowToButton;
+			MenuButtons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
+			MenuButtons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
 	}
 }

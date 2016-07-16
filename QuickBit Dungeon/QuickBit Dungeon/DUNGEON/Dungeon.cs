@@ -71,6 +71,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			DungeonGeneration.GenerateDungeon();
 			MainPlayer.Y = DungeonGeneration.Start.Item1;
 			MainPlayer.X = DungeonGeneration.Start.Item2;
+		    SetEntity(MainPlayer, MainPlayer.Y, MainPlayer.X);
 			GenerateMonsters();
 		}
 

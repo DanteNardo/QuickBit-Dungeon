@@ -97,12 +97,12 @@ namespace QuickBit_Dungeon
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			//if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-			//    Keyboard.GetState().IsKeyDown(Keys.Escape))
-			//	Exit();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-			// Update all input
-			Input.Update();
+            // Update all input
+            Input.Update();
 
 			switch (StateManager.GameState)
 			{
@@ -126,10 +126,10 @@ namespace QuickBit_Dungeon
 					_gameOverMenu.Update();
 					_gameOverMenu.Hover();
 					break;
-				//case StateManager.EGameState.Exit:
-				//	Exit();
-				//	break;
-			}
+                case StateManager.EGameState.Exit:
+                    Exit();
+                    break;
+            }
 
 			base.Update(gameTime);
 		}

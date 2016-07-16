@@ -28,7 +28,7 @@ namespace QuickBit_Dungeon.UI
 		public HowToMenu()
 		{
 			MaxId = NumberOfButtons;
-			Buttons = new List<Button>();
+			MenuButtons = new List<Button>();
 			MakeButtons();
 		}
 
@@ -43,7 +43,7 @@ namespace QuickBit_Dungeon.UI
 			{
 				Button b = new Button(i, Color.Gray, rec);
 				rec = new Rectangle(rec.X, rec.Y + rec.Height + 20, rec.Width, rec.Height);
-				Buttons.Add(b);
+				MenuButtons.Add(b);
 			}
 
 			SetLastState();
@@ -55,7 +55,7 @@ namespace QuickBit_Dungeon.UI
 		public void LoadContent()
 		{
 			BackgroundTexture = ArtManager.HowToMenuBackground;
-			Buttons[ReturnIndex].Texture = ArtManager.ReturnButton;
+			MenuButtons[ReturnIndex].Texture = ArtManager.ReturnButton;
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="s">The state to return to</param>
 		public void SetLastState()
 		{
-			Buttons[ReturnIndex].SetPressedState(StateManager.LastState);
+			MenuButtons[ReturnIndex].SetPressedState(StateManager.LastState);
 		}
 	}
 }

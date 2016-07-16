@@ -26,7 +26,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static Texture2D PauseMenuBackground { get; set; }
 		public static Texture2D GameOverBackground { get; set; }
 
-		// Menu Buttons
+		// Menu MenuButtons
 		public static Texture2D MainMenuButton { get; set; }
 		public static Texture2D StartButton { get; set; }
 		public static Texture2D HowToButton { get; set; }
@@ -62,7 +62,7 @@ namespace QuickBit_Dungeon.MANAGERS
 			PauseMenuBackground = cm.Load<Texture2D>("UI/PauseMenuTexture");
 			GameOverBackground = cm.Load<Texture2D>("UI/GameOverTexture");
 
-			// Menu Buttons
+			// Menu MenuButtons
 			MainMenuButton = cm.Load<Texture2D>("Buttons/MainMenuButtonTexture");
 			StartButton = cm.Load<Texture2D>("Buttons/StartButtonTexture");
 			HowToButton = cm.Load<Texture2D>("Buttons/HowToButtonTexture");

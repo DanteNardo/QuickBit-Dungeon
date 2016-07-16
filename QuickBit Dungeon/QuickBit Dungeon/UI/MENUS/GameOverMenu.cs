@@ -28,7 +28,7 @@ namespace QuickBit_Dungeon.UI
 		public GameOverMenu()
 		{
 			MaxId = NumberOfButtons;
-			Buttons = new List<Button>();
+			MenuButtons = new List<Button>();
 			MakeButtons();
 		}
 
@@ -43,11 +43,11 @@ namespace QuickBit_Dungeon.UI
 			{
 				Button b = new Button(i, Color.Gray, rec);
 				rec = new Rectangle(rec.X, rec.Y + rec.Height + 20, rec.Width, rec.Height);
-				Buttons.Add(b);
+				MenuButtons.Add(b);
 			}
 
-			Buttons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
-			Buttons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
+			MenuButtons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
+			MenuButtons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
 		}
 
 		/// <summary>
@@ -56,8 +56,8 @@ namespace QuickBit_Dungeon.UI
 		public void LoadContent()
 		{
 			BackgroundTexture = ArtManager.GameOverBackground;
-			Buttons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
-			Buttons[ExitIndex].Texture = ArtManager.ExitButton;
+			MenuButtons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
+			MenuButtons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
 	}
 }
