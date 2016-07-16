@@ -6,7 +6,7 @@ namespace QuickBit_Dungeon.CORE
 	public class Monster : Entity
 	{
 		// ======================================
-		// ============= Variables ==============
+		// ============== Members ===============
 		// ======================================
 
 		// Timing variables

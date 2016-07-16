@@ -38,7 +38,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// </summary>
 		public static void Update()
 		{
-			UpdatePlayerMovement();
+		    UpdatePlayer();
 			UpdateMonsters();
 		}
 
@@ -94,6 +94,15 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 
 		#region Entities
+        
+        /// <summary>
+        /// Updates the main player.
+        /// </summary>
+	    private static void UpdatePlayer()
+	    {
+	        MainPlayer.Update();
+	        UpdatePlayerMovement();
+	    }
 
 		/// <summary>
 		/// Moves the player in the dungeon using
@@ -158,6 +167,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					m.X = rx;
 					ResetRep(m);
 					Monsters.Add(m);
+				    Grid[ry][rx].NewLocal(m);
 				}
 			}
 		}
@@ -203,6 +213,16 @@ namespace QuickBit_Dungeon.DUNGEON
 			}
 			return false;
 		}
+
+        /// <summary>
+        /// Kills an entity and removes it from 
+        /// the game data and visuals.
+        /// </summary>
+        /// <param name="e"></param>
+	    public static void KillEntity(Entity e)
+	    {
+	        Grid[e.Y][e.X].ClearLocal();
+	    }
 
 		#endregion
 
@@ -295,8 +315,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			const int startX = 100;
 			const int startY = 100;
-			const int xIncr = 25;
-			const int yIncr = 25;
+			const int xIncr = 30;
+			const int yIncr = 30;
 			var newX = startX;
 			var newY = startY;
 
@@ -328,9 +348,9 @@ namespace QuickBit_Dungeon.DUNGEON
 			int i1 = 0;
 			int i2 = 0;
 
-			for (var i = y - ViewSize; i < y + ViewSize; i++)
+			for (var i = y - ViewSize; i <= y + ViewSize; i++)
 			{
-				for (var j = x - ViewSize; j < x + ViewSize; j++)
+				for (var j = x - ViewSize; j <= x + ViewSize; j++)
 				{
 					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
 					{

@@ -154,6 +154,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			var damage = _player.Strength - _target.Armor;
 			if (_player.IsCrit()) damage *= 2;
 			_target.UpdateHealth(-damage);
+		    _target.AttackColor();
 			Dungeon.ResetRep(_target);
 		}
 
@@ -172,6 +173,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			{
 				var damage = _player.Wisdom + GameManager.Random.Next(1, _player.Wisdom*10);
 				t.UpdateHealth(-damage);
+			    t.AttackColor();
 				Dungeon.ResetRep(t);
 			}
 			
@@ -211,6 +213,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			m.AttackTimer.PerformAction();
 			var damage = m.Strength - _player.Armor;
 			_player.UpdateHealth(-damage);
+		    _player.AttackColor();
 			Dungeon.ResetRep(_player);
 		}
 
@@ -233,7 +236,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			// Add exp to the player
 			_player.Xp += _target.Xp;
 			_monsters.Remove(_target);
-			Dungeon.Grid[_target.Y][_target.X].Rep = Dungeon.Grid[_target.Y][_target.X].Type;
+		    Dungeon.KillEntity(_target);
 		}
 
 		/// <summary>

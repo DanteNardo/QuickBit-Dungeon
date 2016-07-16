@@ -43,9 +43,11 @@ Issues:
 ================ Graphics ===================
 =============================================
 
-1) RGB SQUARES DURING ATTACKS
-2) FLICKERING LIGHTING EFFECT
-3) LEVEL TRANSITION ANIMATION
+1) FLICKERING LIGHTING EFFECT
+2) LEVEL TRANSITION ANIMATION
+
+Issues:
+	- Fix lighting effect
 
 =============================================
 ============= User Interface ================
