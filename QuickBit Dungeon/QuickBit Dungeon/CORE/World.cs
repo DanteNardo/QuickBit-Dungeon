@@ -90,8 +90,7 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.LoadContent();
 
 			// Special Effects
-			//_light.LoadContent();
-			//_light.PositionLight(_dgPos);
+			_light.LoadContent();
 		}
 
 		// ======================================
@@ -155,7 +154,7 @@ namespace QuickBit_Dungeon.CORE
 		public static void Draw(SpriteBatch sb)
 		{
 			Dungeon.Draw(sb);
-			//_light.DrawLight(sb);
+			_light.DrawLight(sb);
 			_statBox.DrawStats(sb);
 			_healthBar.DrawProgressBar(sb);
 			_attackBar.DrawProgressBar(sb);

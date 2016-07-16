@@ -20,6 +20,14 @@ namespace QuickBit_Dungeon.UI.Effects
 		// ============== Methods ===============
 		// ======================================
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+	    public Light()
+	    {
+	        PositionLight();
+	    }
+
 		/// <summary>
 		/// This method loads all content for the
 		///	light object.
@@ -33,13 +41,9 @@ namespace QuickBit_Dungeon.UI.Effects
 		/// This method generates a light
 		///	object's position data.
 		/// </summary>
-		/// <param name="dungeonPosition">The position of the dungeon on screen</param>
-		public void PositionLight(Vector2 dungeonPosition)
+		private void PositionLight()
 		{
-			LightPos = new Rectangle((int) dungeonPosition.X,
-				(int) dungeonPosition.Y,
-				(int) (LightTex.Width*LightScaleWidth),
-				(int) (LightTex.Height*LightScaleHeight));
+		    LightPos = new Rectangle(130, 100, 330, 330);
 		}
 
 		/// <summary>

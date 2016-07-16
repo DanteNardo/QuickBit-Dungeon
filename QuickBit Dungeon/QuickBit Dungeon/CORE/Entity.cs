@@ -62,7 +62,7 @@ namespace QuickBit_Dungeon.CORE
 			MaxMana = 100f;
 			HealthMana = MaxMana;
 			AttackMana = MaxMana;
-			ColorTimer = new Timer((int)(.25*60));
+			ColorTimer = new Timer((int)(.15*60));
 			ResetColor();
 		}
 
@@ -80,7 +80,7 @@ namespace QuickBit_Dungeon.CORE
 			Wisdom = GameManager.Random.Next(7, 14);
 			CalculateHealthRep();
 			GenerateXp();
-			ColorTimer = new Timer((int)(.25*60));
+			ColorTimer = new Timer((int)(.15*60));
 			ResetColor();
 		}
 
