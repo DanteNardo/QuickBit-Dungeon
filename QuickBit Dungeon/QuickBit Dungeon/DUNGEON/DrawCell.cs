@@ -15,6 +15,7 @@ namespace QuickBit_Dungeon.DUNGEON
 
 		public char GameObject { get; set; }
 		public Vector2 Position { get; set; }
+        public Color CurrentShade { get; set; }
 		public Color Shade { get; set; }
 
 		// ======================================

@@ -12,7 +12,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============= Variables ==============
 		// ======================================
 
-		private const int GridSize = 20;
+		private const int GridSize = 30;
 		private List<List<Cell>> Grid;
 		private List<Room> Rooms;
 		public Tuple<int, int> Start { get; set; }
@@ -249,9 +249,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			while (attempts > 0)
 			{
-				// Generate width and height (3, 5)
-				var w = GameManager.Random.Next(3, 5);
-				var h = GameManager.Random.Next(3, 5);
+				// Generate width and height (3, 6)
+				var w = GameManager.Random.Next(3, 6);
+				var h = GameManager.Random.Next(3, 6);
 
 				// Generate x and y position (0, gridSize)
 				var x = GameManager.Random.Next(0, GridSize);

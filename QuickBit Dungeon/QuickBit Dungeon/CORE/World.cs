@@ -6,7 +6,6 @@ using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
-using QuickBit_Dungeon.UI.Effects;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -22,7 +21,6 @@ namespace QuickBit_Dungeon.CORE
 
 		private static Combat _combat;			// Contains the methods for all combat
 		private static StatBox _statBox;		// Displays the player's stats
-		private static Light _light;			// Draws the lighting effect
 		private static ProgressBar _healthBar;	// Displays the player's health mana bar
 		private static ProgressBar _attackBar;	// Displays the player's attack mana bar
 		private static Timer _levelTimer;		// Counts down how much time is left for this level
@@ -43,7 +41,6 @@ namespace QuickBit_Dungeon.CORE
 		{
 			Dungeon.Init();
 			_combat             = new Combat();
-			_light              = new Light();
 			_statBox            = new StatBox();
 			_levelTimer			= new Timer(120*60);
 			_healthBar          = new ProgressBar("Health Mana");
@@ -88,9 +85,6 @@ namespace QuickBit_Dungeon.CORE
 		{
 			// Stats box
 			_statBox.LoadContent();
-
-			// Special Effects
-			_light.LoadContent();
 		}
 
 		// ======================================
@@ -154,7 +148,6 @@ namespace QuickBit_Dungeon.CORE
 		public static void Draw(SpriteBatch sb)
 		{
 			Dungeon.Draw(sb);
-			_light.DrawLight(sb);
 			_statBox.DrawStats(sb);
 			_healthBar.DrawProgressBar(sb);
 			_attackBar.DrawProgressBar(sb);

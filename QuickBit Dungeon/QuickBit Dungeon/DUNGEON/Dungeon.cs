@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.UI.EFFECTS;
 
 namespace QuickBit_Dungeon.DUNGEON
 {
@@ -15,7 +16,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============= Variables ==============
 		// ======================================
 
-		private const int GridSize = 20;
+		private const int GridSize = 30;
 		private const int ViewSize = 5;
 		private const int DrawGridSize = (ViewSize*2) + 1;
 		
@@ -25,6 +26,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		
 		private static DungeonGenerator DungeonGeneration { get; set; }
 		private static List<List<DrawCell>> DrawGrid { get; set; }
+        private static Light MainLight { get; set; }
+        private static Light ExitLight { get; set; }
 		public static List<List<Cell>> Grid { get; private set; }
 		public static List<Room> Rooms { get; set; }
 		private static int LevelCount { get; set; } = 1;
@@ -38,8 +41,9 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// </summary>
 		public static void Update()
 		{
-		    UpdatePlayer();
+			UpdatePlayer();
 			UpdateMonsters();
+			UpdateLights();
 		}
 
 		// ======================================
@@ -57,6 +61,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			Monsters   = new List<Monster>();
 			Construct();
 			GenerateDrawCells();
+			GenerateLights();
 		}
 
 		/// <summary>
@@ -71,7 +76,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			DungeonGeneration.GenerateDungeon();
 			MainPlayer.Y = DungeonGeneration.Start.Item1;
 			MainPlayer.X = DungeonGeneration.Start.Item2;
-		    SetEntity(MainPlayer, MainPlayer.Y, MainPlayer.X);
+			SetEntity(MainPlayer, MainPlayer.Y, MainPlayer.X);
 			GenerateMonsters();
 		}
 
@@ -95,15 +100,15 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 
 		#region Entities
-        
-        /// <summary>
-        /// Updates the main player.
-        /// </summary>
-	    private static void UpdatePlayer()
-	    {
-	        MainPlayer.Update();
-	        UpdatePlayerMovement();
-	    }
+		
+		/// <summary>
+		/// Updates the main player.
+		/// </summary>
+		private static void UpdatePlayer()
+		{
+			MainPlayer.Update();
+			UpdatePlayerMovement();
+		}
 
 		/// <summary>
 		/// Moves the player in the dungeon using
@@ -168,7 +173,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					m.X = rx;
 					ResetRep(m);
 					Monsters.Add(m);
-				    Grid[ry][rx].NewLocal(m);
+					Grid[ry][rx].NewLocal(m);
 				}
 			}
 		}
@@ -215,15 +220,15 @@ namespace QuickBit_Dungeon.DUNGEON
 			return false;
 		}
 
-        /// <summary>
-        /// Kills an entity and removes it from 
-        /// the game data and visuals.
-        /// </summary>
-        /// <param name="e"></param>
-	    public static void KillEntity(Entity e)
-	    {
-	        Grid[e.Y][e.X].ClearLocal();
-	    }
+		/// <summary>
+		/// Kills an entity and removes it from 
+		/// the game data and visuals.
+		/// </summary>
+		/// <param name="e"></param>
+		public static void KillEntity(Entity e)
+		{
+			Grid[e.Y][e.X].ClearLocal();
+		}
 
 		#endregion
 
@@ -241,7 +246,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static bool EndReached()
 		{
 			return MainPlayer.Y == DungeonGeneration.Exit.Item1 &&
-			       MainPlayer.X == DungeonGeneration.Exit.Item2;
+				   MainPlayer.X == DungeonGeneration.Exit.Item2;
 		}
 
 		/// <summary>
@@ -312,7 +317,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// Generates the drawgrid and draw cells
 		/// to handle all dungeon drawing.
 		/// </summary>
-		public static void GenerateDrawCells()
+		private static void GenerateDrawCells()
 		{
 			const int startX = 100;
 			const int startY = 100;
@@ -338,37 +343,120 @@ namespace QuickBit_Dungeon.DUNGEON
 		}
 
 		/// <summary>
+		/// Updates the draw cells whenever the
+		/// screen changes.
+		/// </summary>
+		public static void UpdateDrawCells()
+		{
+			//foreach (var row in DrawGrid)
+			//	foreach (var cell in row)
+			//		cell.ResetShade();
+		}
+
+		/// <summary>
 		/// Returns a string representing the player's
 		/// view in the game.
 		/// </summary>
 		/// <returns>The string that represents the entire player view</returns>
-		public static void GeneratePlayerView()
+		private static void GeneratePlayerView()
 		{
 			int x = MainPlayer.X;
 			int y = MainPlayer.Y;
 			int i1 = 0;
 			int i2 = 0;
 
+			DrawCell dcell;
+			Cell cell;
+
 			for (var i = y - ViewSize; i <= y + ViewSize; i++)
 			{
 				for (var j = x - ViewSize; j <= x + ViewSize; j++)
 				{
+					dcell = DrawGrid[i1][i2];
+
 					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
 					{
-						DrawGrid[i1][i2].GameObject = Grid[i][j].Rep;
-						DrawGrid[i1][i2].Shade = Grid[i][j].Local == null ? Color.White : 
-																			Grid[i][j].Local.EntityColor;
+						cell = Grid[i][j];
+						dcell.GameObject = cell.Rep;
+						dcell.Shade = cell.Local?.EntityColor ?? Color.White;
+						dcell.Shade = dcell.Shade * cell.Alpha;
 					}
 					else
 					{
-						DrawGrid[i1][i2].GameObject = ' ';
-						DrawGrid[i1][i2].Shade = Color.White;
+						dcell.GameObject = ' ';
+						dcell.Shade = Color.White;
 					}
 					i2++;
 				}
 				i2 = 0;
 				i1++;
 			}
+		}
+
+        /// <summary>
+        /// Generates the main light and exit light.
+        /// </summary>
+		private static void GenerateLights()
+		{
+			// NOTE: Light size values must be ODD
+			MainLight = new Light(MainPlayer.Y, 
+								  MainPlayer.X,
+								  11);
+			ExitLight = new Light(DungeonGeneration.Exit.Item1, 
+						          DungeonGeneration.Exit.Item2,
+                                  23);
+	        SetLight(MainLight);
+	        SetLight(ExitLight);
+		}
+
+        /// <summary>
+        /// Updates all dungeon lights.
+        /// </summary>
+		private static void UpdateLights()
+        {
+	        ClearAllCellsAlpha();
+	        MainLight.Update(MainPlayer.Y, MainPlayer.X);
+	        ExitLight.Update();
+	        SetLight(MainLight);
+	        SetLight(ExitLight);
+        }
+
+		/// <summary>
+		/// Sets the light data in each cell.
+		/// </summary>
+		/// <param name="light">The light to place</param>
+		private static void SetLight(Light light)
+		{
+			// For readability
+			int hsize = light.LightSize/2;
+			int x = light.X;
+			int y = light.Y;
+			int i1 = 0, i2 = 0;
+
+			for (int i = y - hsize; i <= y + hsize; i++)
+			{
+				for (int j = x - hsize; j <= x + hsize; j++)
+				{
+					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
+					{
+						Grid[i][j].Alpha += (float) light.LightData[i1][i2];
+						if (Grid[i][j].Alpha > 1) Grid[i][j].Alpha = 1;
+					}
+					i2++;
+				}
+				i2 = 0;
+				i1++;
+			}
+		}
+
+		/// <summary>
+		/// Clears every cell's alpha.
+		/// </summary>
+		private static void ClearAllCellsAlpha()
+		{
+			foreach (var row in Grid)
+				foreach (var cell in row)
+					cell.Alpha = 0;
 		}
 
 		/// <summary>
@@ -381,10 +469,12 @@ namespace QuickBit_Dungeon.DUNGEON
 
 			foreach (var row in DrawGrid)
 				foreach (var cell in row)
-					sb.DrawString(ArtManager.DungeonFont, 
-								  cell.GameObject.ToString(), 
-								  cell.Position, 
-								  cell.Shade);
+				{
+					sb.DrawString(ArtManager.DungeonFont,
+						cell.GameObject.ToString(),
+						cell.Position,
+						cell.Shade);
+				}
 		}
 	}
 }

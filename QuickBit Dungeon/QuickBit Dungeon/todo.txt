@@ -29,6 +29,7 @@
 
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
+	- ^ find_pockets does not appear to be working
 	- Invisible Enemies
 
 =============================================
@@ -39,7 +40,7 @@ Issues:
 2) LEVEL TRANSITION ANIMATION
 
 Issues:
-	- Fix lighting effect
+	- Fix player rgb not showing at first
 
 =============================================
 ============= User Interface ================
