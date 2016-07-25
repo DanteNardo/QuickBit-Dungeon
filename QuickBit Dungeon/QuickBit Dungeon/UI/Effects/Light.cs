@@ -20,7 +20,7 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 
         // For the light flicker effect
 	    public double FlickerMin { get; set; } = 0.25;
-	    public double FlickerFraction { get; set; } = .3;
+	    public double FlickerFraction { get; set; } = .15;
         public double FlickerStart { get; set; }
         public double FlickerCurrent { get; set; }
         public double FlickerNext { get; set; }
@@ -49,6 +49,7 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 	    public void Update()
 	    {
 	        Flicker();
+	        SetUpLightValues();
 	    }
 
 		/// <summary>
@@ -63,6 +64,7 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 			Y = y;
 			X = x;
 			Flicker();
+	        SetUpLightValues();
 		}
 
 		/// <summary>
@@ -124,7 +126,7 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 				maxY--; maxX--;
 				curX = half;
 				curY = minY;
-				currentLight += 1/(double)(LightSize/2);
+				currentLight += (1/(double)(LightSize/2))*LightAlpha;
 
 				if (curX == half & curY == half)
 				{
@@ -157,8 +159,9 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 	        else
 	        {
 	            FlickerNext = GameManager.Random.NextDouble();
-	            FlickerNext /= 10;
-	            FlickerNext += .9;
+		        FlickerNext += .5;
+		        //FlickerNext /= 10;
+		        //FlickerNext += .9;
 	        }
 
 	        SetFlick();

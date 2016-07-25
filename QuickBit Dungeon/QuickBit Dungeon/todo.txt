@@ -20,27 +20,26 @@
 =============================================
 
 1) ENEMY AI
+2) BOSS MONSTERS
 
 =============================================
 ================ Dungeon ====================
 =============================================
 
 1) ADD RESET AFTER GAME OVER
+2) BOSS LEVELS
 
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 	- ^ find_pockets does not appear to be working
 	- Invisible Enemies
+	- Dungeon exit placed in impossible spot
 
 =============================================
 ================ Graphics ===================
 =============================================
 
-1) FLICKERING LIGHTING EFFECT
-2) LEVEL TRANSITION ANIMATION
-
-Issues:
-	- Fix player rgb not showing at first
+1) LEVEL TRANSITION ANIMATION
 
 =============================================
 ============= User Interface ================

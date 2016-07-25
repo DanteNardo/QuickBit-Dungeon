@@ -77,6 +77,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			MainPlayer.Y = DungeonGeneration.Start.Item1;
 			MainPlayer.X = DungeonGeneration.Start.Item2;
 			SetEntity(MainPlayer, MainPlayer.Y, MainPlayer.X);
+			Grid[MainPlayer.Y][MainPlayer.X].NewLocal(MainPlayer);
 			GenerateMonsters();
 		}
 
@@ -163,15 +164,13 @@ namespace QuickBit_Dungeon.DUNGEON
 						rx = GameManager.Random.Next(r.Position[1], r.Position[1] + r.Width);
 
 						if (!MonsterAt(ry, rx, ref _target) &&
-							Grid[ry][rx].Type != '@')
+							(Grid[ry][rx].Type != '@' || Grid[ry][rx].Type != ' '))
 							break;
 					}
 
 					var m = new Monster();
 					m.ConstructMonster();
-					m.Y = ry;
-					m.X = rx;
-					ResetRep(m);
+					SetEntity(m, ry, rx);
 					Monsters.Add(m);
 					Grid[ry][rx].NewLocal(m);
 				}
@@ -313,6 +312,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============== Drawing ===============
 		// ======================================
 
+		#region DungeonDrawing
+
 		/// <summary>
 		/// Generates the drawgrid and draw cells
 		/// to handle all dungeon drawing.
@@ -343,17 +344,6 @@ namespace QuickBit_Dungeon.DUNGEON
 		}
 
 		/// <summary>
-		/// Updates the draw cells whenever the
-		/// screen changes.
-		/// </summary>
-		public static void UpdateDrawCells()
-		{
-			//foreach (var row in DrawGrid)
-			//	foreach (var cell in row)
-			//		cell.ResetShade();
-		}
-
-		/// <summary>
 		/// Returns a string representing the player's
 		/// view in the game.
 		/// </summary>
@@ -379,7 +369,7 @@ namespace QuickBit_Dungeon.DUNGEON
 						cell = Grid[i][j];
 						dcell.GameObject = cell.Rep;
 						dcell.Shade = cell.Local?.EntityColor ?? Color.White;
-						dcell.Shade = dcell.Shade * cell.Alpha;
+						dcell.Shade = dcell.Shade*cell.Alpha;
 					}
 					else
 					{
@@ -393,33 +383,33 @@ namespace QuickBit_Dungeon.DUNGEON
 			}
 		}
 
-        /// <summary>
-        /// Generates the main light and exit light.
-        /// </summary>
+		/// <summary>
+		/// Generates the main light and exit light.
+		/// </summary>
 		private static void GenerateLights()
 		{
 			// NOTE: Light size values must be ODD
-			MainLight = new Light(MainPlayer.Y, 
-								  MainPlayer.X,
-								  11);
-			ExitLight = new Light(DungeonGeneration.Exit.Item1, 
-						          DungeonGeneration.Exit.Item2,
-                                  23);
-	        SetLight(MainLight);
-	        SetLight(ExitLight);
+			MainLight = new Light(MainPlayer.Y,
+				MainPlayer.X,
+				11);
+			ExitLight = new Light(DungeonGeneration.Exit.Item1,
+				DungeonGeneration.Exit.Item2,
+				23);
+			SetLight(MainLight);
+			SetLight(ExitLight);
 		}
 
-        /// <summary>
-        /// Updates all dungeon lights.
-        /// </summary>
+		/// <summary>
+		/// Updates all dungeon lights.
+		/// </summary>
 		private static void UpdateLights()
-        {
-	        ClearAllCellsAlpha();
-	        MainLight.Update(MainPlayer.Y, MainPlayer.X);
-	        ExitLight.Update();
-	        SetLight(MainLight);
-	        SetLight(ExitLight);
-        }
+		{
+			ClearAllCellsAlpha();
+			MainLight.Update(MainPlayer.Y, MainPlayer.X);
+			ExitLight.Update();
+			SetLight(MainLight);
+			SetLight(ExitLight);
+		}
 
 		/// <summary>
 		/// Sets the light data in each cell.
@@ -476,5 +466,8 @@ namespace QuickBit_Dungeon.DUNGEON
 						cell.Shade);
 				}
 		}
+
+		#endregion
+
 	}
 }
