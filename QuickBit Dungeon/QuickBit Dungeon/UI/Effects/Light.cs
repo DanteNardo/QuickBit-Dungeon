@@ -159,9 +159,8 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 	        else
 	        {
 	            FlickerNext = GameManager.Random.NextDouble();
-		        FlickerNext += .5;
-		        //FlickerNext /= 10;
-		        //FlickerNext += .9;
+		        if ((FlickerNext += .5) > 1)
+					FlickerNext = 1;
 	        }
 
 	        SetFlick();

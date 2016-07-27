@@ -61,7 +61,6 @@ namespace QuickBit_Dungeon.DUNGEON
 			Monsters   = new List<Monster>();
 			Construct();
 			GenerateDrawCells();
-			GenerateLights();
 		}
 
 		/// <summary>
@@ -79,6 +78,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			SetEntity(MainPlayer, MainPlayer.Y, MainPlayer.X);
 			Grid[MainPlayer.Y][MainPlayer.X].NewLocal(MainPlayer);
 			GenerateMonsters();
+			GenerateLights();
 		}
 
 		/// <summary>
@@ -280,8 +280,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// is trying to move to is a valid location.
 		/// </summary>
 		/// <param name="e">The entity we want to move</param>
-		/// <param name="y">The y position to move to</param>
-		/// <param name="x">The x position to move to</param>
+		/// <param name="y">The y modifying value</param>
+		/// <param name="x">The x modifying value</param>
 		/// <returns>Whether or not the entity can move to that position</returns>
 		public static bool CanMove(Entity e, int y, int x)
 		{
@@ -304,6 +304,18 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static void ResetRep(Entity e)
 		{
 			Grid[e.Y][e.X].Rep = GameManager.ConvertToChar(e.HealthRep);
+		}
+
+		/// <summary>
+		/// Determines if the location in the grid
+		/// is part of a room or not.
+		/// </summary>
+		/// <param name="y">The y coordinate</param>
+		/// <param name="x">The x coordinate</param>
+		/// <returns>Whether the location is a room</returns>
+		public static bool IsARoom(int y, int x)
+		{
+			return Grid[y][x].Rep == '#';
 		}
 
 		#endregion

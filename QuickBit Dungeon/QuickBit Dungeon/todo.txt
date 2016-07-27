@@ -20,14 +20,12 @@
 =============================================
 
 1) ENEMY AI
-2) BOSS MONSTERS
 
 =============================================
 ================ Dungeon ====================
 =============================================
 
 1) ADD RESET AFTER GAME OVER
-2) BOSS LEVELS
 
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
@@ -46,6 +44,8 @@ Issues:
 =============================================
 
 1) LEVEL UP MENU
+2) IMPROVE HOWTO MENU
+3) OPTIONS MENU (Difficulty)
 
 =============================================
 ================= Audio =====================
