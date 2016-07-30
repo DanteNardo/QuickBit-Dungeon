@@ -19,7 +19,10 @@
 ================= Combat ====================
 =============================================
 
-1) ENEMY AI
+1) FIX ENEMY AI
+	- Monsters can see through walls
+	- Add doors monsters cannot go through
+	- Some monsters don't obey MoveTimer()
 
 =============================================
 ================ Dungeon ====================
@@ -45,7 +48,7 @@ Issues:
 
 1) LEVEL UP MENU
 2) IMPROVE HOWTO MENU
-3) OPTIONS MENU (Difficulty)
+3) OPTIONS MENU (Difficulty, Fullscreen, Volume)
 
 =============================================
 ================= Audio =====================
