@@ -22,6 +22,7 @@
 1) FIX ENEMY AI
 	- Monsters can see through walls
 	- Add doors monsters cannot go through
+	- Hunt state not working
 	- Some monsters don't obey MoveTimer()
 
 =============================================

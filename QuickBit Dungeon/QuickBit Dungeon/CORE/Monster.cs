@@ -212,9 +212,11 @@ namespace QuickBit_Dungeon.CORE
 			var diffX = Math.Abs(LastSeenPlayer.Item2 - X);
 
 			if (diffY > diffX && MoveTimer.ActionReady)
-				MoveInYDirection(LastSeenPlayer.Item1);
+				if (MoveInYDirection(LastSeenPlayer.Item1) == false)
+					MoveInXDirection(LastSeenPlayer.Item2);
 			else if (diffY < diffX && MoveTimer.ActionReady)
-				MoveInXDirection(LastSeenPlayer.Item2);
+				if (MoveInXDirection(LastSeenPlayer.Item2) == false)
+					MoveInYDirection(LastSeenPlayer.Item1);
 			else
 				MoveInYDirection(LastSeenPlayer.Item1);
 		}
@@ -236,45 +238,56 @@ namespace QuickBit_Dungeon.CORE
 			var diffX = Math.Abs(Dungeon.MainPlayer.X - X);
 
 			if (diffY > diffX && MoveTimer.ActionReady)
-				MoveInYDirection(Dungeon.MainPlayer.Y);
+				if (MoveInYDirection(Dungeon.MainPlayer.Y) == false)
+					MoveInXDirection(Dungeon.MainPlayer.X);
 			else if (diffY < diffX && MoveTimer.ActionReady)
+				if (MoveInXDirection(Dungeon.MainPlayer.X) == false)
+					MoveInYDirection(Dungeon.MainPlayer.Y);
+
+			// If equally weighted, move in y direction
+			else if (MoveInYDirection(Dungeon.MainPlayer.Y) == false)
 				MoveInXDirection(Dungeon.MainPlayer.X);
-			else
-				MoveInYDirection(Dungeon.MainPlayer.Y);
+					
 		}
 
 		/// <summary>
 		/// Moves the monster in the y direction.
 		/// </summary>
-		private void MoveInYDirection(int pointY)
+		private bool MoveInYDirection(int pointY)
 		{
 			if (pointY - Y > 0 && Dungeon.CanMove(this, 1, 0))
 			{
 				Dungeon.MoveEntity(this, 1, 0);
 				MoveTimer.PerformAction();
+				return true;
 			}
-			else if (pointY - Y < 0 && Dungeon.CanMove(this, -1, 0))
+			if (pointY - Y < 0 && Dungeon.CanMove(this, -1, 0))
 			{
 				Dungeon.MoveEntity(this, -1, 0);
 				MoveTimer.PerformAction();
+				return true;
 			}
+			return false;
 		}
 
 		/// <summary>
 		/// Moves the monster in the x direction.
 		/// </summary>
-		private void MoveInXDirection(int pointX)
+		private bool MoveInXDirection(int pointX)
 		{
 			if (pointX - X > 0 && Dungeon.CanMove(this, 0, 1))
 			{
 				Dungeon.MoveEntity(this, 0, 1);
 				MoveTimer.PerformAction();
+				return true;
 			}
-			else if (pointX - X < 0 && Dungeon.CanMove(this, 0, -1))
+			if (pointX - X < 0 && Dungeon.CanMove(this, 0, -1))
 			{
 				Dungeon.MoveEntity(this, 0, -1);
 				MoveTimer.PerformAction();
+				return true;
 			}
+			return false;
 		}
 	}
 }
