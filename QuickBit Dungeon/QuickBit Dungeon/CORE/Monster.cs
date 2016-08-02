@@ -36,8 +36,7 @@ namespace QuickBit_Dungeon.CORE
 		public Monster() : base()
 		{
 			AttackTimer = new Timer(60);
-			MoveTimer = new Timer(90);
-			LastSeenPlayer = new Tuple<int, int>(0, 0);
+			MoveTimer = new Timer(30);
 		}
 
 		/// <summary>
@@ -97,10 +96,43 @@ namespace QuickBit_Dungeon.CORE
 		/// <returns>Whether the player is in sight or not</returns>
 		private bool PlayerInSight()
 		{
-			return  Dungeon.MainPlayer.Y >= Y - Sight &&
-					Dungeon.MainPlayer.Y <= Y + Sight &&
-					Dungeon.MainPlayer.X >= X - Sight &&
-					Dungeon.MainPlayer.X <= X + Sight;
+			var dY = Dungeon.MainPlayer.Y;
+			var dX = Dungeon.MainPlayer.X;
+			var lineOfSight = false;
+
+			if (Dungeon.IsARoom(dY, dX) && Dungeon.IsARoom(Y, X))
+			{
+				return true;
+			}
+			else if (dY == Y && dX < X)
+			{
+				for (int i = dX; i < X; i++)
+					if (Dungeon.GetType(Y, i) == ' ')
+						return false;
+			}
+			else if (dY == Y && dX > X)
+			{
+				for (int i = dX; i > X; i--)
+					if (Dungeon.GetType(Y, i) == ' ')
+						return false;
+			}
+			else if (dY < Y && dX == X)
+			{
+				for (int i = dY; i < Y; i++)
+					if (Dungeon.GetType(i, X) == ' ')
+						return false;
+			}
+			else if (dY > Y && dX == X)
+			{
+				for (int i = dY; i > Y; i++)
+					if (Dungeon.GetType(i, X) == ' ')
+						return false;
+			}
+
+			return  dY >= Y - Sight &&
+					dY <= Y + Sight &&
+					dX >= X - Sight &&
+					dX <= X + Sight;
 		}
 
 		/// <summary>
@@ -137,7 +169,7 @@ namespace QuickBit_Dungeon.CORE
 		public void HuntPlayer()
 		{
 			RegenHealth();
-			if (PlayerInRange())
+			if (PlayerInRange() && LastSeenPlayer != null)
 				MoveTowardPlayer();
 		}
 
@@ -212,13 +244,22 @@ namespace QuickBit_Dungeon.CORE
 			var diffX = Math.Abs(LastSeenPlayer.Item2 - X);
 
 			if (diffY > diffX && MoveTimer.ActionReady)
+			{
 				if (MoveInYDirection(LastSeenPlayer.Item1) == false)
 					MoveInXDirection(LastSeenPlayer.Item2);
+			}
 			else if (diffY < diffX && MoveTimer.ActionReady)
+			{
 				if (MoveInXDirection(LastSeenPlayer.Item2) == false)
 					MoveInYDirection(LastSeenPlayer.Item1);
-			else
-				MoveInYDirection(LastSeenPlayer.Item1);
+			}
+
+			// If equally weighted, move in y direction (default)
+			else if (MoveTimer.ActionReady)
+			{
+				if (MoveInYDirection(LastSeenPlayer.Item1) == false)
+					MoveInXDirection(LastSeenPlayer.Item2);
+			}
 		}
 
 		/// <summary>
@@ -238,21 +279,30 @@ namespace QuickBit_Dungeon.CORE
 			var diffX = Math.Abs(Dungeon.MainPlayer.X - X);
 
 			if (diffY > diffX && MoveTimer.ActionReady)
+			{
 				if (MoveInYDirection(Dungeon.MainPlayer.Y) == false)
 					MoveInXDirection(Dungeon.MainPlayer.X);
+			}
 			else if (diffY < diffX && MoveTimer.ActionReady)
+			{
 				if (MoveInXDirection(Dungeon.MainPlayer.X) == false)
 					MoveInYDirection(Dungeon.MainPlayer.Y);
+			}
 
-			// If equally weighted, move in y direction
-			else if (MoveInYDirection(Dungeon.MainPlayer.Y) == false)
-				MoveInXDirection(Dungeon.MainPlayer.X);
-					
+			// If equally weighted, move in y direction (default)
+			else if (MoveTimer.ActionReady)
+			{
+				if (MoveInYDirection(Dungeon.MainPlayer.Y) == false)
+					MoveInXDirection(Dungeon.MainPlayer.X);
+			}
+
 		}
 
 		/// <summary>
 		/// Moves the monster in the y direction.
 		/// </summary>
+		/// <param name="pointY">The point to move towards</param>
+		/// <returns>Whether or not the movement was successful</returns>
 		private bool MoveInYDirection(int pointY)
 		{
 			if (pointY - Y > 0 && Dungeon.CanMove(this, 1, 0))
@@ -273,6 +323,8 @@ namespace QuickBit_Dungeon.CORE
 		/// <summary>
 		/// Moves the monster in the x direction.
 		/// </summary>
+		/// <param name="pointX">The point to move towards</param>
+		/// <returns>Whether or not the movement was successful</returns>
 		private bool MoveInXDirection(int pointX)
 		{
 			if (pointX - X > 0 && Dungeon.CanMove(this, 0, 1))

@@ -315,8 +315,27 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// <returns>Whether the location is a room</returns>
 		public static bool IsARoom(int y, int x)
 		{
-			return Grid[y][x].Rep == '#';
+			if (y >= 0 && y < GridSize &&
+	            x >= 0 && x < GridSize)
+	            return Grid[y][x].Type == '#';
+
+			return false;
 		}
+
+		/// <summary>
+		/// Gets the type from a location.
+		/// </summary>
+		/// <param name="y">The y coordinate</param>
+		/// <param name="x">The x coordinate</param>
+		/// <returns></returns>
+	    public static char GetType(int y, int x)
+	    {
+	        if (y >= 0 && y < GridSize &&
+	            x >= 0 && x < GridSize)
+	            return Grid[y][x].Type;
+
+            return '_';
+	    }
 
 		#endregion
 
