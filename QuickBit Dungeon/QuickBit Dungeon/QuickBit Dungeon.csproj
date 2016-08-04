@@ -99,6 +99,7 @@
     <Content Include="Content\Buttons\StartButtonTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Fonts\font_name.txt" />
     <Content Include="Content\UI\GameOverTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

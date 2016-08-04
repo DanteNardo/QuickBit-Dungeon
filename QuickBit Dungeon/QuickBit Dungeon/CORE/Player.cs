@@ -58,9 +58,12 @@ namespace QuickBit_Dungeon.CORE
 				else cc = Dungeon.Grid[cells[0][0]][cells[0][1]];
 
 				// Set weight to valid cells only - add their neighbors
-				if (cc.Weight == 0 && cc.Type != ' ' && !(cc.Local is Monster))
+				if (cc.Weight == 0 && cc.Type != ' ')
 				{
-					cc.Weight = weight;
+					if (cc.Local is Monster)
+						cc.Weight = weight + 1;
+					else
+						cc.Weight = weight;
 					nextCells.AddRange(cc.Neighbors);
 				}
 
