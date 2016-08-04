@@ -12,6 +12,7 @@ namespace QuickBit_Dungeon.DUNGEON
 
 		public Entity Local { get; set; } = null;
 	    public float Alpha { get; set; } = 1;
+		public int Weight { get; set; } = 0;
 
 		private int Size { get; set; }
 		public char Type { get; set; }

@@ -20,7 +20,6 @@
 =============================================
 
 1) FIX ENEMY AI
-	- Monsters can see through walls
 	- Add doors monsters cannot go through
 
 =============================================

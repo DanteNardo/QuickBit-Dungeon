@@ -48,7 +48,6 @@ namespace QuickBit_Dungeon.CORE
 			AttackTimer.Update();
 			MoveTimer.Update();
 
-			LookForPlayer();
 			CheckState();
 			switch (MonsterState)
 			{
@@ -70,69 +69,10 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		private void CheckState()
 		{
-			if (PlayerInSight())
+			if (PlayerInRange())
 				MonsterState = EMonsterState.Attack;
-			else if (PlayerInRange())
-				MonsterState = EMonsterState.Hunt;
 			else
 				MonsterState = EMonsterState.Wander;
-		}
-
-		/// <summary>
-		/// If the player is in sight, the
-		/// monster remembers their position.
-		/// Used for movement.
-		/// </summary>
-		private void LookForPlayer()
-		{
-			if (PlayerInSight())
-				LastSeenPlayer = new Tuple<int, int>(Dungeon.MainPlayer.Y, Dungeon.MainPlayer.X);
-		}
-
-		/// <summary>
-		/// Returns whether or not the player
-		/// is in the monster's line of sight.
-		/// </summary>
-		/// <returns>Whether the player is in sight or not</returns>
-		private bool PlayerInSight()
-		{
-			var dY = Dungeon.MainPlayer.Y;
-			var dX = Dungeon.MainPlayer.X;
-			var lineOfSight = false;
-
-			if (Dungeon.IsARoom(dY, dX) && Dungeon.IsARoom(Y, X))
-			{
-				return true;
-			}
-			else if (dY == Y && dX < X)
-			{
-				for (int i = dX; i < X; i++)
-					if (Dungeon.GetType(Y, i) == ' ')
-						return false;
-			}
-			else if (dY == Y && dX > X)
-			{
-				for (int i = dX; i > X; i--)
-					if (Dungeon.GetType(Y, i) == ' ')
-						return false;
-			}
-			else if (dY < Y && dX == X)
-			{
-				for (int i = dY; i < Y; i++)
-					if (Dungeon.GetType(i, X) == ' ')
-						return false;
-			}
-			else if (dY > Y && dX == X)
-			{
-				for (int i = dY; i > Y; i++)
-					if (Dungeon.GetType(i, X) == ' ')
-						return false;
-			}
-
-			return  dY >= Y - Sight &&
-					dY <= Y + Sight &&
-					dX >= X - Sight &&
-					dX <= X + Sight;
 		}
 
 		/// <summary>
@@ -169,8 +109,7 @@ namespace QuickBit_Dungeon.CORE
 		public void HuntPlayer()
 		{
 			RegenHealth();
-			if (PlayerInRange() && LastSeenPlayer != null)
-				MoveTowardPlayer();
+			MoveToLowestWeight();
 		}
 
 		/// <summary>
@@ -179,8 +118,7 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void AttackPlayer()
 		{
-			if (PlayerInSight())
-				MoveToPlayer();
+			MoveToLowestWeight();
 		}
 
 		/// <summary>
@@ -227,6 +165,34 @@ namespace QuickBit_Dungeon.CORE
 					break;
 			}
 		}
+
+		/// <summary>
+		/// Moves the current monster to the
+		/// lowest neighboring weight.
+		/// </summary>
+		private void MoveToLowestWeight()
+		{
+			if (!MoveTimer.ActionReady)
+				return;
+
+			var lowest = 10000;
+			var pos = new int[2];
+			foreach (var n in Dungeon.Grid[Y][X].Neighbors)
+				if (Dungeon.Grid[n[0]][n[1]].Weight != 0 &&
+					Dungeon.Grid[n[0]][n[1]].Weight < lowest)
+				{
+					lowest = Dungeon.Grid[n[0]][n[1]].Weight;
+					pos = n;
+				}
+
+			if (Dungeon.CanMove(this, pos[0] - Y, pos[1] - X))
+			{
+				Dungeon.MoveEntity(this, pos[0] - Y, pos[1] - X);
+				MoveTimer.PerformAction();
+			}
+		}
+
+		#region Outdated
 
 		/// <summary>
 		/// Moves the monster in the last
@@ -341,5 +307,7 @@ namespace QuickBit_Dungeon.CORE
 			}
 			return false;
 		}
+
+		#endregion
 	}
 }

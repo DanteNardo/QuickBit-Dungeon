@@ -44,6 +44,9 @@ namespace QuickBit_Dungeon.DUNGEON
 			UpdatePlayer();
 			UpdateMonsters();
 			UpdateLights();
+			
+			MainPlayer.ClearWeightMap();
+			MainPlayer.GenerateWeightMap();
 		}
 
 		// ======================================
@@ -334,7 +337,7 @@ namespace QuickBit_Dungeon.DUNGEON
 	            x >= 0 && x < GridSize)
 	            return Grid[y][x].Type;
 
-            return '_';
+            return '?';
 	    }
 
 		#endregion
@@ -398,6 +401,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					if (i >= 0 && i < GridSize && j >= 0 && j < GridSize)
 					{
 						cell = Grid[i][j];
+						//dcell.GameObject = cell.Weight.ToString()[0];
 						dcell.GameObject = cell.Rep;
 						dcell.Shade = cell.Local?.EntityColor ?? Color.White;
 						dcell.Shade = dcell.Shade*cell.Alpha;

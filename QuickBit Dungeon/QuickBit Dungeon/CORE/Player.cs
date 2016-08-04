@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.MANAGERS;
 
@@ -28,6 +29,85 @@ namespace QuickBit_Dungeon.CORE
 			XpNeeded = 100;
 			ManaCost = 50;
 			CritChance = 5;
+		}
+
+		/// <summary>
+		/// Generates a weight map for the dungeon.
+		/// Used for the Monster's AI.
+		/// </summary>
+		public void GenerateWeightMap()
+		{
+			var weight = 1;
+			var steps = 0;
+			var totalSteps = 10;
+
+			var cells = new List<int[]>();
+			var nextCells = new List<int[]>();
+			var cc = Dungeon.Grid[Y][X];
+			cells.Add(new[] {Y, X});
+			
+			// Keep stepping
+			while (steps < totalSteps)
+			{
+				// Select the current cell
+				if (cells.Count > 1)
+				{
+					var rcell = GameManager.Random.Next(0, cells.Count - 1);
+					cc = Dungeon.Grid[cells[rcell][0]][cells[rcell][1]];
+				}
+				else cc = Dungeon.Grid[cells[0][0]][cells[0][1]];
+
+				// Set weight to valid cells only - add their neighbors
+				if (cc.Weight == 0 && cc.Type != ' ' && !(cc.Local is Monster))
+				{
+					cc.Weight = weight;
+					nextCells.AddRange(cc.Neighbors);
+				}
+
+				// Remove current cell
+				var temp = new[] {cc.Y, cc.X};
+				RemoveArray(ref cells, temp);
+
+				// Go to the next list of cells, update steps and weight
+				if (cells.Count == 0)
+				{
+					if (nextCells.Count == 0)
+						return;
+					weight++;
+					steps++;
+					foreach (var cell in nextCells)
+						cells.Add(cell);
+					nextCells.Clear();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Resets all cell weights to 0.
+		/// </summary>
+		public void ClearWeightMap()
+		{
+			foreach (var row in Dungeon.Grid)
+				foreach (var cell in row)
+					cell.Weight = 0;
+		}
+
+		/// <summary>
+		/// Searches through a list of int arrays
+		/// and removes an array if it matches the
+		/// input paramater.
+		/// </summary>
+		/// <param name="list">The list to modify</param>
+		/// <param name="array">The array to remove from the list</param>
+		private void RemoveArray(ref List<int[]> list, int[] array)
+		{
+			for (var i = 0; i < list.Count; i++)
+				if (list[i][0] == array[0] &&
+				    list[i][1] == array[1])
+				{
+					list.RemoveAt(i);
+					return;
+				}
 		}
 
 		/// <summary>
