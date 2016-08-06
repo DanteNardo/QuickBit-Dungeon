@@ -43,6 +43,7 @@
     <Compile Include="CORE\Player.cs" />
     <Compile Include="CORE\World.cs" />
     <Compile Include="DUNGEON\Cell.cs" />
+    <Compile Include="DUNGEON\Door.cs" />
     <Compile Include="DUNGEON\DrawCell.cs" />
     <Compile Include="DUNGEON\Dungeon.cs" />
     <Compile Include="DUNGEON\DungeonGenerator.cs" />

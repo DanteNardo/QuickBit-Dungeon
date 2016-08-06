@@ -8,19 +8,13 @@
 =============== Milestones ==================
 =============================================
 
-1) COMBAT		Status: Incomplete
+1) COMBAT		Status: COMPLETE!
 2) INPUT		Status: COMPLETE!
 3) DUNGEON		Status: Incomplete
 4) GRAPHICS		Status: Incomplete
 5) UI			Status: Incomplete
 6) AUDIO		Status: Incomplete
-
-=============================================
-================= Combat ====================
-=============================================
-
-1) FIX ENEMY AI
-	- Add doors monsters cannot go through
+7) BALANCING	Status: Incomplete
 
 =============================================
 ================ Dungeon ====================
@@ -56,3 +50,10 @@ Issues:
 2) MOVEMENT SOUND EFFECTS
 3) BACKGROUND MUSIC
 4) MENU SOUND EFFECTS (SELECTION SOUNDS)
+
+=============================================
+=============== Balancing ===================
+=============================================
+
+1) HARD MODE: NO DOORS
+2) EASY MODE: DOORS

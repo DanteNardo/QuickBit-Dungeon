@@ -11,6 +11,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 
 		public Entity Local { get; set; } = null;
+		public Door Door { get; set; } = null;
 	    public float Alpha { get; set; } = 1;
 		public int Weight { get; set; } = 0;
 

@@ -60,16 +60,22 @@ namespace QuickBit_Dungeon.CORE
 				// Set weight to valid cells only - add their neighbors
 				if (cc.Weight == 0 && cc.Type != ' ')
 				{
-					if (cc.Local is Monster)
+					if (cc.Door != null && cc.Door.Closed)
+						RemoveArray(ref cells, new[] {cc.Y, cc.X});
+					else if (cc.Local is Monster)
+					{
 						cc.Weight = weight + 1;
+						nextCells.AddRange(cc.Neighbors);
+					}
 					else
+					{
 						cc.Weight = weight;
-					nextCells.AddRange(cc.Neighbors);
+						nextCells.AddRange(cc.Neighbors);
+					}
 				}
 
 				// Remove current cell
-				var temp = new[] {cc.Y, cc.X};
-				RemoveArray(ref cells, temp);
+				RemoveArray(ref cells, new[] {cc.Y, cc.X});
 
 				// Go to the next list of cells, update steps and weight
 				if (cells.Count == 0)

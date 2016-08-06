@@ -13,8 +13,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ======================================
 
 		private const int GridSize = 30;
-		private List<List<Cell>> Grid;
-		private List<Room> Rooms;
+		private List<List<Cell>> Grid { get; set; }
+		private List<Room> Rooms { get; set; }
 		public Tuple<int, int> Start { get; set; }
 		public Tuple<int, int> Exit { get; set; }
 
@@ -408,6 +408,7 @@ namespace QuickBit_Dungeon.DUNGEON
 							// Connect room
 							Grid[n[0]][n[1]].Type = '.';
 							Grid[n[0]][n[1]].Rep  = '.';
+							Grid[n[0]][n[1]].Door = new Door();
 
 							connectedCount++;
 							if (connectedCount < 3) continue;
@@ -462,7 +463,7 @@ namespace QuickBit_Dungeon.DUNGEON
 				var y = GameManager.Random.Next(0, GridSize - 1);
 				var x = GameManager.Random.Next(0, GridSize - 1);
 
-				if (Grid[y][x].Type == '.')
+				if (Grid[y][x].Type == '.' && Grid[y][x].Door == null)
 				{
 					SetStart(y, x);
 					return;
@@ -487,10 +488,16 @@ namespace QuickBit_Dungeon.DUNGEON
 		/// </summary>
 		public void FindEnd()
 		{
+		    var tolerance = 7;
+
 			while (true)
 			{
 				var y = GameManager.Random.Next(0, GridSize - 1);
 				var x = GameManager.Random.Next(0, GridSize - 1);
+
+                if ((Start.Item1 + tolerance > y && Start.Item1 - tolerance < y) ||
+                    (Start.Item2 + tolerance > x && Start.Item2 - tolerance < x))
+                    continue;
 
 				if (Grid[y][x].Type == '#')
 				{

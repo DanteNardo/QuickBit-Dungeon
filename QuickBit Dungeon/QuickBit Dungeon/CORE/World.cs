@@ -49,6 +49,7 @@ namespace QuickBit_Dungeon.CORE
 			_attackBar.Position = new Vector2(10, 50);
 			_healthBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
 			_attackBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
+            _combat.PerformCombat(Dungeon.MainPlayer, Dungeon.Monsters);
 			_levelTimer.PerformAction();
 			_statBox.GenerateStats(Dungeon.MainPlayer);
 		}

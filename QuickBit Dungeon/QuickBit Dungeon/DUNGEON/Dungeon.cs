@@ -127,22 +127,38 @@ namespace QuickBit_Dungeon.DUNGEON
 			{
 				case Input.Direction.North:
 					if (CanMove(MainPlayer, -1, 0))
+					{
 						MoveEntity(MainPlayer, -1, 0);
+						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
+							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
+					}
 					break;
 
 				case Input.Direction.South:
 					if (CanMove(MainPlayer, 1, 0))
+					{
 						MoveEntity(MainPlayer, 1, 0);
+						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
+							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
+					}
 					break;
 
 				case Input.Direction.East:
 					if (CanMove(MainPlayer, 0, 1))
+					{
 						MoveEntity(MainPlayer, 0, 1);
+						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
+							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
+					}
 					break;
 
 				case Input.Direction.West:
 					if (CanMove(MainPlayer, 0, -1))
+					{
 						MoveEntity(MainPlayer, 0, -1);
+						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
+							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
+					}
 					break;
 			}
 		}
@@ -311,16 +327,19 @@ namespace QuickBit_Dungeon.DUNGEON
 
 		/// <summary>
 		/// Determines if the location in the grid
-		/// is part of a room or not.
+		/// is not a closed door.
 		/// </summary>
 		/// <param name="y">The y coordinate</param>
 		/// <param name="x">The x coordinate</param>
 		/// <returns>Whether the location is a room</returns>
-		public static bool IsARoom(int y, int x)
+		public static bool NotAClosedDoor(int y, int x)
 		{
-			if (y >= 0 && y < GridSize &&
-	            x >= 0 && x < GridSize)
-	            return Grid[y][x].Type == '#';
+		    if (y >= 0 && y < GridSize &&
+		        x >= 0 && x < GridSize)
+		    {
+		        if (Grid[y][x].Door == null) return true;
+		        return Grid[y][x].Door.Open;
+		    }
 
 			return false;
 		}
