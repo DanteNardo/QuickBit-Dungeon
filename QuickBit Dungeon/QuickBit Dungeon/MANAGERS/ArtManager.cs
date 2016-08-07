@@ -24,6 +24,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static Texture2D MainMenuBackground { get; set; }
 		public static Texture2D HowToMenuBackground { get; set; }
 		public static Texture2D PauseMenuBackground { get; set; }
+		public static Texture2D LevelUpMenuBackground { get; set; }
 		public static Texture2D GameOverBackground { get; set; }
 
 		// Menu MenuButtons
@@ -32,6 +33,9 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static Texture2D HowToButton { get; set; }
 		public static Texture2D ReturnButton { get; set; }
 		public static Texture2D ResumeButton { get; set; }
+		public static Texture2D RedAuraButton { get; set; }
+		public static Texture2D GreenAuraButton { get; set; }
+		public static Texture2D BlueAuraButton { get; set; }
 		public static Texture2D ExitButton { get; set; }
 
 		// ======================================
@@ -60,6 +64,7 @@ namespace QuickBit_Dungeon.MANAGERS
 			MainMenuBackground = cm.Load<Texture2D>("UI/MainMenuTexture");
 			HowToMenuBackground = cm.Load<Texture2D>("UI/HowToMenuTexture");
 			PauseMenuBackground = cm.Load<Texture2D>("UI/PauseMenuTexture");
+			LevelUpMenuBackground = cm.Load<Texture2D>("UI/LevelUpMenuTexture");
 			GameOverBackground = cm.Load<Texture2D>("UI/GameOverTexture");
 
 			// Menu MenuButtons
@@ -68,6 +73,9 @@ namespace QuickBit_Dungeon.MANAGERS
 			HowToButton = cm.Load<Texture2D>("Buttons/HowToButtonTexture");
 			ReturnButton = cm.Load<Texture2D>("Buttons/ReturnButtonTexture");
 			ResumeButton = cm.Load<Texture2D>("Buttons/ResumeButtonTexture");
+			RedAuraButton = cm.Load<Texture2D>("Buttons/RedAuraButtonTexture");
+			GreenAuraButton = cm.Load<Texture2D>("Buttons/GreenAuraButtonTexture");
+			BlueAuraButton = cm.Load<Texture2D>("Buttons/BlueAuraButtonTexture");
 			ExitButton = cm.Load<Texture2D>("Buttons/ExitButtonTexture");
 		}
 	}

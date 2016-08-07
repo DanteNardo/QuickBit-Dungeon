@@ -67,11 +67,14 @@ namespace QuickBit_Dungeon.CORE
 			NextLevel();
 
 			PerformCombat();
-			
-			if (Dungeon.MainPlayer.HasEnoughXp())
-				Dungeon.MainPlayer.LevelUp("red"); // Later will be switched based on UI selection
 
-			_levelTimer.Update();
+		    if (Dungeon.MainPlayer.HasEnoughXp())
+		    {
+		        StateManager.SetState(StateManager.EGameState.LevelUp);
+                return;
+		    }
+
+		    _levelTimer.Update();
 			_healthBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
 			_attackBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
 			_healthBar.Update();

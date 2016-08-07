@@ -65,6 +65,12 @@ namespace QuickBit_Dungeon.UI
 				case Input.Direction.South:
 					UpdateId(1);
 					break;
+                case Input.Direction.East:
+			        UpdateId(1);
+                    break;
+                case Input.Direction.West:
+			        UpdateId(-1);
+                    break;
 			}
 
 			if (Input.Released(Keys.Enter) ||

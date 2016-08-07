@@ -17,6 +17,13 @@
 7) BALANCING	Status: Incomplete
 
 =============================================
+================= Combat ====================
+=============================================
+
+Issues:
+	- Special attack and heal sometimes multiple at once
+
+=============================================
 ================ Dungeon ====================
 =============================================
 
@@ -38,9 +45,8 @@ Issues:
 ============= User Interface ================
 =============================================
 
-1) LEVEL UP MENU
-2) IMPROVE HOWTO MENU
-3) OPTIONS MENU (Difficulty, Fullscreen, Volume)
+1) IMPROVE HOWTO MENU
+2) OPTIONS MENU (Difficulty, Fullscreen, Volume)
 
 =============================================
 ================= Audio =====================

@@ -6,6 +6,7 @@ using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
+using QuickBit_Dungeon.UI.MENUS;
 
 namespace QuickBit_Dungeon
 {
@@ -24,6 +25,7 @@ namespace QuickBit_Dungeon
 		private MainMenu _mainMenu;
 		private HowToMenu _howToMenu;
 		private PauseMenu _pauseMenu;
+	    private LevelUpMenu _levelUpMenu;
 		private GameOverMenu _gameOverMenu;
 
 		public Game1()
@@ -58,6 +60,7 @@ namespace QuickBit_Dungeon
 			_mainMenu = new MainMenu();
 			_howToMenu = new HowToMenu();
 			_pauseMenu = new PauseMenu();
+		    _levelUpMenu = new LevelUpMenu();
 			_gameOverMenu = new GameOverMenu();
 
 			base.Initialize();
@@ -78,6 +81,7 @@ namespace QuickBit_Dungeon
 			_mainMenu.LoadContent();
 			_howToMenu.LoadContent();
 			_pauseMenu.LoadContent();
+		    _levelUpMenu.LoadContent();
 			_gameOverMenu.LoadContent();
 		}
 
@@ -122,6 +126,22 @@ namespace QuickBit_Dungeon
 					_pauseMenu.Update();
 					_pauseMenu.Hover();
 					break;
+                case StateManager.EGameState.LevelUp:
+			        _levelUpMenu.Update();
+			        _levelUpMenu.Hover();
+                    break;
+                case StateManager.EGameState.RedLevelUp:
+			        Dungeon.MainPlayer.LevelUp("red");
+			        StateManager.SetState(StateManager.EGameState.Game);
+                    break;
+                case StateManager.EGameState.GreenLevelUp:
+			        Dungeon.MainPlayer.LevelUp("green");
+			        StateManager.SetState(StateManager.EGameState.Game);
+                    break;
+                case StateManager.EGameState.BlueLevelUp:
+			        Dungeon.MainPlayer.LevelUp("blue");
+			        StateManager.SetState(StateManager.EGameState.Game);
+                    break;
 				case StateManager.EGameState.GameOver:
 					_gameOverMenu.Update();
 					_gameOverMenu.Hover();
@@ -157,6 +177,9 @@ namespace QuickBit_Dungeon
 				case StateManager.EGameState.Pause:
 					_pauseMenu.Draw(_spriteBatch);
 					break;
+                case StateManager.EGameState.LevelUp:
+			        _levelUpMenu.Draw(_spriteBatch);
+			        break;
 				case StateManager.EGameState.GameOver:
 					_gameOverMenu.Draw(_spriteBatch);
 					break;

@@ -12,6 +12,10 @@
 			HowTo,
 			Pause,
 			Game,
+            LevelUp,
+            RedLevelUp,
+            GreenLevelUp,
+            BlueLevelUp,
 			GameOver,
 			Exit,
 			Reset
