@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.UI.MENUS;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -25,7 +26,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Game Over Menu constructor.
 		/// </summary>
-		public GameOverMenu()
+		public GameOverMenu() : base("vertical")
 		{
 			MaxId = NumberOfButtons;
 			MenuButtons = new List<Button>();

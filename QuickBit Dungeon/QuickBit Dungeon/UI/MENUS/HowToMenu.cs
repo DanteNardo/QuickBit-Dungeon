@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.UI.MENUS;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -25,7 +26,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Pause Menu constructor.
 		/// </summary>
-		public HowToMenu()
+		public HowToMenu() : base("vertical")
 		{
 			MaxId = NumberOfButtons;
 			MenuButtons = new List<Button>();

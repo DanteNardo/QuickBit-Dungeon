@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.UI.MENUS;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -31,7 +32,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Main Menu constructor.
 		/// </summary>
-		public MainMenu()
+		public MainMenu() : base("vertical")
 		{
 			MaxId = NumberOfButtons;
 			MenuButtons = new List<Button>();

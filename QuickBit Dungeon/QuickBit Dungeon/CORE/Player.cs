@@ -125,8 +125,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		public void RegenerateMana()
 		{
-			HealthMana += Wisdom/10;
-			AttackMana += Wisdom/10;
+			HealthMana += ((float)Wisdom)/10;
+			AttackMana += ((float)Wisdom)/10;
 			if (HealthMana > MaxMana) HealthMana = MaxMana;
 			if (AttackMana > MaxMana) AttackMana = MaxMana;
 		}
@@ -191,8 +191,8 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		private void ResetXp()
 		{
-			Xp = 0;
-			XpNeeded = (int)Math.Pow(XpNeeded, 1.2);
+		    Xp = 0;
+		    XpNeeded *= 2;
 		}
 
 		/// <summary>

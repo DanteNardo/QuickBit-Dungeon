@@ -151,7 +151,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void PlayerPhysicalAttack()
 		{
-			var damage = _player.Strength - _target.Armor;
+			var damage = _player.Strength - _target.Dodge;
 			if (_player.IsCrit()) damage *= 2;
 			_target.UpdateHealth(-damage);
 		    _target.AttackColor();
@@ -211,7 +211,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void MonsterAttack(ref Monster m)
 		{
 			m.AttackTimer.PerformAction();
-			var damage = m.Strength - _player.Armor;
+			var damage = m.Strength - _player.Dodge;
 			_player.UpdateHealth(-damage);
 		    _player.AttackColor();
 			Dungeon.ResetRep(_player);

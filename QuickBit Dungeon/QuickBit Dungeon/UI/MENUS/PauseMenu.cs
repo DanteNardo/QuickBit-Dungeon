@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 using QuickBit_Dungeon.MANAGERS;
 
-namespace QuickBit_Dungeon.UI
+namespace QuickBit_Dungeon.UI.MENUS
 {
 	internal class PauseMenu : Menu
 	{
@@ -28,7 +23,7 @@ namespace QuickBit_Dungeon.UI
 		/// <summary>
 		/// Pause Menu constructor.
 		/// </summary>
-		public PauseMenu()
+		public PauseMenu() : base("vertical")
 		{
 			MaxId = NumberOfButtons;
 			MenuButtons = new List<Button>();

@@ -26,7 +26,7 @@ namespace QuickBit_Dungeon.UI.MENUS
         /// <summary>
 		/// Main Menu constructor.
 		/// </summary>
-		public LevelUpMenu()
+		public LevelUpMenu() : base("horizontal")
 		{
 			MaxId = NumberOfButtons;
 			MenuButtons = new List<Button>();
