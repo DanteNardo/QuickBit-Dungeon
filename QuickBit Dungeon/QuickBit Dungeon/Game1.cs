@@ -6,6 +6,7 @@ using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
+using QuickBit_Dungeon.UI.EFFECTS;
 using QuickBit_Dungeon.UI.MENUS;
 
 namespace QuickBit_Dungeon
@@ -27,6 +28,9 @@ namespace QuickBit_Dungeon
 		private PauseMenu _pauseMenu;
 	    private LevelUpMenu _levelUpMenu;
 		private GameOverMenu _gameOverMenu;
+
+        // Effects
+	    private TvLines _tvLines;
 
 		public Game1()
 		{
@@ -62,6 +66,9 @@ namespace QuickBit_Dungeon
 			_pauseMenu = new PauseMenu();
 		    _levelUpMenu = new LevelUpMenu();
 			_gameOverMenu = new GameOverMenu();
+
+            // Effect Initialization
+		    _tvLines = new TvLines(GraphicsDevice);
 
 			base.Initialize();
 		}
@@ -161,7 +168,7 @@ namespace QuickBit_Dungeon
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
-			_spriteBatch.Begin();
+		    _spriteBatch.Begin();
 
 			switch (StateManager.GameState)
 			{
@@ -184,6 +191,9 @@ namespace QuickBit_Dungeon
 					_gameOverMenu.Draw(_spriteBatch);
 					break;
 			}
+
+            // Effects
+		    //_tvLines.Draw(_spriteBatch);
 
 			_spriteBatch.End();
 			base.Draw(gameTime);

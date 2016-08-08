@@ -8,19 +8,21 @@
 =============== Milestones ==================
 =============================================
 
-1) COMBAT		Status: COMPLETE!
-2) INPUT		Status: COMPLETE!
-3) DUNGEON		Status: Incomplete
-4) GRAPHICS		Status: Incomplete
-5) UI			Status: Incomplete
-6) AUDIO		Status: Incomplete
-7) BALANCING	Status: Incomplete
+1) COMBAT			Status: COMPLETE!
+2) INPUT			Status: COMPLETE!
+3) DUNGEON			Status: Incomplete
+4) GRAPHICS			Status: Incomplete
+5) UI				Status: Incomplete
+6) AUDIO			Status: Incomplete
+7) SPECIAL EFFECTS	STATUS: Incomplete
+8) BALANCING		Status: Incomplete
 
 =============================================
 ================= Combat ====================
 =============================================
 
 Issues:
+	- Monsters surrounding player AI monster weight addition weird
 
 =============================================
 ================ Dungeon ====================
@@ -56,6 +58,13 @@ Issues:
 2) MOVEMENT SOUND EFFECTS
 3) BACKGROUND MUSIC
 4) MENU SOUND EFFECTS (SELECTION SOUNDS)
+
+=============================================
+============ Special Effects ================
+=============================================
+
+1) TV FLICKER
+2) SHAKE + COLOR SHAKE
 
 =============================================
 =============== Balancing ===================
