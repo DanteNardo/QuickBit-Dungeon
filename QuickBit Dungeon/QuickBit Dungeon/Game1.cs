@@ -35,6 +35,16 @@ namespace QuickBit_Dungeon
 		public Game1()
 		{
 			_graphics = new GraphicsDeviceManager(this);
+
+            //_graphics.IsFullScreen = true;
+		    //_graphics.ToggleFullScreen();
+            if (_graphics.IsFullScreen)
+            {
+				Window.IsBorderless = true;
+				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
+
 			Content.RootDirectory = "Content";
 		}
 
@@ -125,7 +135,7 @@ namespace QuickBit_Dungeon
 					World.Update();
 					break;
 				case StateManager.EGameState.HowTo:
-					_howToMenu.SetLastState();
+					//_howToMenu.();
 					_howToMenu.Update();
 					_howToMenu.Hover();
 					break;

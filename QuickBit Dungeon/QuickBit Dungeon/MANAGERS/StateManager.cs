@@ -18,7 +18,8 @@
             BlueLevelUp,
 			GameOver,
 			Exit,
-			Reset
+			Reset,
+            None
 		}
 		public static EGameState GameState { get; set; } = EGameState.MainMenu;
 		public static EGameState LastState { get; set; }

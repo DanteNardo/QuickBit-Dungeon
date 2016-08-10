@@ -47,9 +47,9 @@ namespace QuickBit_Dungeon.UI.MENUS
 				MenuButtons.Add(b);
 			}
 
-			MenuButtons[RedIndex].SetPressedState(StateManager.EGameState.RedLevelUp);
-			MenuButtons[GreenIndex].SetPressedState(StateManager.EGameState.GreenLevelUp);
-			MenuButtons[BlueIndex].SetPressedState(StateManager.EGameState.BlueLevelUp);
+			MenuButtons[RedIndex].GameState = StateManager.EGameState.RedLevelUp;
+			MenuButtons[GreenIndex].GameState = StateManager.EGameState.GreenLevelUp;
+			MenuButtons[BlueIndex].GameState = StateManager.EGameState.BlueLevelUp;
 		}
 
 		/// <summary>

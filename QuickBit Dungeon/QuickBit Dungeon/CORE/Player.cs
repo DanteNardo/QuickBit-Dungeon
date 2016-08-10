@@ -64,7 +64,7 @@ namespace QuickBit_Dungeon.CORE
 						RemoveArray(ref cells, new[] {cc.Y, cc.X});
 					else if (cc.Local is Monster)
 					{
-						cc.Weight = weight + 1;
+						cc.Weight = weight + 10;
 						nextCells.AddRange(cc.Neighbors);
 					}
 					else

@@ -23,7 +23,7 @@ namespace QuickBit_Dungeon.UI
 		public Color Alpha { get; internal set; }
 		public Rectangle Position { get; internal set; }
 		public Texture2D Texture { get; internal set; }
-		private StateManager.EGameState GameState { get; set; }
+		public StateManager.EGameState GameState { get; set; }
 
 		// ======================================
 		// ============== Methods ===============
@@ -44,16 +44,6 @@ namespace QuickBit_Dungeon.UI
 			Alpha = c;
 			Position = r;
 		}
-
-		/// <summary>
-		/// Sets the state to change to when the
-		/// button is pressed.
-		/// </summary>
-		/// <param name="gs">The gamestate to change to</param>
-		public void SetPressedState(StateManager.EGameState gs)
-		{
-			GameState = gs;
-		}
 		
 		/// <summary>
 		/// Reacts if the player hovers over this
@@ -72,7 +62,7 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="id">The ID to cross check</param>
 		public void Released(int id)
 		{
-			if (Id == id)
+			if (Id == id && GameState != StateManager.EGameState.None)
 				StateManager.SetState(GameState);
 		}
 

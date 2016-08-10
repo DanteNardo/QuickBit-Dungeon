@@ -44,10 +44,10 @@ namespace QuickBit_Dungeon.UI.MENUS
 				MenuButtons.Add(b);
 			}
 
-			MenuButtons[ResumeIndex].SetPressedState(StateManager.EGameState.Game);
-			MenuButtons[HowToIndex].SetPressedState(StateManager.EGameState.HowTo);
-			MenuButtons[MainMenuIndex].SetPressedState(StateManager.EGameState.MainMenu);
-			MenuButtons[ExitIndex].SetPressedState(StateManager.EGameState.Exit);
+			MenuButtons[ResumeIndex].GameState = StateManager.EGameState.Game;
+			MenuButtons[HowToIndex].GameState = StateManager.EGameState.HowTo;
+			MenuButtons[MainMenuIndex].GameState = StateManager.EGameState.MainMenu;
+			MenuButtons[ExitIndex].GameState = StateManager.EGameState.Exit;
 		}
 
 		/// <summary>

@@ -4,10 +4,10 @@ using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.CORE
 {
-	/*
-		Every object that attacks or moves
-		inherits from the entity class.
-	*/
+	/// <summary>
+    /// Every object that attacks or moves
+    /// inherits from the entity class.
+    /// </summary>
 	public class Entity
 	{
 		// ======================================
@@ -21,7 +21,7 @@ namespace QuickBit_Dungeon.CORE
 		public int MaxHealth { get; private set; }
 		public int Health { get; set; }
 		public int HealthRep { get; private set; }
-		public int Dodge { get; set; }
+		public int Armor { get; set; }
 		public int Strength { get; set; }
 		public int Dexterity { get; set; }
 		public int Wisdom { get; set; }
@@ -54,7 +54,7 @@ namespace QuickBit_Dungeon.CORE
 			MaxHealth = 100;
 			Health = 100;
 			HealthRep = 9;
-			Dodge = 5;
+			Armor = 5;
 			Strength = 10;
 			Dexterity = 10;
 			Wisdom = 10;
@@ -73,7 +73,7 @@ namespace QuickBit_Dungeon.CORE
 		{
 			MaxHealth = GameManager.Random.Next(20, 100);
 			Health = MaxHealth;
-			Dodge = GameManager.Random.Next(1, 9);
+			Armor = GameManager.Random.Next(1, 9);
 			Strength = GameManager.Random.Next(7, 14);
 			Dexterity = GameManager.Random.Next(7, 14);
 			Wisdom = GameManager.Random.Next(7, 14);
@@ -128,7 +128,7 @@ namespace QuickBit_Dungeon.CORE
 		public void GenerateXp()
 		{
 			Xp += MaxHealth;
-			Xp += Dodge;
+			Xp += Armor;
 			Xp += Strength;
 			Xp += Dexterity;
 			Xp += Wisdom;
@@ -153,7 +153,7 @@ namespace QuickBit_Dungeon.CORE
 				case "green":
 					Dexterity += GameManager.Random.Next(1, 4);
 					CritChance += GameManager.Random.Next(1, Dexterity)/4;
-					Dodge += GameManager.Random.Next(1, Dexterity)/4;
+					Armor += GameManager.Random.Next(1, Dexterity)/4;
 					MaxHealth += Strength;
 					Health = MaxHealth;
 					CalculateHealthRep();

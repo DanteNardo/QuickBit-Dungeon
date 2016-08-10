@@ -27,12 +27,23 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static Texture2D LevelUpMenuBackground { get; set; }
 		public static Texture2D GameOverBackground { get; set; }
 
+        // How To Menu Slides
+		public static Texture2D HowToMenuSlide01 { get; set; }
+		public static Texture2D HowToMenuSlide02 { get; set; }
+		public static Texture2D HowToMenuSlide03 { get; set; }
+		public static Texture2D HowToMenuSlide04 { get; set; }
+		public static Texture2D HowToMenuSlide05 { get; set; }
+		public static Texture2D HowToMenuSlide06 { get; set; }
+		public static Texture2D HowToMenuSlide07 { get; set; }
+
 		// Menu MenuButtons
 		public static Texture2D MainMenuButton { get; set; }
 		public static Texture2D StartButton { get; set; }
 		public static Texture2D HowToButton { get; set; }
 		public static Texture2D ReturnButton { get; set; }
 		public static Texture2D ResumeButton { get; set; }
+		public static Texture2D NextButton { get; set; }
+		public static Texture2D LastButton { get; set; }
 		public static Texture2D RedAuraButton { get; set; }
 		public static Texture2D GreenAuraButton { get; set; }
 		public static Texture2D BlueAuraButton { get; set; }
@@ -67,12 +78,23 @@ namespace QuickBit_Dungeon.MANAGERS
 			LevelUpMenuBackground = cm.Load<Texture2D>("UI/LevelUpMenuTexture");
 			GameOverBackground = cm.Load<Texture2D>("UI/GameOverTexture");
 
+            // How To Menu Slides
+			HowToMenuSlide01 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture01");
+			HowToMenuSlide02 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture02");
+			HowToMenuSlide03 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture03");
+			HowToMenuSlide04 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture04");
+			HowToMenuSlide05 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture05");
+			HowToMenuSlide06 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture06");
+			HowToMenuSlide07 = cm.Load<Texture2D>("UI/HowToMenu/HowToMenuTexture07");
+
 			// Menu MenuButtons
 			MainMenuButton = cm.Load<Texture2D>("Buttons/MainMenuButtonTexture");
 			StartButton = cm.Load<Texture2D>("Buttons/StartButtonTexture");
 			HowToButton = cm.Load<Texture2D>("Buttons/HowToButtonTexture");
 			ReturnButton = cm.Load<Texture2D>("Buttons/ReturnButtonTexture");
 			ResumeButton = cm.Load<Texture2D>("Buttons/ResumeButtonTexture");
+			NextButton = cm.Load<Texture2D>("Buttons/NextButtonTexture");
+			LastButton = cm.Load<Texture2D>("Buttons/LastButtonTexture");
 			RedAuraButton = cm.Load<Texture2D>("Buttons/RedAuraButtonTexture");
 			GreenAuraButton = cm.Load<Texture2D>("Buttons/GreenAuraButtonTexture");
 			BlueAuraButton = cm.Load<Texture2D>("Buttons/BlueAuraButtonTexture");

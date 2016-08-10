@@ -23,6 +23,7 @@
 
 Issues:
 	- Monsters surrounding player AI monster weight addition weird
+	- Monsters appearing after new level go through walls
 
 =============================================
 ================ Dungeon ====================
@@ -33,6 +34,7 @@ Issues:
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 	- ^ find_pockets does not appear to be working
+	- Doors broken because the edge in ConnectCorridors is sometimes wrong (check function)
 	- Invisible Enemies
 	- Dungeon exit placed in impossible spot
 
@@ -47,8 +49,10 @@ Issues:
 ============= User Interface ================
 =============================================
 
-1) IMPROVE HOWTO MENU
-2) OPTIONS MENU (Difficulty, Fullscreen, Volume)
+1) OPTIONS MENU (Difficulty, Fullscreen, Volume)
+
+Issues:
+	- Buggy HowTo Menu movement
 
 =============================================
 ================= Audio =====================
