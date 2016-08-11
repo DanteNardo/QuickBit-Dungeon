@@ -128,6 +128,7 @@ namespace QuickBit_Dungeon.DUNGEON
 				case Input.Direction.North:
 					if (CanMove(MainPlayer, -1, 0))
 					{
+					    AudioManager.NewPlayerWalk();
 						MoveEntity(MainPlayer, -1, 0);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -137,6 +138,7 @@ namespace QuickBit_Dungeon.DUNGEON
 				case Input.Direction.South:
 					if (CanMove(MainPlayer, 1, 0))
 					{
+					    AudioManager.NewPlayerWalk();
 						MoveEntity(MainPlayer, 1, 0);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -146,6 +148,7 @@ namespace QuickBit_Dungeon.DUNGEON
 				case Input.Direction.East:
 					if (CanMove(MainPlayer, 0, 1))
 					{
+					    AudioManager.NewPlayerWalk();
 						MoveEntity(MainPlayer, 0, 1);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -155,6 +158,7 @@ namespace QuickBit_Dungeon.DUNGEON
 				case Input.Direction.West:
 					if (CanMove(MainPlayer, 0, -1))
 					{
+					    AudioManager.NewPlayerWalk();
 						MoveEntity(MainPlayer, 0, -1);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();

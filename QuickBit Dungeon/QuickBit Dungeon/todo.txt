@@ -58,10 +58,7 @@ Issues:
 ================= Audio =====================
 =============================================
 
-1) COMBAT SOUND EFFECTS
-2) MOVEMENT SOUND EFFECTS
-3) BACKGROUND MUSIC
-4) MENU SOUND EFFECTS (SELECTION SOUNDS)
+1) BACKGROUND MUSIC
 
 =============================================
 ============ Special Effects ================

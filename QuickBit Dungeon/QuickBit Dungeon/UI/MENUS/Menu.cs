@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using QuickBit_Dungeon.INTERACTION;
+using QuickBit_Dungeon.MANAGERS;
 
 namespace QuickBit_Dungeon.UI.MENUS
 {
@@ -111,6 +112,7 @@ namespace QuickBit_Dungeon.UI.MENUS
 		/// <param name="amount">The amount to change the id by</param>
 		private void UpdateId(int amount)
 		{
+		    AudioManager.NewMenuSound();
 			CurrentId += amount;
 			if (CurrentId < 0)
 				CurrentId = MaxId-1;

@@ -37,8 +37,8 @@ namespace QuickBit_Dungeon.MANAGERS
             BitHit = cm.Load<SoundEffect>("Audio/bitHit");
             PlayerHit = cm.Load<SoundEffect>("Audio/playerHit");
             PlayerSpecial = cm.Load<SoundEffect>("Audio/playerSpecial");
-            //PlayerWalk = cm.Load<SoundEffect>("Audio/playerWalk");
-            //MenuSound = cm.Load<SoundEffect>("Audio/menuSound");
+            PlayerWalk = cm.Load<SoundEffect>("Audio/playerWalk");
+            MenuSound = cm.Load<SoundEffect>("Audio/menuSound");
         }
 
         /// <summary>
@@ -56,8 +56,6 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewBitHit()
         {
-            //var sound = BitHit.CreateInstance();
-            //sound.Play();
             BitHit.Play();
         }
 
@@ -66,8 +64,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewPlayerHit()
         {
-            var sound = PlayerHit.CreateInstance();
-            sound.Play();
+            PlayerHit.Play();
         }
 
         /// <summary>
@@ -75,8 +72,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewPlayerSpecial()
         {
-            var sound = PlayerSpecial.CreateInstance();
-            sound.Play();
+            PlayerSpecial.Play();
         }
 
         /// <summary>
@@ -84,8 +80,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewPlayerWalk()
         {
-            var sound = PlayerWalk.CreateInstance();
-            sound.Play();
+            PlayerWalk.Play();
         }
 
         /// <summary>
@@ -93,8 +88,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewMenuSound()
         {
-            var sound = MenuSound.CreateInstance();
-            sound.Play();
+            MenuSound.Play();
         }
     }
 }

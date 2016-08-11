@@ -62,8 +62,11 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="id">The ID to cross check</param>
 		public void Released(int id)
 		{
-			if (Id == id && GameState != StateManager.EGameState.None)
-				StateManager.SetState(GameState);
+		    if (Id == id && GameState != StateManager.EGameState.None)
+		    {
+		        AudioManager.NewMenuSound();
+		        StateManager.SetState(GameState);
+		    }
 		}
 
 		/// <summary>
