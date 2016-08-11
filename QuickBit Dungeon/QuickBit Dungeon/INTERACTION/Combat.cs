@@ -151,6 +151,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void PlayerPhysicalAttack()
 		{
+		    AudioManager.NewPlayerHit();
 			var damage = _player.Strength - _target.Armor;
 			if (_player.IsCrit()) damage = _player.Strength*2;
 		    if (damage < 0) damage = 0;
@@ -165,6 +166,9 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void PlayerSpecialAttack()
 		{
+            // Play Sound
+		    AudioManager.NewPlayerSpecial();
+
 			// Determine targets
 			_targets.Clear();
 			SpecialAttackTargets();
@@ -211,6 +215,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <param name="m">The monster that is currently attacking</param>
 		private void MonsterAttack(ref Monster m)
 		{
+		    AudioManager.NewBitHit();
 			m.AttackTimer.PerformAction();
 			var damage = m.Strength - _player.Armor;
 		    if (damage < 0) damage = 0;

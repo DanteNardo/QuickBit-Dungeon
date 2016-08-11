@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
@@ -94,12 +95,15 @@ namespace QuickBit_Dungeon
 
 			// Load and save all game content
 			ArtManager.LoadContent(Content);
+		    AudioManager.LoadContent(Content);
 			World.LoadContent();
 			_mainMenu.LoadContent();
 			_howToMenu.LoadContent();
 			_pauseMenu.LoadContent();
 		    _levelUpMenu.LoadContent();
 			_gameOverMenu.LoadContent();
+
+		    AudioManager.PlayMainMusic();
 		}
 
 		/// <summary>
