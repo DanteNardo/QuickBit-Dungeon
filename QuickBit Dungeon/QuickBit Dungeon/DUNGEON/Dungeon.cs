@@ -61,7 +61,6 @@ namespace QuickBit_Dungeon.DUNGEON
 		public static void Init()
 		{
 			MainPlayer = new Player();
-			Monsters   = new List<Monster>();
 			Construct();
 			GenerateDrawCells();
 		}
@@ -74,6 +73,7 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			Grid = new List<List<Cell>>();
 			Rooms = new List<Room>();
+			Monsters = new List<Monster>();
 			DungeonGeneration = new DungeonGenerator(Grid, Rooms);
 			DungeonGeneration.GenerateDungeon();
 			MainPlayer.Y = DungeonGeneration.Start.Item1;
@@ -92,6 +92,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			Grid.Clear();
 			Rooms.Clear();
+		    Monsters.Clear();
+		    ClearLocals();
 			Construct();
 			LevelUpMonsters(LevelCount);
 			LevelCount++;
@@ -187,7 +189,9 @@ namespace QuickBit_Dungeon.DUNGEON
 						rx = GameManager.Random.Next(r.Position[1], r.Position[1] + r.Width);
 
 						if (!MonsterAt(ry, rx, ref _target) &&
-							(Grid[ry][rx].Type != '@' || Grid[ry][rx].Type != ' '))
+							Grid[ry][rx].Type != '@' && 
+                            Grid[ry][rx].Type != ' ' &&
+                            Grid[ry][rx].Door == null)
 							break;
 					}
 
@@ -251,6 +255,13 @@ namespace QuickBit_Dungeon.DUNGEON
 		{
 			Grid[e.Y][e.X].ClearLocal();
 		}
+
+	    private static void ClearLocals()
+	    {
+	        foreach (var row in Grid)
+	            foreach (var cell in row)
+	                cell.ClearLocal();
+	    }
 
 		#endregion
 

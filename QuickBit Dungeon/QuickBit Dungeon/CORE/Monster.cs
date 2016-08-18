@@ -50,54 +50,11 @@ namespace QuickBit_Dungeon.CORE
 		    {
 		        if (MoveToLowestWeight()) return;
 		        if (GameManager.Random.Next(0, 100) == 0)
+		        {
+		            RegenHealth();
 		            MoveRandomOne();
+		        }
 		    }
-		}
-
-		/// <summary>
-		/// Determines what state this monster
-		/// should currently be in.
-		/// </summary>
-		private void CheckState()
-		{
-			if (PlayerInRange())
-				MonsterState = EMonsterState.Attack;
-			else
-				MonsterState = EMonsterState.Wander;
-		}
-
-		/// <summary>
-		/// Returns whether or not the player
-		/// is in the monster's range.
-		/// </summary>
-		/// <returns>Whether the player is in range or not</returns>
-		private bool PlayerInRange()
-		{
-			return  Dungeon.MainPlayer.Y >= Y - Range &&
-					Dungeon.MainPlayer.Y <= Y + Range &&
-					Dungeon.MainPlayer.X >= X - Range &&
-					Dungeon.MainPlayer.X <= X + Range;
-		}
-
-		/// <summary>
-		/// AI, causes monster to move around
-		/// </summary>
-		public void Wander()
-		{
-			RegenHealth();
-
-			if (MoveTimer.ActionReady &&
-				GameManager.Random.Next(0, 100) == 0)
-				MoveRandomOne();
-		}
-
-		/// <summary>
-		/// AI, causes monster to attack
-		/// the player.
-		/// </summary>
-		public void AttackPlayer()
-		{
-			MoveToLowestWeight();
 		}
 
 		/// <summary>
@@ -106,7 +63,9 @@ namespace QuickBit_Dungeon.CORE
 		/// </summary>
 		private void RegenHealth()
 		{
-			
+		    Health += Wisdom/10;
+		    if (Health > MaxHealth)
+		        Health = MaxHealth;
 		}
 
 		/// <summary>

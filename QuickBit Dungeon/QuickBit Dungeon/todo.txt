@@ -2,7 +2,7 @@
 
 // Name: Dante Nardo
 // Game: QuickBit Dungeon
-// Date: 7/16/2016
+// Date: 8/15/2016
 
 =============================================
 =============== Milestones ==================
@@ -23,7 +23,6 @@
 
 Issues:
 	- Monsters surrounding player AI monster weight addition weird
-	- Monsters appearing after new level go through walls
 
 =============================================
 ================ Dungeon ====================
@@ -34,7 +33,6 @@ Issues:
 Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 	- ^ find_pockets does not appear to be working
-	- Doors broken because the edge in ConnectCorridors is sometimes wrong (check function)
 	- Invisible Enemies
 	- Dungeon exit placed in impossible spot
 
@@ -42,8 +40,9 @@ Issues:
 ================ Graphics ===================
 =============================================
 
-1) LEVEL TRANSITION ANIMATION
-2) FULLSCREEN
+1) MAGIC TIMER EFFECT
+2) LEVEL TRANSITION ANIMATION
+3) FULLSCREEN
 
 =============================================
 ============= User Interface ================

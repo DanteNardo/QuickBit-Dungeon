@@ -56,7 +56,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// </summary>
         public static void NewBitHit()
         {
-            BitHit.Play();
+            //BitHit.Play();
         }
 
         /// <summary>
