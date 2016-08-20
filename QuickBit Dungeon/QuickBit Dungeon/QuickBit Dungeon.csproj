@@ -61,6 +61,9 @@
     <Compile Include="UI\EFFECTS\IFlicker.cs" />
     <Compile Include="UI\EFFECTS\Light.cs" />
     <Compile Include="UI\EFFECTS\TvLines.cs" />
+    <Compile Include="UI\HUD\Award.cs" />
+    <Compile Include="UI\HUD\AwardHandler.cs" />
+    <Compile Include="UI\HUD\Scoring.cs" />
     <Compile Include="UI\MENUS\Button.cs" />
     <Compile Include="UI\MENUS\GameOverMenu.cs" />
     <Compile Include="UI\MENUS\HowToMenu.cs" />
@@ -68,8 +71,8 @@
     <Compile Include="UI\MENUS\MainMenu.cs" />
     <Compile Include="UI\MENUS\Menu.cs" />
     <Compile Include="UI\MENUS\PauseMenu.cs" />
-    <Compile Include="UI\ProgressBar.cs" />
-    <Compile Include="UI\StatBox.cs" />
+    <Compile Include="UI\HUD\ProgressBar.cs" />
+    <Compile Include="UI\HUD\StatBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -189,7 +192,7 @@
     <None Include="Content\Fonts\DungeonFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Fonts\StatsFont.xnb">
+    <None Include="Content\Fonts\HudFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\TitleFont.xnb">

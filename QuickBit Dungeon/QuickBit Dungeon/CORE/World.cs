@@ -6,6 +6,7 @@ using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI;
+using QuickBit_Dungeon.UI.HUD;
 
 namespace QuickBit_Dungeon.CORE
 {
@@ -23,6 +24,7 @@ namespace QuickBit_Dungeon.CORE
 		private static StatBox _statBox;		// Displays the player's stats
 		private static ProgressBar _healthBar;	// Displays the player's health mana bar
 		private static ProgressBar _attackBar;	// Displays the player's attack mana bar
+		private static Scoring _scoring;		// Displays the player's score and awards
 		private static Timer _levelTimer;		// Counts down how much time is left for this level
 
 		// For drawing placement
@@ -40,11 +42,13 @@ namespace QuickBit_Dungeon.CORE
 		public static void Init()
 		{
 			Dungeon.Init();
+			AwardHandler.Init();
 			_combat             = new Combat();
 			_statBox            = new StatBox();
 			_levelTimer			= new Timer(120*60);
 			_healthBar          = new ProgressBar("Health Mana");
 			_attackBar          = new ProgressBar("Attack Mana");
+			_scoring            = new Scoring();
 			_healthBar.Position = new Vector2(10, 10);
 			_attackBar.Position = new Vector2(10, 50);
 			_healthBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
@@ -61,24 +65,21 @@ namespace QuickBit_Dungeon.CORE
 		{
 			if (OutOfTime()) return;
 			if (GamePaused()) return;
+			if (PlayerLeveledUp()) return;
 			if (PlayerDied()) return;
 
 			Dungeon.Update();
+			AwardHandler.Update();
+			GetAwards();
 			NextLevel();
-
 			PerformCombat();
-
-		    if (Dungeon.MainPlayer.HasEnoughXp())
-		    {
-		        StateManager.SetState(StateManager.EGameState.LevelUp);
-                return;
-		    }
 
 		    _levelTimer.Update();
 			_healthBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
 			_attackBar.UpdateValues((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
 			_healthBar.Update();
 			_attackBar.Update();
+			_scoring.Update();
 			_statBox.GenerateStats(Dungeon.MainPlayer);
 		}
 
@@ -128,6 +129,32 @@ namespace QuickBit_Dungeon.CORE
 		}
 
 		/// <summary>
+		/// Gets the awards from the handler and adds
+		/// them to the scoring class for displaying
+		/// and scoring.
+		/// </summary>
+		private static void GetAwards()
+		{
+			foreach (var award in AwardHandler.Awards)
+				_scoring.AddAward(award);
+			AwardHandler.Awards.Clear();
+		}
+
+		/// <summary>
+		/// Determines if the player leveled up or not.
+		/// </summary>
+		/// <returns>Whether player leveled up</returns>
+		private static bool PlayerLeveledUp()
+		{
+			if (Dungeon.MainPlayer.HasEnoughXp())
+		    {
+		        StateManager.SetState(StateManager.EGameState.LevelUp);
+                return true;
+		    }
+			return false;
+		}
+
+		/// <summary>
 		/// Determines if the player died or not.
 		/// </summary>
 		/// <returns>Whether player died</returns>
@@ -155,6 +182,7 @@ namespace QuickBit_Dungeon.CORE
 			_statBox.DrawStats(sb);
 			_healthBar.DrawProgressBar(sb);
 			_attackBar.DrawProgressBar(sb);
+			_scoring.Draw(sb);
 			_levelTimer.Draw(sb, 500, 25);
 		}
 

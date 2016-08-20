@@ -11,7 +11,7 @@ namespace QuickBit_Dungeon.MANAGERS
 
 		// Fonts
 		public static SpriteFont DungeonFont { get; set; }
-		public static SpriteFont StatsFont { get; set; }
+		public static SpriteFont HudFont { get; set; }
 		public static SpriteFont TitleFont { get; set; }
 
 		// Stats box
@@ -62,7 +62,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		{
 			// Fonts
 			DungeonFont = cm.Load<SpriteFont>("Fonts/DungeonFont");
-			StatsFont = cm.Load<SpriteFont>("Fonts/StatsFont");
+			HudFont = cm.Load<SpriteFont>("Fonts/HudFont");
 			TitleFont = cm.Load<SpriteFont>("Fonts/TitleFont");
 
 			// Stats box

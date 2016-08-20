@@ -2,6 +2,7 @@
 using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.UI.HUD;
 
 namespace QuickBit_Dungeon.INTERACTION
 {
@@ -240,10 +241,11 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void KillMonster()
 		{
-			// Add exp to the player
+			// Add xp to the player
 			_player.Xp += _target.Xp;
 			_monsters.Remove(_target);
 		    Dungeon.KillEntity(_target);
+			AwardHandler.NewKill();
 		}
 
 		/// <summary>

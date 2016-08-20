@@ -49,6 +49,7 @@ Issues:
 =============================================
 
 1) OPTIONS MENU (Difficulty, Fullscreen, Volume)
+2) SHOW SCORE ON GAME OVER
 
 Issues:
 	- Buggy HowTo Menu movement
