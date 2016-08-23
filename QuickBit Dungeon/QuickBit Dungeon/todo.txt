@@ -43,6 +43,7 @@ Issues:
 1) MAGIC TIMER EFFECT
 2) LEVEL TRANSITION ANIMATION
 3) FULLSCREEN
+4) DEATH ANIMATION
 
 =============================================
 ============= User Interface ================

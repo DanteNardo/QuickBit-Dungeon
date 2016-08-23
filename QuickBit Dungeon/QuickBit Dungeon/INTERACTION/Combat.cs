@@ -140,6 +140,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					break;
 				case Input.EPlayerState.Charging:
 					_player.RegenerateMana();
+					AwardHandler.NewRegen();
 					break;
 			}
 

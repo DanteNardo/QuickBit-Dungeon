@@ -19,6 +19,14 @@ namespace QuickBit_Dungeon.UI.HUD
 		private static int KillCount { get; set; } = 0;
 		private static Timer KillTimer { get; set; }
 
+		private static bool Stepping { get; set; } = false;
+		private static int StepCount { get; set; } = 0;
+		private static Timer StepTimer { get; set; }
+
+		private static bool Regenerating { get; set; } = false;
+		private static int RegenCount { get; set; } = 0;
+		private static Timer RegenTimer { get; set; }
+
 		// ======================================
 		// =============== Main =================
 		// ======================================
@@ -30,6 +38,8 @@ namespace QuickBit_Dungeon.UI.HUD
 		{
 			Awards = new List<Award>();
 			KillTimer = new Timer(1*60);
+			StepTimer = new Timer(1*60);
+			RegenTimer = new Timer(1*60);
 		}
 
 		/// <summary>
@@ -39,6 +49,10 @@ namespace QuickBit_Dungeon.UI.HUD
 		{
 			KillTimer.Update();
 			HandleKillAwards();
+
+			StepTimer.Update();
+			RegenTimer.Update();
+			HandleSpeedAwards();
 		}
 
 		/// <summary>
@@ -52,6 +66,8 @@ namespace QuickBit_Dungeon.UI.HUD
 			switch (category)
 			{
 				case "Kill": return DetermineKillAwards(count);
+				case "Step": return DetermineStepAwards(count);
+				case "Regen": return DetermineRegenAwards(count);
 				default: return "NULL";
 			}
 		}
@@ -68,8 +84,36 @@ namespace QuickBit_Dungeon.UI.HUD
 				case 1: return "SingleKill";
 				case 2: return "DoubleKill";
 				case 3: return "TripleKill";
-				default: return "Null";
+				default: return "NULL";
 			}
+		}
+
+		/// <summary>
+		/// Determines the step award.
+		/// </summary>
+		/// <param name="count">The number of steps</param>
+		/// <returns>The award type</returns>
+		private static string DetermineStepAwards(int count)
+		{
+			if (count >= 20)
+				return "SuperSprinter";
+			if (count >= 10)
+				return "Sprinter";
+			return "NULL";
+		}
+
+		/// <summary>
+		/// Determines the regen award.
+		/// </summary>
+		/// <param name="count">The number of regenerations</param>
+		/// <returns>The award type</returns>
+		private static string DetermineRegenAwards(int count)
+		{
+			if (count >= 20)
+				return "Revitalize";
+			if (count >= 10)
+				return "Energize";
+			return "NULL";
 		}
 
 		/// <summary>
@@ -79,10 +123,42 @@ namespace QuickBit_Dungeon.UI.HUD
 		{
 			if (KillTimer.ActionReady && Killing)
 			{
-				var award = new Award(DetermineAward("Kill", KillCount));
+				var type = DetermineAward("Kill", KillCount);
+				if (type == "NULL") return;
+				var award = new Award(type);
 				Awards.Add(award);
 				KillCount = 0;
 				Killing = false;
+			}
+		}
+
+		/// <summary>
+		/// Handles the logic for speed awards.
+		/// </summary>
+		private static void HandleSpeedAwards()
+		{
+			if (StepTimer.ActionReady && Stepping)
+			{
+				var type = DetermineAward("Step", StepCount);
+				if (type != "NULL")
+				{
+					var award = new Award(type);
+					Awards.Add(award);
+					StepCount = 0;
+					Stepping = false;
+				}
+			}
+
+			if (RegenTimer.ActionReady && Regenerating)
+			{
+				var type = DetermineAward("Regen", RegenCount);
+				if (type != "NULL")
+				{
+					var award = new Award(type);
+					Awards.Add(award);
+					RegenCount = 0;
+					Regenerating = false;
+				}
 			}
 		}
 
@@ -94,6 +170,28 @@ namespace QuickBit_Dungeon.UI.HUD
 			Killing = true;
 			KillTimer.PerformAction();
 			KillCount++;
+		}
+
+		/// <summary>
+		/// Marks a new step.
+		/// </summary>
+		public static void NewStep()
+		{
+			Stepping = true;
+			StepCount++;
+			if (StepTimer.ActionReady)
+				StepTimer.PerformAction();
+		}
+
+		/// <summary>
+		/// Marks a new regeneration of mana.
+		/// </summary>
+		public static void NewRegen()
+		{
+			Regenerating = true;
+			RegenCount++;
+			if (RegenTimer.ActionReady)
+				RegenTimer.PerformAction();
 		}
 	}
 }

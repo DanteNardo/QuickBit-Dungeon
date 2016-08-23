@@ -30,7 +30,7 @@ namespace QuickBit_Dungeon.UI.HUD
 		public Scoring()
 		{
 			Awards = new List<Award>();
-			Position = new Vector2(400, 75);
+			Position = new Vector2(10, 70);
 		}
 
 		/// <summary>

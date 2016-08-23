@@ -50,7 +50,7 @@ namespace QuickBit_Dungeon.CORE
 			_attackBar          = new ProgressBar("Attack Mana");
 			_scoring            = new Scoring();
 			_healthBar.Position = new Vector2(10, 10);
-			_attackBar.Position = new Vector2(10, 50);
+			_attackBar.Position = new Vector2(10, 40);
 			_healthBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.HealthMana);
 			_attackBar.Init((int) Dungeon.MainPlayer.MaxMana, (int) Dungeon.MainPlayer.AttackMana);
             _combat.PerformCombat(Dungeon.MainPlayer, Dungeon.Monsters);

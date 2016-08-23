@@ -34,10 +34,10 @@ namespace QuickBit_Dungeon.UI.HUD
 		public Award(string type)
 		{
 			AnimTime = new Timer((int)(.75*60));
-			Position = new Vector2(200, 75);
 			Shade = new Color(20, 20, 20);
 
 			HandleType(type);
+			DeterminePosition();
 			AnimTime.PerformAction();
 		}
 
@@ -66,7 +66,7 @@ namespace QuickBit_Dungeon.UI.HUD
 		/// </summary>
 		private void DeterminePosition()
 		{
-			
+			Position = new Vector2(300 - ArtManager.HudFont.MeasureString(Type).X/2, 70);
 		}
 
 		/// <summary>
@@ -86,6 +86,18 @@ namespace QuickBit_Dungeon.UI.HUD
 				case "TripleKill":
 					TripleKill();
 					break;
+				case "Sprinter":
+					Sprinter();
+					break;
+				case "SuperSprinter":
+					SuperSprinter();
+					break;
+				case "Energize":
+					Energize();
+					break;
+				case "Revitalize":
+					Revitalize();
+					break;
 			}
 		}
 
@@ -102,7 +114,7 @@ namespace QuickBit_Dungeon.UI.HUD
 		/// </summary>
 		private void IncreaseOpacity()
 		{
-			Shade *= 1.4f;
+			Shade *= 1.3f;
 		}
 
 		#region AwardTypes
@@ -112,12 +124,12 @@ namespace QuickBit_Dungeon.UI.HUD
 		/// </summary>
 		private void SingleKill()
 		{
-			Type = "Single Kill";
-			Value = 100;
+			Type = "Meh";
+			Value = 10;
 		}
 
 		/// <summary>
-		/// A double kill.
+		/// A double kill in one second or less.
 		/// </summary>
 		private void DoubleKill()
 		{
@@ -126,12 +138,48 @@ namespace QuickBit_Dungeon.UI.HUD
 		}
 
 		/// <summary>
-		/// A triple kill.
+		/// A triple kill in one second or less.
 		/// </summary>
 		private void TripleKill()
 		{
 			Type = "Triple Kill!";
-			Value = 300;
+			Value = 600;
+		}
+
+		/// <summary>
+		/// 10-19 steps in 1 second or less.
+		/// </summary>
+		private void Sprinter()
+		{
+			Type = "Sprinter";
+			Value = 20;
+		}
+
+		/// <summary>
+		/// 20+ steps in 1 second or less.
+		/// </summary>
+		private void SuperSprinter()
+		{
+			Type = "Super Sprinter!";
+			Value = 400;
+		}
+
+		/// <summary>
+		/// 10-19 regens in 1 second or less.
+		/// </summary>
+		private void Energize()
+		{
+			Type = "Energize";
+			Value = 20;
+		}
+
+		/// <summary>
+		/// 20+ regens in 1 second or less.
+		/// </summary>
+		private void Revitalize()
+		{
+			Type = "Revitalize";
+			Value = 400;
 		}
 
 		#endregion

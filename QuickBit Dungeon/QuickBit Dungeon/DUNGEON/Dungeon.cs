@@ -7,6 +7,7 @@ using QuickBit_Dungeon.CORE;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
 using QuickBit_Dungeon.UI.EFFECTS;
+using QuickBit_Dungeon.UI.HUD;
 
 namespace QuickBit_Dungeon.DUNGEON
 {
@@ -131,6 +132,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					if (CanMove(MainPlayer, -1, 0))
 					{
 					    AudioManager.NewPlayerWalk();
+						AwardHandler.NewStep();
 						MoveEntity(MainPlayer, -1, 0);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -141,6 +143,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					if (CanMove(MainPlayer, 1, 0))
 					{
 					    AudioManager.NewPlayerWalk();
+						AwardHandler.NewStep();
 						MoveEntity(MainPlayer, 1, 0);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -151,6 +154,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					if (CanMove(MainPlayer, 0, 1))
 					{
 					    AudioManager.NewPlayerWalk();
+						AwardHandler.NewStep();
 						MoveEntity(MainPlayer, 0, 1);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
@@ -161,6 +165,7 @@ namespace QuickBit_Dungeon.DUNGEON
 					if (CanMove(MainPlayer, 0, -1))
 					{
 					    AudioManager.NewPlayerWalk();
+						AwardHandler.NewStep();
 						MoveEntity(MainPlayer, 0, -1);
 						if (Grid[MainPlayer.Y][MainPlayer.X].Door != null)
 							Grid[MainPlayer.Y][MainPlayer.X].Door.OpenDoor();
