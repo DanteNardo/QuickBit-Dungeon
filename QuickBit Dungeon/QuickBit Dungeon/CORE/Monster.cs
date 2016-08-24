@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QuickBit_Dungeon.DUNGEON;
 using QuickBit_Dungeon.INTERACTION;
 using QuickBit_Dungeon.MANAGERS;
@@ -14,15 +15,15 @@ namespace QuickBit_Dungeon.CORE
 		public Timer AttackTimer { get; set; }
 		public Timer MoveTimer { get; set; }
 
-		public EMonsterState MonsterState { get; set; } = EMonsterState.Wander;
-		public enum EMonsterState
+		private class Node
 		{
-			Attack,
-			Hunt,
-			Wander
+			public int Y { get; set; }
+			public int X { get; set; }
+			public int Weight { get; set; }
 		}
 
-		private int Range { get; set; } = 1;
+		private int Range { get; set; } = 10;
+		private Node[,] Graph { get; set; }
 
 		// ======================================
 		// ============== Methods ===============
@@ -35,6 +36,7 @@ namespace QuickBit_Dungeon.CORE
 		{
 			AttackTimer = new Timer(60);
 			MoveTimer = new Timer(30);
+			Graph = new Node[2*Range + 1, 2*Range + 1];
 		}
 
 		/// <summary>
@@ -112,25 +114,48 @@ namespace QuickBit_Dungeon.CORE
 		{
             // Find lowest
 			var lowest = 10000;
-			var pos = new int[2];
+			List<int[]> lowests = new List<int[]>();
             var foundWeight = false;
 			foreach (var n in Dungeon.Grid[Y][X].Neighbors)
+			{
+				// Touching player aka don't move
+				if (Dungeon.Grid[n[0]][n[1]].Local is Player)
+					return true;
+
+				// Equal lowest values
 				if (Dungeon.Grid[n[0]][n[1]].Weight != 0 &&
-					Dungeon.Grid[n[0]][n[1]].Weight < lowest)
+				    Dungeon.Grid[n[0]][n[1]].Weight == lowest)
 				{
-					lowest = Dungeon.Grid[n[0]][n[1]].Weight;
-					pos = n;
-                    foundWeight = true;
+					if (Dungeon.Grid[n[0]][n[1]].Local != null) continue;
+					lowests.Add(n);
 				}
 
-            if (!foundWeight)
+				// New lowest values
+				if (Dungeon.Grid[n[0]][n[1]].Weight != 0 &&
+				    Dungeon.Grid[n[0]][n[1]].Weight < lowest)
+				{
+					if (Dungeon.Grid[n[0]][n[1]].Local != null) continue;
+					lowest = Dungeon.Grid[n[0]][n[1]].Weight;
+					lowests.Clear();
+					lowests.Add(n);
+					foundWeight = true;
+				}
+			}
+
+			if (!foundWeight)
                 return false;
 
-			if (Dungeon.CanMove(this, pos[0] - Y, pos[1] - X))
+			// Try to move to all equal lowest values
+			while (lowests.Count > 0)
 			{
-				Dungeon.MoveEntity(this, pos[0] - Y, pos[1] - X);
-				MoveTimer.PerformAction();
+				if (Dungeon.CanMove(this, lowests[0][0] - Y, lowests[0][1] - X))
+				{
+					Dungeon.MoveEntity(this, lowests[0][0] - Y, lowests[0][1] - X);
+					MoveTimer.PerformAction();
+				}
+				else lowests.RemoveAt(0);
 			}
+			
 			return true;
 		}
 	}

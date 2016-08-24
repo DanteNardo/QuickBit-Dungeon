@@ -22,7 +22,7 @@
 =============================================
 
 Issues:
-	- Monsters surrounding player AI monster weight addition weird
+	- Monsters following other monsters then moving one away and back
 
 =============================================
 ================ Dungeon ====================

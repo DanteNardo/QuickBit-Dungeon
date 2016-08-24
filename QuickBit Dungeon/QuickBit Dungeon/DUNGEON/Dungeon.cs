@@ -261,6 +261,9 @@ namespace QuickBit_Dungeon.DUNGEON
 			Grid[e.Y][e.X].ClearLocal();
 		}
 
+		/// <summary>
+		/// Clears all locals from the grid.
+		/// </summary>
 	    private static void ClearLocals()
 	    {
 	        foreach (var row in Grid)
