@@ -9,6 +9,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		// ======================================
 		
 		public static Random Random { get; private set; }
+		public static string Difficulty { get; set; } = "easy";
 
 		// ======================================
 		// ============== Methods ===============

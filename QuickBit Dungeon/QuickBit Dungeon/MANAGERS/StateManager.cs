@@ -10,6 +10,7 @@
 		{
 			MainMenu,
 			HowTo,
+			Options,
 			Pause,
 			Game,
             LevelUp,

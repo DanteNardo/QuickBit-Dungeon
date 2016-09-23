@@ -80,6 +80,9 @@ namespace QuickBit_Dungeon.UI
             }
 	    }
 
+		/// <summary>
+		/// Updates the HowTo menu.
+		/// </summary>
 	    public new void Update()
 	    {
 	        Input.GetInput();

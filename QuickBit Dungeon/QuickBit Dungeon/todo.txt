@@ -14,8 +14,8 @@
 4) GRAPHICS			Status: Incomplete
 5) UI				Status: Incomplete
 6) AUDIO			Status: Incomplete
-7) SPECIAL EFFECTS	STATUS: Incomplete
-8) BALANCING		Status: Incomplete
+7) SPECIAL EFFECTS	STATUS: Incomplete	(UNNECESSARY)
+8) BALANCING		Status: COMPLETE!
 
 =============================================
 ================= Combat ====================
@@ -28,9 +28,9 @@ Issues:
 ================ Dungeon ====================
 =============================================
 
-1) ADD RESET AFTER GAME OVER
+1) ADD RESET AFTER GAME OVER (Optional)
 
-Issues:
+Possible Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 	- ^ find_pockets does not appear to be working
 	- Invisible Enemies
@@ -40,20 +40,18 @@ Issues:
 ================ Graphics ===================
 =============================================
 
-1) MAGIC TIMER EFFECT
-2) LEVEL TRANSITION ANIMATION
-3) FULLSCREEN
-4) DEATH ANIMATION
+1) LEVEL TRANSITION ANIMATION (Optional)
+2) DEATH ANIMATION (Optional)
 
 =============================================
 ============= User Interface ================
 =============================================
 
-1) OPTIONS MENU (Difficulty, Fullscreen, Volume)
-2) SHOW SCORE ON GAME OVER
+1) SHOW SCORE ON GAME OVER
+2) CREDITS
 
 Issues:
-	- Buggy HowTo Menu movement
+	- General: Fix HowTo Menu and add images
 
 =============================================
 ================= Audio =====================
@@ -65,12 +63,5 @@ Issues:
 ============ Special Effects ================
 =============================================
 
-1) TV FLICKER
-2) SHAKE + COLOR SHAKE
-
-=============================================
-=============== Balancing ===================
-=============================================
-
-1) HARD MODE: NO DOORS
-2) EASY MODE: DOORS
+1) TV FLICKER (Optional)
+2) SHAKE + COLOR SHAKE (Optional)

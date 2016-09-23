@@ -23,6 +23,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		// Menu Backgrounds
 		public static Texture2D MainMenuBackground { get; set; }
 		public static Texture2D HowToMenuBackground { get; set; }
+		public static Texture2D OptionsMenuBackground { get; set; }
 		public static Texture2D PauseMenuBackground { get; set; }
 		public static Texture2D LevelUpMenuBackground { get; set; }
 		public static Texture2D GameOverBackground { get; set; }
@@ -40,10 +41,14 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static Texture2D MainMenuButton { get; set; }
 		public static Texture2D StartButton { get; set; }
 		public static Texture2D HowToButton { get; set; }
+		public static Texture2D OptionsButton { get; set; }
 		public static Texture2D ReturnButton { get; set; }
 		public static Texture2D ResumeButton { get; set; }
 		public static Texture2D NextButton { get; set; }
 		public static Texture2D LastButton { get; set; }
+		public static Texture2D VolumeButton { get; set; }
+		public static Texture2D EasyButton { get; set; }
+		public static Texture2D HardButton { get; set; }
 		public static Texture2D RedAuraButton { get; set; }
 		public static Texture2D GreenAuraButton { get; set; }
 		public static Texture2D BlueAuraButton { get; set; }
@@ -74,6 +79,7 @@ namespace QuickBit_Dungeon.MANAGERS
 			// Menu Backgrounds
 			MainMenuBackground = cm.Load<Texture2D>("UI/MainMenuTexture");
 			HowToMenuBackground = cm.Load<Texture2D>("UI/HowToMenuTexture");
+			OptionsMenuBackground = cm.Load<Texture2D>("UI/OptionsMenuTexture");
 			PauseMenuBackground = cm.Load<Texture2D>("UI/PauseMenuTexture");
 			LevelUpMenuBackground = cm.Load<Texture2D>("UI/LevelUpMenuTexture");
 			GameOverBackground = cm.Load<Texture2D>("UI/GameOverTexture");
@@ -91,10 +97,14 @@ namespace QuickBit_Dungeon.MANAGERS
 			MainMenuButton = cm.Load<Texture2D>("Buttons/MainMenuButtonTexture");
 			StartButton = cm.Load<Texture2D>("Buttons/StartButtonTexture");
 			HowToButton = cm.Load<Texture2D>("Buttons/HowToButtonTexture");
+			OptionsButton = cm.Load<Texture2D>("Buttons/OptionsButtonTexture");
 			ReturnButton = cm.Load<Texture2D>("Buttons/ReturnButtonTexture");
 			ResumeButton = cm.Load<Texture2D>("Buttons/ResumeButtonTexture");
 			NextButton = cm.Load<Texture2D>("Buttons/NextButtonTexture");
 			LastButton = cm.Load<Texture2D>("Buttons/LastButtonTexture");
+			VolumeButton = cm.Load<Texture2D>("Buttons/VolumeButtonTexture");
+			EasyButton = cm.Load<Texture2D>("Buttons/EasyButtonTexture");
+			HardButton = cm.Load<Texture2D>("Buttons/HardButtonTexture");
 			RedAuraButton = cm.Load<Texture2D>("Buttons/RedAuraButtonTexture");
 			GreenAuraButton = cm.Load<Texture2D>("Buttons/GreenAuraButtonTexture");
 			BlueAuraButton = cm.Load<Texture2D>("Buttons/BlueAuraButtonTexture");

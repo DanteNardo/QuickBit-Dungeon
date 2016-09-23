@@ -26,6 +26,15 @@ namespace QuickBit_Dungeon.MANAGERS
 		// ============== Methods ===============
 		// ======================================
 
+		/// <summary>
+		/// Initializes the audio manager.
+		/// </summary>
+		public static void Init()
+		{
+			SoundEffect.MasterVolume = .75F;
+	        MediaPlayer.Volume = .75F;
+		}
+
         /// <summary>
         /// Loads and saves all audio content
         /// into the static class.
@@ -48,7 +57,6 @@ namespace QuickBit_Dungeon.MANAGERS
         {
 	        MediaPlayer.Play(MainMusic);
 	        MediaPlayer.IsRepeating = true;
-	        MediaPlayer.Volume = 0.7F;
         }
 
         /// <summary>

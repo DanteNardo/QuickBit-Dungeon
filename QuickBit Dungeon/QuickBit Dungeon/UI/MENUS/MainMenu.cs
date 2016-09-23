@@ -20,10 +20,11 @@ namespace QuickBit_Dungeon.UI
 		// ============== Members ===============
 		// ======================================	
 
-		private const int NumberOfButtons = 3;
+		private const int NumberOfButtons = 4;
 		private const int StartIndex = 0;
 		private const int HowToIndex = 1;
-		private const int ExitIndex = 2;
+		private const int OptionsIndex = 2;
+		private const int ExitIndex = 3;
 
 		// ======================================
 		// ============== Methods ===============
@@ -45,7 +46,7 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		private void MakeButtons()
 		{
-			var rec = new Rectangle(150, 275, 300, 75);
+			var rec = new Rectangle(175, 250, 250, 65);
 			for (int i = 0; i < NumberOfButtons; i++)
 			{
 				Button b = new Button(i, Color.Gray, rec);
@@ -55,6 +56,7 @@ namespace QuickBit_Dungeon.UI
 
 			MenuButtons[StartIndex].GameState = StateManager.EGameState.Game;
 			MenuButtons[HowToIndex].GameState = StateManager.EGameState.HowTo;
+			MenuButtons[OptionsIndex].GameState = StateManager.EGameState.Options;
 			MenuButtons[ExitIndex].GameState = StateManager.EGameState.Exit;
 		}
 
@@ -66,6 +68,7 @@ namespace QuickBit_Dungeon.UI
 			BackgroundTexture = ArtManager.MainMenuBackground;
 			MenuButtons[StartIndex].Texture = ArtManager.StartButton;
 			MenuButtons[HowToIndex].Texture = ArtManager.HowToButton;
+			MenuButtons[OptionsIndex].Texture = ArtManager.OptionsButton;
 			MenuButtons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
 	}

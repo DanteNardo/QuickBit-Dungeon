@@ -408,7 +408,8 @@ namespace QuickBit_Dungeon.DUNGEON
 							// Connect room
 							Grid[n[0]][n[1]].Type = '.';
 							Grid[n[0]][n[1]].Rep  = '.';
-							Grid[edge[0]][edge[1]].Door = new Door();
+							if (GameManager.Difficulty == "easy")
+								Grid[edge[0]][edge[1]].Door = new Door();
 
 							connectedCount++;
 							if (connectedCount < 3) continue;
