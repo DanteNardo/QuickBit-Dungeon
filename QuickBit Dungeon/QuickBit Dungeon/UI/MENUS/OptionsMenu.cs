@@ -89,6 +89,7 @@ namespace QuickBit_Dungeon.UI.MENUS
 		        VolumeBar.UpdateValues(100, (int)(Volume*100));
 				MediaPlayer.Volume = Volume;
 				SoundEffect.MasterVolume = Volume;
+				if (MediaPlayer.Volume > .25f) MediaPlayer.Volume = .25f;
 				AudioManager.NewMenuSound();
 	        }
 

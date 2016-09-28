@@ -32,7 +32,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		public static void Init()
 		{
 			SoundEffect.MasterVolume = .75F;
-	        MediaPlayer.Volume = .75F;
+	        MediaPlayer.Volume = .25F;
 		}
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace QuickBit_Dungeon.MANAGERS
         /// <param name="cm"></param>
         public static void LoadContent(ContentManager cm)
         {
-            //MainMusic = cm.Load<Song>("Audio/mainMusic");
+            MainMusic = cm.Load<Song>("Audio/mainMusic");
             BitHit = cm.Load<SoundEffect>("Audio/bitHit");
             PlayerHit = cm.Load<SoundEffect>("Audio/playerHit");
             PlayerSpecial = cm.Load<SoundEffect>("Audio/playerSpecial");
