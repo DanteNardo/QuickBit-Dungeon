@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
-namespace QuickBit_Dungeon.INTERACTION
+namespace QuickBit_Dungeon.Interaction
 {
 	public class Timer
 	{
@@ -15,6 +14,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		// ======================================
 
 		// Timing variables
+		private const int FRAME_RATE = 60;
 		private int MaxActionTime { get; set; }
 		private int ActionTime { get; set; }
 
@@ -23,6 +23,8 @@ namespace QuickBit_Dungeon.INTERACTION
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Timer Methods
 
 		/// <summary>
 		/// Constructor
@@ -67,9 +69,11 @@ namespace QuickBit_Dungeon.INTERACTION
 		public void Draw(SpriteBatch sb, int x, int y)
 		{
 			sb.DrawString(ArtManager.TitleFont, 
-						  (ActionTime/60).ToString(), 
+						  (ActionTime/FRAME_RATE).ToString(), 
 						  new Vector2(x, y), 
 						  Color.White);
 		}
+
+		#endregion
 	}
 }

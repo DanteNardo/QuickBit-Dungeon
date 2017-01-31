@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QuickBit_Dungeon.CORE;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Characters;
+using QuickBit_Dungeon.Managers;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -12,7 +12,7 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 		
 		private const int Padding = 40;
-		private string _stats;
+		private string m_stats;
 		
 		private Texture2D BoxTex { get; set; }
 		private Rectangle BoxRec { get; }
@@ -20,6 +20,8 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Stat Box Methods
 
 		/// <summary>
 		/// Constructor
@@ -45,13 +47,13 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="p">The player to generate stats from</param>
 		public void GenerateStats(Player p)
 		{
-			_stats = "";
-			_stats += "Strength:  " + p.Strength;
-			_stats += "    Current XP: " + p.Xp + "\n";
-			_stats += "Dexterity: " + p.Dexterity;
-			_stats += "    XP Needed:  " + p.XpNeeded + "\n";
-			_stats += "Wisdom:    " + p.Wisdom;
-			_stats += "    Level:      " + p.Level + "\n";
+			m_stats = "";
+			m_stats += "Strength:  " + p.Strength;
+			m_stats += "    Current XP: " + p.Xp + "\n";
+			m_stats += "Dexterity: " + p.Dexterity;
+			m_stats += "    XP Needed:  " + p.XpNeeded + "\n";
+			m_stats += "Wisdom:    " + p.Wisdom;
+			m_stats += "    Level:      " + p.Level + "\n";
 		}
 
 		/// <summary>
@@ -62,9 +64,11 @@ namespace QuickBit_Dungeon.UI
 		public void DrawStats(SpriteBatch sb)
 		{
 			sb.Draw(BoxTex, BoxRec, Color.White);
-			sb.DrawString(ArtManager.HudFont, _stats,
+			sb.DrawString(ArtManager.HudFont, m_stats,
 				new Vector2(BoxRec.X + Padding, BoxRec.Y + Padding),
 				Color.White);
 		}
+
+		#endregion
 	}
 }

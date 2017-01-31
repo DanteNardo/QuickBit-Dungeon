@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QuickBit_Dungeon.DUNGEON
+﻿namespace QuickBit_Dungeon.DungeonGeneration
 {
 	public class Door
 	{
@@ -19,6 +13,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============== Methods ===============
 		// ======================================
 
+		#region Door Methods
+
 		/// <summary>
 		/// Opens the current door object.
 		/// </summary>
@@ -27,5 +23,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			Open = true;
 			Closed = false;
 		}
+
+		#endregion
 	}
 }

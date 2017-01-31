@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuickBit_Dungeon.INTERACTION;
+﻿using System.Collections.Generic;
+using QuickBit_Dungeon.Interaction;
 
 namespace QuickBit_Dungeon.UI.HUD
 {
@@ -30,6 +26,8 @@ namespace QuickBit_Dungeon.UI.HUD
 		// ======================================
 		// =============== Main =================
 		// ======================================
+
+		#region Award Handler Methods
 
 		/// <summary>
 		/// Initializes the AwardHandler.
@@ -193,5 +191,7 @@ namespace QuickBit_Dungeon.UI.HUD
 			if (RegenTimer.ActionReady)
 				RegenTimer.PerformAction();
 		}
+
+		#endregion
 	}
 }

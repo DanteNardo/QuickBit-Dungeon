@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace QuickBit_Dungeon.MANAGERS
+namespace QuickBit_Dungeon.Managers
 {
 	public static class ArtManager
 	{
@@ -58,6 +58,8 @@ namespace QuickBit_Dungeon.MANAGERS
 		// ============== Methods ===============
 		// ======================================
 
+		#region Art Manager Methods
+
 		/// <summary>
 		/// Loads in all game content which is
 		/// stored in this static class.
@@ -110,5 +112,7 @@ namespace QuickBit_Dungeon.MANAGERS
 			BlueAuraButton = cm.Load<Texture2D>("Buttons/BlueAuraButtonTexture");
 			ExitButton = cm.Load<Texture2D>("Buttons/ExitButtonTexture");
 		}
+
+		#endregion
 	}
 }

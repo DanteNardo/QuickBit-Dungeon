@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using QuickBit_Dungeon.CORE;
-using QuickBit_Dungeon.DUNGEON;
-using QuickBit_Dungeon.INTERACTION;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.DungeonGeneration;
+using QuickBit_Dungeon.Interaction;
+using QuickBit_Dungeon.Managers;
 using QuickBit_Dungeon.UI;
-using QuickBit_Dungeon.UI.EFFECTS;
-using QuickBit_Dungeon.UI.MENUS;
+using QuickBit_Dungeon.UI.Effects;
+using QuickBit_Dungeon.UI.Menus;
 
 namespace QuickBit_Dungeon
 {
@@ -17,34 +15,44 @@ namespace QuickBit_Dungeon
 	/// </summary>
 	public class Game1 : Game
 	{
+		// ======================================
+		// ============== Members ===============
+		// ======================================
+
 		// Window size variables
 		private const int ScreenWidth = 600;
 		private const int ScreenHeight = 600;
-		private readonly GraphicsDeviceManager _graphics;
-		private SpriteBatch _spriteBatch;
+		private readonly GraphicsDeviceManager m_graphics;
+		private SpriteBatch m_spriteBatch;
 
 		// User Interface Objects
-		private MainMenu _mainMenu;
-		private HowToMenu _howToMenu;
-		private OptionsMenu _optionsMenu;
-		private PauseMenu _pauseMenu;
-	    private LevelUpMenu _levelUpMenu;
-		private GameOverMenu _gameOverMenu;
+		private MainMenu m_mainMenu;
+		private HowToMenu m_howToMenu;
+		private OptionsMenu m_optionsMenu;
+		private PauseMenu m_pauseMenu;
+	    private LevelUpMenu m_levelUpMenu;
+		private GameOverMenu m_gameOverMenu;
 
         // Effects
 	    private TvLines _tvLines;
 
+		// ======================================
+		// ============== Methods ===============
+		// ======================================
+
+		#region Game Methods
+
 		public Game1()
 		{
-			_graphics = new GraphicsDeviceManager(this);
+			m_graphics = new GraphicsDeviceManager(this);
 
             //_graphics.IsFullScreen = true;
 		    //_graphics.ToggleFullScreen();
-            if (_graphics.IsFullScreen)
+            if (m_graphics.IsFullScreen)
             {
 				Window.IsBorderless = true;
-				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+				m_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				m_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			}
 
 			Content.RootDirectory = "Content";
@@ -62,9 +70,9 @@ namespace QuickBit_Dungeon
 				Determine the center of the screen. Initialize
 				the size of the window.
 			*/
-			_graphics.PreferredBackBufferWidth = ScreenWidth;
-			_graphics.PreferredBackBufferHeight = ScreenHeight;
-			_graphics.ApplyChanges();
+			m_graphics.PreferredBackBufferWidth = ScreenWidth;
+			m_graphics.PreferredBackBufferHeight = ScreenHeight;
+			m_graphics.ApplyChanges();
 
 			// GameManager initialization
 			GameManager.Init();
@@ -74,12 +82,12 @@ namespace QuickBit_Dungeon
 			World.Init();
 
 			// User Interface initialization
-			_mainMenu = new MainMenu();
-			_howToMenu = new HowToMenu();
-			_optionsMenu = new OptionsMenu();
-			_pauseMenu = new PauseMenu();
-		    _levelUpMenu = new LevelUpMenu();
-			_gameOverMenu = new GameOverMenu();
+			m_mainMenu = new MainMenu();
+			m_howToMenu = new HowToMenu();
+			m_optionsMenu = new OptionsMenu();
+			m_pauseMenu = new PauseMenu();
+		    m_levelUpMenu = new LevelUpMenu();
+			m_gameOverMenu = new GameOverMenu();
 
             // Effect Initialization
 		    _tvLines = new TvLines(GraphicsDevice);
@@ -94,18 +102,18 @@ namespace QuickBit_Dungeon
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			_spriteBatch = new SpriteBatch(GraphicsDevice);
+			m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// Load and save all game content
 			ArtManager.LoadContent(Content);
 		    AudioManager.LoadContent(Content);
 			World.LoadContent();
-			_mainMenu.LoadContent();
-			_howToMenu.LoadContent();
-			_optionsMenu.LoadContent();
-			_pauseMenu.LoadContent();
-		    _levelUpMenu.LoadContent();
-			_gameOverMenu.LoadContent();
+			m_mainMenu.LoadContent();
+			m_howToMenu.LoadContent();
+			m_optionsMenu.LoadContent();
+			m_pauseMenu.LoadContent();
+		    m_levelUpMenu.LoadContent();
+			m_gameOverMenu.LoadContent();
 
 		    AudioManager.PlayMainMusic();
 		}
@@ -136,28 +144,28 @@ namespace QuickBit_Dungeon
 			switch (StateManager.GameState)
 			{
 				case StateManager.EGameState.MainMenu:
-					_mainMenu.Update();
-					_mainMenu.Hover();
+					m_mainMenu.Update();
+					m_mainMenu.Hover();
 					break;
 				case StateManager.EGameState.Game:
 					World.Update();
 					break;
 				case StateManager.EGameState.HowTo:
-					_howToMenu.Update();
-					_howToMenu.Hover();
+					m_howToMenu.Update();
+					m_howToMenu.Hover();
 					break;
 				case StateManager.EGameState.Options:
-					_optionsMenu.Update();
-					_optionsMenu.Hover();
-					_optionsMenu.VolumeBar.Update();
+					m_optionsMenu.Update();
+					m_optionsMenu.Hover();
+					m_optionsMenu.VolumeBar.Update();
 					break;
 				case StateManager.EGameState.Pause:
-					_pauseMenu.Update();
-					_pauseMenu.Hover();
+					m_pauseMenu.Update();
+					m_pauseMenu.Hover();
 					break;
                 case StateManager.EGameState.LevelUp:
-			        _levelUpMenu.Update();
-			        _levelUpMenu.Hover();
+			        m_levelUpMenu.Update();
+			        m_levelUpMenu.Hover();
                     break;
                 case StateManager.EGameState.RedLevelUp:
 			        Dungeon.MainPlayer.LevelUp("red");
@@ -172,8 +180,8 @@ namespace QuickBit_Dungeon
 			        StateManager.SetState(StateManager.EGameState.Game);
                     break;
 				case StateManager.EGameState.GameOver:
-					_gameOverMenu.Update();
-					_gameOverMenu.Hover();
+					m_gameOverMenu.Update();
+					m_gameOverMenu.Hover();
 					break;
                 case StateManager.EGameState.Exit:
                     Exit();
@@ -190,38 +198,40 @@ namespace QuickBit_Dungeon
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
-		    _spriteBatch.Begin();
+		    m_spriteBatch.Begin();
 
 			switch (StateManager.GameState)
 			{
 				case StateManager.EGameState.MainMenu:
-					_mainMenu.Draw(_spriteBatch);
+					m_mainMenu.Draw(m_spriteBatch);
 					break;
 				case StateManager.EGameState.Game:
-					World.Draw(_spriteBatch);
+					World.Draw(m_spriteBatch);
 					break;
 				case StateManager.EGameState.HowTo:
-					_howToMenu.Draw(_spriteBatch);
+					m_howToMenu.Draw(m_spriteBatch);
 					break;
 				case StateManager.EGameState.Options:
-					_optionsMenu.Draw(_spriteBatch);
+					m_optionsMenu.Draw(m_spriteBatch);
 					break;
 				case StateManager.EGameState.Pause:
-					_pauseMenu.Draw(_spriteBatch);
+					m_pauseMenu.Draw(m_spriteBatch);
 					break;
                 case StateManager.EGameState.LevelUp:
-			        _levelUpMenu.Draw(_spriteBatch);
+			        m_levelUpMenu.Draw(m_spriteBatch);
 			        break;
 				case StateManager.EGameState.GameOver:
-					_gameOverMenu.Draw(_spriteBatch);
+					m_gameOverMenu.Draw(m_spriteBatch);
 					break;
 			}
 
             // Effects
 		    //_tvLines.Draw(_spriteBatch);
 
-			_spriteBatch.End();
+			m_spriteBatch.End();
 			base.Draw(gameTime);
 		}
+
+		#endregion
 	}
 }

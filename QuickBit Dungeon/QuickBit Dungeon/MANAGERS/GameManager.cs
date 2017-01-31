@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuickBit_Dungeon.MANAGERS
+namespace QuickBit_Dungeon.Managers
 {
 	public static class GameManager
 	{
@@ -14,6 +14,8 @@ namespace QuickBit_Dungeon.MANAGERS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Game Manager Methods
 
 		/// <summary>
 		/// Initializes all GameManager data
@@ -33,5 +35,7 @@ namespace QuickBit_Dungeon.MANAGERS
 		{
 			return (char) (i + 48);
 		}
+
+		#endregion
 	}
 }

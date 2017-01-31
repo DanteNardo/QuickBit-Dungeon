@@ -2,7 +2,7 @@
 
 // Name: Dante Nardo
 // Game: QuickBit Dungeon
-// Date: 9/24/2016
+// Date: 1/30/2017
 
 =============================================
 =============== Milestones ==================
@@ -14,8 +14,8 @@
 4) GRAPHICS			Status: Incomplete
 5) UI				Status: Incomplete
 6) AUDIO			Status: Incomplete
-7) SPECIAL EFFECTS	STATUS: Incomplete	(UNNECESSARY)
-8) BALANCING		Status: COMPLETE!
+7) SPECIAL EFFECTS	STATUS: Incomplete
+8) BALANCING		Status: Incomplete
 
 =============================================
 ================= Combat ====================
@@ -28,13 +28,14 @@ Issues:
 ================ Dungeon ====================
 =============================================
 
-1) ADD RESET AFTER GAME OVER (Optional)
+1) ADD RESET AFTER GAME OVER
 
 Possible Issues:
 	- Smaller dungeons sometimes aren't structured correctly (make sure all rooms connected)
 	- ^ find_pockets does not appear to be working
 	- Invisible Enemies
 	- Dungeon exit placed in impossible spot
+	- Dungeon exit placed in entrance to room
 
 =============================================
 ================ Graphics ===================
@@ -57,7 +58,7 @@ Issues:
 ================= Audio =====================
 =============================================
 
-1) BACKGROUND MUSIC
+1) ADD LOW TIME SOUND EFFECT
 
 =============================================
 ============ Special Effects ================
@@ -65,3 +66,10 @@ Issues:
 
 1) TV FLICKER (Optional)
 2) SHAKE + COLOR SHAKE (Optional)
+
+=============================================
+=============== Balancing ===================
+=============================================
+
+1) BALANCE THE MAGIC ATTACK
+2) BALANCE THE STR LEVEL UP

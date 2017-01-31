@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace QuickBit_Dungeon.INTERACTION
+namespace QuickBit_Dungeon.Interaction
 {
 	public static class Input
 	{
@@ -8,11 +8,11 @@ namespace QuickBit_Dungeon.INTERACTION
 		// ============= Variables ==============
 		// ======================================
 
-		private static KeyboardState _preKeyState;
-		private static KeyboardState _curKeyState;
+		private static KeyboardState m_preKeyState;
+		private static KeyboardState m_curKeyState;
 
-		private static GamePadState _preGamepadState;
-		private static GamePadState _curGamepadState;
+		private static GamePadState m_preGamepadState;
+		private static GamePadState m_curGamepadState;
 
 		public static Direction CurrentDirection { get; set; }
 		public static Direction LastDirection { get; set; }
@@ -41,17 +41,19 @@ namespace QuickBit_Dungeon.INTERACTION
 		// ============== Methods ===============
 		// ======================================
 
+		#region Input Methods
+
 		/// <summary>
 		/// Updates the keyboard state variable
 		///	every frame.
 		/// </summary>
 		public static void Update()
 		{
-			_preKeyState = _curKeyState;
-			_curKeyState = Keyboard.GetState();
+			m_preKeyState = m_curKeyState;
+			m_curKeyState = Keyboard.GetState();
 
-			_preGamepadState = _curGamepadState;
-			_curGamepadState = GamePad.GetState(0);
+			m_preGamepadState = m_curGamepadState;
+			m_curGamepadState = GamePad.GetState(0);
 		}
 
 		/// <summary>
@@ -117,8 +119,8 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <returns>Whether the key was pressed or not</returns>
 		public static bool Released(Keys k)
 		{
-			return _preKeyState.IsKeyDown(k) &&
-			       _curKeyState.IsKeyUp(k);
+			return m_preKeyState.IsKeyDown(k) &&
+			       m_curKeyState.IsKeyUp(k);
 		}
 
 		/// <summary>
@@ -129,8 +131,10 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <returns>Whether the button was pressed or not</returns>
 		public static bool Released(Buttons b)
 		{
-			return _preGamepadState.IsButtonDown(b) &&
-			       _curGamepadState.IsButtonUp(b);
+			return m_preGamepadState.IsButtonDown(b) &&
+			       m_curGamepadState.IsButtonUp(b);
 		}
+
+		#endregion
 	}
 }

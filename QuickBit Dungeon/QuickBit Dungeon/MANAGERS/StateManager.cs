@@ -1,4 +1,4 @@
-﻿namespace QuickBit_Dungeon.MANAGERS
+﻿namespace QuickBit_Dungeon.Managers
 {
 	public static class StateManager
 	{
@@ -29,6 +29,8 @@
 		// ============== Methods ===============
 		// ======================================
 
+		#region State Manager Methods
+
 		/// <summary>
 		/// Sets the current and previous game states.
 		/// </summary>
@@ -38,5 +40,7 @@
 			LastState = GameState;
 			GameState = newState;
 		}
+
+		#endregion
 	}
 }

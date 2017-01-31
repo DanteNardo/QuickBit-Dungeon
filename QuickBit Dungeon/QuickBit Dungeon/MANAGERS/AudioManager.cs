@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 
-namespace QuickBit_Dungeon.MANAGERS
+namespace QuickBit_Dungeon.Managers
 {
     public static class AudioManager
     {
@@ -25,6 +20,8 @@ namespace QuickBit_Dungeon.MANAGERS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Audio Manager Methods
 
 		/// <summary>
 		/// Initializes the audio manager.
@@ -98,5 +95,7 @@ namespace QuickBit_Dungeon.MANAGERS
         {
             MenuSound.Play();
         }
-    }
+
+		#endregion
+	}
 }

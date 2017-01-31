@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QuickBit_Dungeon.INTERACTION;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
 namespace QuickBit_Dungeon.UI.HUD
 {
@@ -23,6 +18,8 @@ namespace QuickBit_Dungeon.UI.HUD
 		// ======================================
 		// =============== Main =================
 		// ======================================
+
+		#region Scoring Methods
 
 		/// <summary>
 		/// Constructor
@@ -80,5 +77,7 @@ namespace QuickBit_Dungeon.UI.HUD
 		{
 			Awards.Add(award);
 		}
+
+		#endregion
 	}
 }

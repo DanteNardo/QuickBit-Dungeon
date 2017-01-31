@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -28,6 +23,8 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Button Methods
 
 		/// <summary>
 		/// A constructor that passes in all
@@ -77,5 +74,7 @@ namespace QuickBit_Dungeon.UI
 		{
 			sb.Draw(Texture, Position, Alpha);
 		}
+
+		#endregion
 	}
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QuickBit_Dungeon.MANAGERS;
-using QuickBit_Dungeon.UI.MENUS;
+using QuickBit_Dungeon.Managers;
+using QuickBit_Dungeon.UI.Menus;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -29,6 +25,8 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Main Menu Methods
 
 		/// <summary>
 		/// Main Menu constructor.
@@ -71,5 +69,7 @@ namespace QuickBit_Dungeon.UI
 			MenuButtons[OptionsIndex].Texture = ArtManager.OptionsButton;
 			MenuButtons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
+
+		#endregion
 	}
 }

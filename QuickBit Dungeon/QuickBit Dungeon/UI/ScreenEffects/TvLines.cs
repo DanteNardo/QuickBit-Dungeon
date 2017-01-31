@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace QuickBit_Dungeon.UI.EFFECTS
+namespace QuickBit_Dungeon.UI.Effects
 {
     class TvLines
     {
@@ -24,6 +20,8 @@ namespace QuickBit_Dungeon.UI.EFFECTS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region TV Lines Methods
 
         /// <summary>
         /// Constructor
@@ -80,5 +78,7 @@ namespace QuickBit_Dungeon.UI.EFFECTS
             for (int i = 0; i < Textures.Count; i++)
                 sb.Draw(Textures[i], Rectangles[i], Color.White);
         }
-    }
+
+		#endregion
+	}
 }

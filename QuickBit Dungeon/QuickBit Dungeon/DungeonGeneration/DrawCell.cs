@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
-namespace QuickBit_Dungeon.DUNGEON
+namespace QuickBit_Dungeon.DungeonGeneration
 {
 	internal class DrawCell
 	{
@@ -22,6 +17,8 @@ namespace QuickBit_Dungeon.DUNGEON
 		// ============== Methods ===============
 		// ======================================
 
+		#region DrawCell Methods
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -31,5 +28,7 @@ namespace QuickBit_Dungeon.DUNGEON
 			Position = Vector2.Zero;
 			Shade = Color.White;
 		}
+
+		#endregion
 	}
 }

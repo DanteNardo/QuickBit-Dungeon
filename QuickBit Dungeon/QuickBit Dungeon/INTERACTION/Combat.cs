@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using QuickBit_Dungeon.CORE;
-using QuickBit_Dungeon.DUNGEON;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Characters;
+using QuickBit_Dungeon.DungeonGeneration;
+using QuickBit_Dungeon.Managers;
 using QuickBit_Dungeon.UI.HUD;
 
-namespace QuickBit_Dungeon.INTERACTION
+namespace QuickBit_Dungeon.Interaction
 {
 	/// <summary>
 	/// Handles all combat functions 
@@ -16,14 +16,16 @@ namespace QuickBit_Dungeon.INTERACTION
 		// ============== Members ===============
 		// ======================================
 		
-		private static Player _player;
-		private static Monster _target;
-		private static List<Monster> _targets;
-		private static List<Monster> _monsters;
+		private static Player m_player;
+		private static Monster m_target;
+		private static List<Monster> m_targets;
+		private static List<Monster> m_monsters;
 
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Combat Methods
 
 		/// <summary>
 		/// Overall combat handling method.
@@ -33,9 +35,9 @@ namespace QuickBit_Dungeon.INTERACTION
 		public void PerformCombat(Player player, List<Monster> monsters)
 		{
 			// Set data
-			_player = player;
-			_monsters = monsters;
-			_targets = new List<Monster>();
+			m_player = player;
+			m_monsters = monsters;
+			m_targets = new List<Monster>();
 
 			// Player combat
 			PlayerCombat();
@@ -57,7 +59,7 @@ namespace QuickBit_Dungeon.INTERACTION
 			switch (Input.LastDirection)
 			{
 				case Input.Direction.North:
-					if (Dungeon.MonsterAt(_player.Y-1, _player.X, ref _target))
+					if (Dungeon.MonsterAt(m_player.Y-1, m_player.X, ref m_target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -65,7 +67,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.South:
-					if (Dungeon.MonsterAt(_player.Y+1, _player.X, ref _target))
+					if (Dungeon.MonsterAt(m_player.Y+1, m_player.X, ref m_target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -73,7 +75,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.East:
-					if (Dungeon.MonsterAt(_player.Y, _player.X+1, ref _target))
+					if (Dungeon.MonsterAt(m_player.Y, m_player.X+1, ref m_target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -81,7 +83,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					}
 					break;
 				case Input.Direction.West:
-					if (Dungeon.MonsterAt(_player.Y, _player.X-1, ref _target))
+					if (Dungeon.MonsterAt(m_player.Y, m_player.X-1, ref m_target))
 					{
 						PlayerAttack();
 						if (MonsterDied())
@@ -97,12 +99,12 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void MonstersCombat()
 		{
-			foreach (var t in _monsters)
+			foreach (var t in m_monsters)
 			{
 				var m = t;
 
-				if ((m.Y != _player.Y || m.X != _player.X + 1) && (m.Y != _player.Y || m.X != _player.X - 1) &&
-				    (m.Y != _player.Y + 1 || m.X != _player.X) && (m.Y != _player.Y - 1 || m.X != _player.X)) continue;
+				if ((m.Y != m_player.Y || m.X != m_player.X + 1) && (m.Y != m_player.Y || m.X != m_player.X - 1) &&
+				    (m.Y != m_player.Y + 1 || m.X != m_player.X) && (m.Y != m_player.Y - 1 || m.X != m_player.X)) continue;
 				if (m.AttackTimer.ActionReady)
 					MonsterAttack(ref m);
 			}
@@ -120,7 +122,7 @@ namespace QuickBit_Dungeon.INTERACTION
 					PlayerPhysicalAttack();
 					break;
 				case Input.EPlayerState.Special:
-					if (_player.CanSpecial())
+					if (m_player.CanSpecial())
 						PlayerSpecialAttack();
 					break;
 			}
@@ -135,11 +137,11 @@ namespace QuickBit_Dungeon.INTERACTION
 			switch (Input.PlayerState)
 			{
 				case Input.EPlayerState.Healing:
-					if (_player.CanHeal())
-						_player.RegenerateHealth();
+					if (m_player.CanHeal())
+						m_player.RegenerateHealth();
 					break;
 				case Input.EPlayerState.Charging:
-					_player.RegenerateMana();
+					m_player.RegenerateMana();
 					AwardHandler.NewRegen();
 					break;
 			}
@@ -154,12 +156,12 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void PlayerPhysicalAttack()
 		{
 		    AudioManager.NewPlayerHit();
-			var damage = _player.Strength - _target.Armor;
-			if (_player.IsCrit()) damage = _player.Strength*2;
+			var damage = m_player.Strength - m_target.Armor;
+			if (m_player.IsCrit()) damage = m_player.Strength*2;
 		    if (damage < 0) damage = 0;
-			_target.UpdateHealth(-damage);
-		    _target.AttackColor();
-			Dungeon.ResetRep(_target);
+			m_target.UpdateHealth(-damage);
+		    m_target.AttackColor();
+			Dungeon.ResetRep(m_target);
 		}
 
 		/// <summary>
@@ -172,20 +174,20 @@ namespace QuickBit_Dungeon.INTERACTION
 		    AudioManager.NewPlayerSpecial();
 
 			// Determine targets
-			_targets.Clear();
+			m_targets.Clear();
 			SpecialAttackTargets();
 
 			// Perform special attack
-			foreach (var t in _targets)
+			foreach (var t in m_targets)
 			{
-				var damage = _player.Wisdom + GameManager.Random.Next(1, _player.Wisdom*10);
+				var damage = m_player.Wisdom + GameManager.Random.Next(1, m_player.Wisdom*10);
 				t.UpdateHealth(-damage);
 			    t.AttackColor();
 				Dungeon.ResetRep(t);
 			}
 			
 			// Take away mana from player for the attack
-			_player.AttackMana -= _player.ManaCost;
+			m_player.AttackMana -= m_player.ManaCost;
 		}
 
 		/// <summary>
@@ -194,18 +196,18 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void SpecialAttackTargets()
 		{
-			foreach (var m in _monsters)
+			foreach (var m in m_monsters)
 			{
-				if ((m.Y == _player.Y && m.X == _player.X + 1) ||
-				    (m.Y == _player.Y && m.X == _player.X - 1) ||
-				    (m.Y == _player.Y + 1 && m.X == _player.X) ||
-				    (m.Y == _player.Y - 1 && m.X == _player.X) ||
-				    (m.Y == _player.Y + 1 && m.X == _player.X + 1) ||
-				    (m.Y == _player.Y + 1 && m.X == _player.X - 1) ||
-				    (m.Y == _player.Y - 1 && m.X == _player.X + 1) ||
-				    (m.Y == _player.Y - 1 && m.X == _player.X - 1))
+				if ((m.Y == m_player.Y && m.X == m_player.X + 1) ||
+				    (m.Y == m_player.Y && m.X == m_player.X - 1) ||
+				    (m.Y == m_player.Y + 1 && m.X == m_player.X) ||
+				    (m.Y == m_player.Y - 1 && m.X == m_player.X) ||
+				    (m.Y == m_player.Y + 1 && m.X == m_player.X + 1) ||
+				    (m.Y == m_player.Y + 1 && m.X == m_player.X - 1) ||
+				    (m.Y == m_player.Y - 1 && m.X == m_player.X + 1) ||
+				    (m.Y == m_player.Y - 1 && m.X == m_player.X - 1))
 				{
-					_targets.Add(m);
+					m_targets.Add(m);
 				}
 			}
 		}
@@ -219,11 +221,11 @@ namespace QuickBit_Dungeon.INTERACTION
 		{
 		    AudioManager.NewBitHit();
 			m.AttackTimer.PerformAction();
-			var damage = m.Strength - _player.Armor;
+			var damage = m.Strength - m_player.Armor;
 		    if (damage < 0) damage = 0;
-			_player.UpdateHealth(-damage);
-		    _player.AttackColor();
-			Dungeon.ResetRep(_player);
+			m_player.UpdateHealth(-damage);
+		    m_player.AttackColor();
+			Dungeon.ResetRep(m_player);
 		}
 
 		/// <summary>
@@ -233,7 +235,7 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// <returns>Whether or not the monster last attacked died</returns>
 		private bool MonsterDied()
 		{
-			return _target.Health == 0;
+			return m_target.Health == 0;
 		}
 
 		/// <summary>
@@ -243,9 +245,9 @@ namespace QuickBit_Dungeon.INTERACTION
 		private void KillMonster()
 		{
 			// Add xp to the player
-			_player.Xp += _target.Xp;
-			_monsters.Remove(_target);
-		    Dungeon.KillEntity(_target);
+			m_player.Xp += m_target.Xp;
+			m_monsters.Remove(m_target);
+		    Dungeon.KillEntity(m_target);
 			AwardHandler.NewKill();
 		}
 
@@ -255,8 +257,10 @@ namespace QuickBit_Dungeon.INTERACTION
 		/// </summary>
 		private void EndCombat()
 		{
-			Dungeon.MainPlayer = _player;
-			Dungeon.Monsters   = _monsters;
+			Dungeon.MainPlayer = m_player;
+			Dungeon.Monsters   = m_monsters;
 		}
+
+		#endregion
 	}
 }

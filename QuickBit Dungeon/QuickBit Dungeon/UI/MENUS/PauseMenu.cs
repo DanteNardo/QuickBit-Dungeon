@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
-namespace QuickBit_Dungeon.UI.MENUS
+namespace QuickBit_Dungeon.UI.Menus
 {
 	internal class PauseMenu : Menu
 	{
@@ -19,6 +19,8 @@ namespace QuickBit_Dungeon.UI.MENUS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Pause Menu Methods
 
 		/// <summary>
 		/// Pause Menu constructor.
@@ -61,5 +63,7 @@ namespace QuickBit_Dungeon.UI.MENUS
 			MenuButtons[MainMenuIndex].Texture = ArtManager.MainMenuButton;
 			MenuButtons[ExitIndex].Texture = ArtManager.ExitButton;
 		}
+
+		#endregion
 	}
 }

@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using QuickBit_Dungeon.INTERACTION;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Interaction;
+using QuickBit_Dungeon.Managers;
 
-namespace QuickBit_Dungeon.UI.MENUS
+namespace QuickBit_Dungeon.UI.Menus
 {
 	/// <summary>
 	/// An inherited class for all menus.
@@ -31,6 +31,8 @@ namespace QuickBit_Dungeon.UI.MENUS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Menu Methods
 
         /// <summary>
         /// Constructor
@@ -132,5 +134,7 @@ namespace QuickBit_Dungeon.UI.MENUS
 			foreach (var button in MenuButtons)
 				button.Draw(sb);
 		}
+
+		#endregion
 	}
 }

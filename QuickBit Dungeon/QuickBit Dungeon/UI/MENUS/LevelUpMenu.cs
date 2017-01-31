@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
-namespace QuickBit_Dungeon.UI.MENUS
+namespace QuickBit_Dungeon.UI.Menus
 {
     class LevelUpMenu : Menu
     {
@@ -22,6 +18,8 @@ namespace QuickBit_Dungeon.UI.MENUS
 		// ======================================
 		// ============== Methods ===============
 		// ======================================
+
+		#region Level Up Menu Methods
 
         /// <summary>
 		/// Main Menu constructor.
@@ -62,5 +60,7 @@ namespace QuickBit_Dungeon.UI.MENUS
 			MenuButtons[GreenIndex].Texture = ArtManager.GreenAuraButton;
 			MenuButtons[BlueIndex].Texture = ArtManager.BlueAuraButton;
 		}
-    }
+
+		#endregion
+	}
 }

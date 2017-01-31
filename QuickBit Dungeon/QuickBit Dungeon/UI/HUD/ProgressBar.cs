@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QuickBit_Dungeon.MANAGERS;
+using QuickBit_Dungeon.Managers;
 
 namespace QuickBit_Dungeon.UI
 {
@@ -11,9 +11,9 @@ namespace QuickBit_Dungeon.UI
 		// ======================================
 		
 		private const int BarSize = 20;
-		private readonly string _name;
-		private int _percent;
-		private string _progressBar;
+		private readonly string m_name;
+		private int m_percent;
+		private string m_progressBar;
 
 		public Vector2 Position { get; set; }
 		public float MaxValue { get; set; } = 100;
@@ -23,13 +23,15 @@ namespace QuickBit_Dungeon.UI
 		// ============== Methods ===============
 		// ======================================
 
+		#region Progress Bar Methods
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="name">Name of the bar</param>
 		public ProgressBar(string name)
 		{
-			_name = name;
+			m_name = name;
 		}
 
 		/// <summary>
@@ -73,7 +75,7 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		private void DeterminePercent()
 		{
-			_percent = (int) (CurValue/(MaxValue/BarSize));
+			m_percent = (int) (CurValue/(MaxValue/BarSize));
 		}
 
 		/// <summary>
@@ -82,14 +84,14 @@ namespace QuickBit_Dungeon.UI
 		/// </summary>
 		private void GenerateProgressBar()
 		{
-			_progressBar = _name + ": |";
+			m_progressBar = m_name + ": |";
 
-			for (var i = 0; i < _percent; i++)
-				_progressBar += "#";
-			for (var j = _percent; j < BarSize; j++)
-				_progressBar += " ";
+			for (var i = 0; i < m_percent; i++)
+				m_progressBar += "#";
+			for (var j = m_percent; j < BarSize; j++)
+				m_progressBar += " ";
 
-			_progressBar += "|";
+			m_progressBar += "|";
 		}
 
 		/// <summary>
@@ -99,7 +101,9 @@ namespace QuickBit_Dungeon.UI
 		/// <param name="sb">The spritebatch</param>
 		public void DrawProgressBar(SpriteBatch sb)
 		{
-			sb.DrawString(ArtManager.HudFont, _progressBar, Position, Color.White);
+			sb.DrawString(ArtManager.HudFont, m_progressBar, Position, Color.White);
 		}
+
+		#endregion
 	}
 }
