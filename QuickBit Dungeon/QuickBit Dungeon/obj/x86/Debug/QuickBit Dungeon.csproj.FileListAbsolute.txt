@@ -1,0 +1,90 @@
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\BlueAuraButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\EasyButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ExitButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\GreenAuraButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\HardButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\HowToButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\LastButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\MainMenuButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\NextButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\OptionsButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\RedAuraButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ResumeButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ReturnButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\StartButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\VolumeButtonTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\GameOverTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture01.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture02.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture03.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture04.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture05.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture06.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture07.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenuTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\LevelUpMenuTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\LightTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\MainMenuTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\OptionsMenuTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\PauseMenuTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\StatsBoxTexture.png
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\Ambient Dark Skies.ogg
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\Ambient Dark Skies.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Fonts\DungeonFont.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Fonts\HudFont.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Fonts\TitleFont.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\OpenTK.dll.config
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\mainMusic.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\bitHit.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\menuSound.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\playerHit.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\playerSpecial.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Audio\playerWalk.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\QuickBit Dungeon.exe
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\QuickBit Dungeon.pdb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\MonoGame.Framework.dll
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\obj\x86\Debug\QuickBit Dungeon.csprojResolveAssemblyReference.cache
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\obj\x86\Debug\QuickBit Dungeon.exe
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\obj\x86\Debug\QuickBit Dungeon.pdb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\MonoGame.Framework.dll.config
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\obj\x86\Debug\QuickBit Dungeon.csproj.CoreCompileInputs.cache
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x86\SDL2.dll
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x64\SDL2.dll
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x86\soft_oal.dll
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x64\soft_oal.dll
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x86\libSDL2-2.0.so.0
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x64\libSDL2-2.0.so.0
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x86\libopenal.so.1
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\x64\libopenal.so.1
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\libSDL2-2.0.0.dylib
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\libopenal.1.dylib
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\BlueAuraButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\EasyButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ExitButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\GreenAuraButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\HardButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\HowToButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\LastButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\MainMenuButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\NextButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\OptionsButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\RedAuraButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ResumeButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\ReturnButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\StartButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\Buttons\VolumeButtonTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\GameOverTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenuTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\LevelUpMenuTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\LightTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\MainMenuTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\OptionsMenuTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\PauseMenuTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\StatsBoxTexture.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture01.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture02.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture03.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture04.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture05.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture06.xnb
+C:\Users\dante\Source\Repos\QuickBit-Dungeon\QuickBit Dungeon\QuickBit Dungeon\bin\DesktopGL\x86\Debug\Content\UI\HowToMenu\HowToMenuTexture07.xnb

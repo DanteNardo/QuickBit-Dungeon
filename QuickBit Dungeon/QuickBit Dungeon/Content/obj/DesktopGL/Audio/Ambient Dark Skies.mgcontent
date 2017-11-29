@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Audio/Ambient Dark Skies.mp3</SourceFile>
+  <SourceTime>2017-11-29T00:39:41.4605358-05:00</SourceTime>
+  <DestFile>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/bin/DesktopGL/Audio/Ambient Dark Skies.xnb</DestFile>
+  <DestTime>2017-11-29T01:29:09.3715019-05:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2017-03-01T10:05:36-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/bin/DesktopGL/Audio/Ambient Dark Skies.ogg</string>
+  </BuildOutput>
+</PipelineBuildEvent>

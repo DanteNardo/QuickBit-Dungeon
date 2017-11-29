@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Audio/Ambient Dark Skies.mp3</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/GameOverTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenuTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/LevelUpMenuTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/LightTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/MainMenuTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/OptionsMenuTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/PauseMenuTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/StatsBoxTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture01.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture02.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture03.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture04.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture05.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture06.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/UI/HowToMenu/HowToMenuTexture07.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/BlueAuraButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/EasyButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/ExitButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/GreenAuraButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/HardButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/HowToButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/LastButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/MainMenuButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/NextButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/OptionsButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/RedAuraButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/ResumeButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/ReturnButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/StartButtonTexture.png</File>
+    <File>C:/Users/dante/Source/Repos/QuickBit-Dungeon/QuickBit Dungeon/QuickBit Dungeon/Content/Buttons/VolumeButtonTexture.png</File>
+  </SourceFiles>
+</SourceFileCollection>
